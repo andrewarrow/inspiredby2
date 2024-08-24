@@ -11,13 +11,12 @@ div p-0
         There are lots of ways to pick which parts of the video are most important that should have a big part in the exec summary you are making. 
         Having to select the exact time codes in the video doesn't work very well.
         Instead we use AI to find some good candidates and then let you click
-        next, next, next until you agree the AI found the perfect 1 min clip
-that helps sell the whole summary.
+        next, next, next until you agree the AI found the perfect 1 min clip.
       div mt-3 bg-purple-900 rounded-lg p-3
         But that's just the start, we do a lot more to, see demo. Or pony up
         six dollars and just go for it.
       div mt-3
-        form id=welcome-form target=_blank action=https://buy.stripe.com/test_cN23e40qW2fA024cMM?prefilled_email!w method=GET
+        form id=welcome-form
           div
             youtube link
           div
@@ -27,4 +26,4 @@ that helps sell the whole summary.
           div
             input type=text id=email value=oneone@gmail.com
           div mt-3
-            input type=submit value=go btn btn-primary
+            input id=go type=submit value=go btn btn-primary

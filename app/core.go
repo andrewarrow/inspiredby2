@@ -37,6 +37,10 @@ func Core(c *router.Context, second, third string) {
 		handleLogin(c)
 		return
 	}
+	if second == "add" && third == "" && c.Method == "POST" {
+		handleAdd(c)
+		return
+	}
 	if second == "register" && third == "" && c.Method == "POST" {
 		router.HandleCreateUserAutoForm(c, "")
 		return
