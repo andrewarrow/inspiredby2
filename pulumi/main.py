@@ -5,11 +5,6 @@ jammy = "projects/ubuntu-os-cloud/global/images/ubuntu-2204-jammy-v20240208"
 region = "us-west1"
 zone = "us-west1-a"
 
-with open("key.file", 'r', encoding='utf-8') as file:
-  key = file.read()
-with open("key.pub", 'r', encoding='utf-8') as file:
-  pub = file.read()
-
 with open("web-3000.service", 'r', encoding='utf-8') as file:
   web3000 = file.read()
 
@@ -27,7 +22,7 @@ EOF
 useradd aa
 mkdir /home/aa
 chown aa:aa /home/aa
-curl http
+curl https://github.com/andrewarrow/inspiredby2/releases/download/1.0/inspiredby2 -o web-3000
 chmod +x /home/aa/web-3000
 mkdir /Users/aa
 chown -R aa:aa /home/aa
