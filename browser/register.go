@@ -42,7 +42,7 @@ func HandleWelcome() {
 
 	if strings.HasPrefix(link, "https://www.youtube.com/watch") ||
 		strings.HasPrefix(link, "https://youtu.be") {
-		Global.Location.Set("href", "/stripe?email="+url.QueryEscape(email))
+		Global.Location.Set("href", "/core/stripe?email="+url.QueryEscape(email))
 		return
 	}
 

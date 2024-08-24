@@ -16,10 +16,10 @@ func handleProfileStripePost(c *router.Context) {
 	params := &stripe.CheckoutSessionParams{
 		AllowPromotionCodes: stripe.Bool(true),
 		CustomerEmail:       stripe.String(email),
-		Mode:                stripe.String(string(stripe.CheckoutSessionModeSubscription)),
+		Mode:                stripe.String(string(stripe.CheckoutSessionModePayment)),
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
-				Price:    stripe.String("prod_QiuSB6v8X69FXs"),
+				Price:    stripe.String("price_1PrSdWHFkhRYMfGpU3IdtnJS"),
 				Quantity: stripe.Int64(1),
 			},
 		},

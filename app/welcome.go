@@ -9,10 +9,6 @@ func Welcome(c *router.Context, second, third string) {
 		handleWelcomeIndex(c)
 		return
 	}
-	if second == "stripe" && third == "" && c.Method == "GET" {
-		handleProfileStripePost(c)
-		return
-	}
 	c.NotFound = true
 }
 

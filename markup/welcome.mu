@@ -21,10 +21,10 @@ that helps sell the whole summary.
           div
             youtube link
           div
-            input type=text id=link autofocus=true
+            input type=text id=link autofocus=true value=www.youtube.com/watch?v!Vcw1bYz3heI
           div
             your email
           div
-            input type=text id=email
+            input type=text id=email value=oneone@gmail.com
           div mt-3
             input type=submit value=go btn btn-primary
