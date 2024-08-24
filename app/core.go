@@ -30,7 +30,7 @@ func Core(c *router.Context, second, third string) {
 		return
 	}
 	if second == "success" && third == "" && c.Method == "GET" {
-		handleProfileStripeSuccess(c)
+		handleStripeSuccess(c)
 		return
 	}
 	if second == "login" && third == "" && c.Method == "GET" {
