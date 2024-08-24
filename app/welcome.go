@@ -9,7 +9,7 @@ func Welcome(c *router.Context, second, third string) {
 		handleWelcomeIndex(c)
 		return
 	}
-	if second == "stripe" && third == "" && c.Method == "POST" {
+	if second == "stripe" && third == "" && c.Method == "GET" {
 		handleProfileStripePost(c)
 		return
 	}
