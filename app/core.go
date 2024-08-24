@@ -29,6 +29,10 @@ func Core(c *router.Context, second, third string) {
 		handleProfileStripePost(c)
 		return
 	}
+	if second == "success" && third == "" && c.Method == "GET" {
+		handleProfileStripeSuccess(c)
+		return
+	}
 	if second == "login" && third == "" && c.Method == "GET" {
 		handleLogin(c)
 		return

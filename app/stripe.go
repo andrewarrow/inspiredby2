@@ -23,7 +23,7 @@ func handleProfileStripePost(c *router.Context) {
 				Quantity: stripe.Int64(1),
 			},
 		},
-		SuccessURL: stripe.String(domain + "/customer/success"),
+		SuccessURL: stripe.String(domain + "/core/success"),
 		CancelURL:  stripe.String(domain + returnPath),
 	}
 
