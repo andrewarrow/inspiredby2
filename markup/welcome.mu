@@ -2,9 +2,18 @@ div p-0
   {{ template "navbar" . }}
   div flex flex-col md:flex-row space-x-9 items-start justify-center
     div w-full md:w-1/2
-      div text-center text-2xl mt-3
+      div text-white text-center text-2xl mt-3
         Welcome to InspiredBy2
       div mt-3
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/UfnAOcBirAs?si=V-DTImPbskGYJN9j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        You give us a youtube link and $6 USD and we turn it into the
+        ultimate summary page with a link you can send to a busy person.
       div mt-3
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/4voK6NiR4Xs?si=Z7tjdb3D3k-SNnFE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+ 
+      div mt-3
+        form
+          div
+            youtube link
+          div
+            input type=text id=link autofocus=true
+          div mt-3
+            input type=submit value=go btn btn-primary
