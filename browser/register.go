@@ -30,6 +30,10 @@ func RegisterEvents() {
 func HandleWelcome() {
 	link := Document.Id("link").Get("value")
 	email := Document.Id("email").Get("value")
+	if validateEmail(email) != nil {
+		Global.Global.Get("alert").Invoke("please enter valid email")
+		return
+	}
 
 	fmt.Println(link, email)
 
