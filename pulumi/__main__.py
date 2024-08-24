@@ -25,6 +25,11 @@ chown -R aa:aa /home/aa
 systemctl daemon-reload
 systemctl enable web-3000
 systemctl start web-3000
+
+apt-get install certbot
+#certbot certonly --standalone -d 'inspiredby2.com'
+certbot certonly --manual -d 'inspiredby2.com' --preferred-challenges dns
+apt-get install nginx
 """
 
 static_ip = gcp.compute.Address("alb2", region=region)
