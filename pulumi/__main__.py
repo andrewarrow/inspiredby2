@@ -9,11 +9,6 @@ with open("web-3000.service", 'r', encoding='utf-8') as file:
   web3000 = file.read()
 
 startup_script = f"""#!/bin/bash
-
-apt update
-
-systemctl daemon-reload
-
 cd /etc/systemd/system
 echo -e "DATABASE_URL=todo" >> aa.conf
 cat <<EOF > web-3000.service
@@ -35,12 +30,12 @@ static_ip = gcp.compute.Address("alb", region=region)
 
 compute_instance = gcp.compute.Instance(
     "aa-aug-23-2024",
-    machine_type="e2-micro-1",
+    machine_type="e2-micro",
     zone=zone,
     metadata_startup_script=startup_script,
     metadata={
       "enable-oslogin": "false",
-      "ssh-keys": "root:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICFVuvSZMJmYJcarbTq4rtKjdfwEPXI0T6bAa5k9/F6I root@devops",
+      "ssh-keys": "root:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH1W5dxq6/7D3p+dIfajSv9RWcEKm5OpCu7rOm9rGEIx root@aa.local",
     },
     boot_disk=gcp.compute.InstanceBootDiskArgs(
         initialize_params=gcp.compute.InstanceBootDiskInitializeParamsArgs(

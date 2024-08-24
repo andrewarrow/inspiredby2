@@ -5,4 +5,5 @@ package*.json
 json.wasm.gz
 .DS_Store
 views
+__pycache__
 tail.min.css
