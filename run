@@ -6,6 +6,7 @@ cp wasm/main.go .
 GOOS=js GOARCH=wasm go build -ldflags="-s -w -X main.useLive=true" -o assets/other/json.wasm 
 mv save_main main.go
 export DATABASE_URL=inspiredby2
+export LINK_DOMAIN=http://localhost:3000
 if [ $? -eq 0 ]; then
     cd assets/other
     rm json.wasm.gz

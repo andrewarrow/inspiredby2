@@ -4,7 +4,11 @@ module inspiredby2
 
 go 1.21.0
 
-require github.com/andrewarrow/feedback v0.0.0-20240712012406-3886d4afbd67
+require (
+	github.com/andrewarrow/feedback v0.0.0-20240712012406-3886d4afbd67
+	github.com/aws/aws-sdk-go v1.45.19
+	github.com/stripe/stripe-go/v74 v74.30.0
+)
 
 require (
 	cloud.google.com/go v0.112.0 // indirect
@@ -13,7 +17,6 @@ require (
 	cloud.google.com/go/iam v1.1.5 // indirect
 	cloud.google.com/go/storage v1.36.0 // indirect
 	github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect
-	github.com/aws/aws-sdk-go v1.45.19 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.21.0 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.13 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.18.42 // indirect
@@ -44,6 +47,7 @@ require (
 	github.com/googleapis/enterprise-certificate-proxy v0.3.2 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/iancoleman/strcase v0.2.0 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/jmoiron/sqlx v1.3.5 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
