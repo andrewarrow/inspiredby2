@@ -1,6 +1,7 @@
 package browser
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 
@@ -24,30 +25,16 @@ func RegisterEvents() {
 	} else if Global.Start == "register.html" {
 		Global.AutoForm("register", "core", nil, afterRegister)
 	} else if Global.Start == "welcome.html" {
-		//Global.SubmitEvent("welcome-form", HandleWelcome)
-		if HandleWelcomeStep1() == false {
-			return
-		}
-		a := wasm.NewAutoForm("welcome-form")
-		a.Path = "/core/add"
-		a.Clear = true
-		a.Before = func() string {
-			Document.Id("go").Set("value", "please wait...")
-			return ""
-		}
-		a.After = func(content string) {
-			Global.Location.Set("href", "/core/stripe?email="+url.QueryEscape(content))
-		}
-		Global.AddAutoForm(a)
+		Global.SubmitEvent("welcome-form", HandleWelcome)
 	}
 }
 
-func HandleWelcomeStep1() bool {
+func HandleWelcome() {
 	link := Document.Id("link").Get("value")
 	email := Document.Id("email").Get("value")
 	if validateEmail(email) != nil {
 		Global.Global.Get("alert").Invoke("please enter valid email")
-		return false
+		return
 	}
 
 	if strings.HasPrefix(link, "www") {
@@ -56,11 +43,19 @@ func HandleWelcomeStep1() bool {
 
 	if strings.HasPrefix(link, "https://www.youtube.com/watch") ||
 		strings.HasPrefix(link, "https://youtu.be") {
-		return true
+		go sendEmailAndLink(link, email)
+		return
 	}
 
 	Global.Global.Get("alert").Invoke("please enter valid youtube link")
-	return false
+}
+
+func sendEmailAndLink(link, email string) {
+	Document.Id("go").Set("value", "please wait...")
+	payload := map[string]any{"email": email, "link": link}
+	js, _ := wasm.DoPost("/core/add", payload)
+	fmt.Println(js)
+	Global.Location.Set("href", "/core/stripe?email="+url.QueryEscape(email))
 }
 
 func LogoutEvents() {
