@@ -7,6 +7,8 @@ zone = "us-west1-a"
 
 with open("web-3000.service", 'r', encoding='utf-8') as file:
   web3000 = file.read()
+with open("nginx.conf", 'r', encoding='utf-8') as file:
+  nginx = file.read()
 
 startup_script = f"""#!/bin/bash
 cd /etc/systemd/system
@@ -26,10 +28,15 @@ systemctl daemon-reload
 systemctl enable web-3000
 systemctl start web-3000
 
+apt-get install nginx
+systemctl stop nginx
+cat <<EOF > /etc/nginx/nginx.conf
+{nginx}
+EOF
+
 apt-get install certbot
 #certbot certonly --standalone -d 'inspiredby2.com'
 certbot certonly --manual -d 'inspiredby2.com' --preferred-challenges dns
-apt-get install nginx
 """
 
 static_ip = gcp.compute.Address("alb2", region=region)
