@@ -1,7 +1,8 @@
 package browser
 
 import (
-	"fmt"
+	"net/url"
+	"strings"
 
 	"github.com/andrewarrow/feedback/wasm"
 )
@@ -35,9 +36,13 @@ func HandleWelcome() {
 		return
 	}
 
-	fmt.Println(link, email)
+	if strings.HasPrefix(link, "https://www.youtube.com/watch") ||
+		strings.HasPrefix(link, "https://youtu.be") {
+		Global.Location.Set("href", "https://buy.stripe.com/test_cN23e40qW2fA024cMM?prefilled_email="+url.QueryEscape(email))
+		return
+	}
 
-	Global.Global.Get("alert").Invoke("wefwefw")
+	Global.Global.Get("alert").Invoke("please enter valid youtube link")
 }
 
 func LogoutEvents() {
