@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"inspiredby2/groq"
 	"strings"
 
@@ -38,6 +39,7 @@ func ProcessVideoSummary(c *router.Context, guid string) {
 		}
 		summaries = append(summaries, strings.Join(buffer, " "))
 	}
+	fmt.Println(len(summaries))
 	first := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "first")
 	second := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "second")
 	third := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "third")
@@ -49,7 +51,7 @@ func ProcessVideoSummary(c *router.Context, guid string) {
 		c.Params["link_id"] = one["id"]
 		c.Params["link_key"] = "first"
 		c.Params["summary"] = s
-		c.Insert("link_minute")
+		c.Insert("link_third")
 	}
 
 	if len(second) == 0 {
@@ -57,7 +59,7 @@ func ProcessVideoSummary(c *router.Context, guid string) {
 		c.Params["link_id"] = one["id"]
 		c.Params["link_key"] = "second"
 		c.Params["summary"] = s
-		c.Insert("link_minute")
+		c.Insert("link_third")
 	}
 
 	if len(third) == 0 {
@@ -65,7 +67,7 @@ func ProcessVideoSummary(c *router.Context, guid string) {
 		c.Params["link_id"] = one["id"]
 		c.Params["link_key"] = "third"
 		c.Params["summary"] = s
-		c.Insert("link_minute")
+		c.Insert("link_third")
 	}
 
 }

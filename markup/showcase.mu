@@ -60,7 +60,7 @@ div p-0
     div w-1/2 
       a href=/frame/migrations
         div font-allan text-4xl text-white uppercase 
-          The nervous system, under stress, fragments autotomic bandwidth
+          The nervous system, under stress, fragments autonomic bandwidth
     div w-1/2
       a href=/frame/migrations
         <img src="https://i.imgur.com/h55A0wQ.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
