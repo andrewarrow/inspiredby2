@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"inspiredby2/app"
 	"inspiredby2/google"
 	"inspiredby2/groq"
@@ -49,7 +50,8 @@ talk to me about the relationship between HRV autonomic flexibility and the brai
 the heart rate variability just as a metric of the autonomic nervous systems resilience to flexibly respond which means if I need to amp up and run
 across the street I can this isn't this isn't associated with relaxation or just being calm it's acclimating or adapting flexibly to the needs of the most
 and resilience in the last 10 to 15 years uh myself and several other researchers have focused on heart rate variabilities impact.`
-		groq.Summarize(textToSummarize)
+		s := groq.Summarize(textToSummarize)
+		fmt.Println(s)
 	} else if arg == "video" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()

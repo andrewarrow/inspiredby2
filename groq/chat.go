@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func Summarize(text string) {
+func Summarize(text string) string {
 	/*
 		curl -X POST "https://api.groq.com/openai/v1/chat/completions" \
 		     -H "Authorization: Bearer $GROQ_API_KEY" \
@@ -20,7 +20,7 @@ func Summarize(text string) {
 
 	message := map[string]any{}
 	message["role"] = "user"
-	message["content"] = "Summarize in 30 words the text: " + text
+	message["content"] = "Summarize in 30 words the following text but do not include anything in your reply other than the summary itself: " + text
 	messages := []any{message}
 	m := map[string]any{}
 	m["messages"] = messages
@@ -31,7 +31,7 @@ func Summarize(text string) {
 	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
 	if err != nil {
 		fmt.Println("Error creating request:", err)
-		return
+		return ""
 	}
 
 	req.Header.Add("Authorization", "Bearer "+os.Getenv("GROQ_API_KEY"))
@@ -40,15 +40,40 @@ func Summarize(text string) {
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Error making request:", err)
-		return
+		return ""
 	}
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
+		return ""
 	}
 
-	fmt.Println(string(body))
+	//	fmt.Println(string(body))
+
 	json.Unmarshal(body, &m)
+	choices := m["choices"].([]any)
+	if len(choices) == 0 {
+		return ""
+	}
+	thing, _ := choices[0].(map[string]any)
+	if len(thing) == 0 {
+		return ""
+	}
+	choiceMessage := thing["message"].(map[string]any)
+	s, _ := choiceMessage["content"].(string)
+	return s
+
+	/*
+
+	  "choices": [
+	    {
+	      "index": 0,
+	      "message": {
+	        "role": "assistant",
+	        "content": "Here is a 30-word summary of the text:\n\nUnderstanding heart rate variability (HRV) helps individuals recognize its impact on their emotions, cognitions, and physical responses, and recognizing factors to influence HRV to enhance resilience."
+	      },
+
+	*/
 }
