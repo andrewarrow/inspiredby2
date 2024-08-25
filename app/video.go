@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"inspiredby2/google"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -45,13 +46,18 @@ func ProcessVideo(c *router.Context, guid string) {
 			c.Insert("link_section")
 			//fmt.Println(string(b), err)
 
+			flac := fmt.Sprintf("data/%s_%d_%d.flac", guid, i, j)
 			cmd = exec.Command("ffmpeg", "-i", output,
 				"-b:a", "32k", "-ar", "16000", "-acodec", "flac",
 				"-y",
-				fmt.Sprintf("data/%s_%d_%d.flac", guid, i, j))
+				flac)
 			fmt.Println(i, j, from, to)
 			cmd.CombinedOutput()
 			c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
+
+			stt := google.Speech(flac)
+			c.FreeFormUpdate("update link_sections set meta=3,stt=$1 where section=$2",
+				stt, sectionId)
 
 			// ---
 

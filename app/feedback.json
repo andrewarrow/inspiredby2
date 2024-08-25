@@ -99,6 +99,10 @@
           "flavor": "int"
         },
         {
+          "name": "stt",
+          "flavor": "text"
+        },
+        {
           "name": "section",
           "flavor": "name",
           "index": "unique"
