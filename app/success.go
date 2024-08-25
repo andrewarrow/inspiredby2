@@ -16,7 +16,7 @@ func handlePoll(c *router.Context, guid string) {
 		m["photos"] = true
 		m["duration"] = one["duration"]
 	}
-	all := c.FreeFormSelect("select minute,sub from link_sections where link_id=$1", one["id"])
+	all := c.FreeFormSelect("select minute,sub,meta from link_sections where link_id=$1", one["id"])
 	m["all"] = all
 	c.SendContentAsJson(m, 200)
 }

@@ -39,6 +39,8 @@ func main() {
 		router.RenderMarkup()
 	} else if arg == "google" {
 		google.Speech("")
+	} else if arg == "google2" {
+		google.Summarize()
 	} else if arg == "video" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()

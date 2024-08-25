@@ -16,6 +16,9 @@ import (
 // ffmpeg -i input_video.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 output_audio.wav
 // ffmpeg -i input_video.mp4 -b:a 32k -ar 16000 -acodec flac output_audio.flac
 
+/*
+rpc error: code = Unauthenticated desc = transport: per-RPC creds failed due to error: Post "https://oauth2.googleapis.com/token": read tcp [2606:8e80:2809:ef00:91fe:73a1:923f:7a03]:61562->[2607:f8b0:400a:800::200a]:443: read: no route to host
+*/
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
 	one := c.One("link", "where guid=$1", guid)
@@ -24,7 +27,7 @@ func ProcessVideo(c *router.Context, guid string) {
 
 	sec := int(d)
 	minutes := (sec % 3600) / 60
-	for i := 0; i < minutes+1; i++ {
+	for i := 12; i < minutes+1; i++ {
 		from := 0 + (i * 60)
 		to := from + 10
 		for j := 0; j < 6; j++ {
