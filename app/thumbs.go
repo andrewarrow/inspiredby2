@@ -9,7 +9,7 @@ import (
 
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:11 -vframes 1 frame_2.jpg
 func extractFrameAt(index, seconds int, guid string) {
-	output := fmt.Sprintf("%s_%d.jpg", guid, index)
+	output := fmt.Sprintf("data/%s_%d.jpg", guid, index)
 	cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
 		"-ss", fmt.Sprintf("%d", seconds),
 		"-vframes", "1",
@@ -17,10 +17,12 @@ func extractFrameAt(index, seconds int, guid string) {
 		output)
 	cmd.CombinedOutput()
 
-	output50 := fmt.Sprintf("%s_%d_50percent.jpg", guid, index)
-	cmd = exec.Command("magic", output, "-resize",
+	output50 := fmt.Sprintf("data/%s_%d_50percent.jpg", guid, index)
+	cmd = exec.Command("magick", output, "-resize",
 		"50%",
 		output50)
+	//b, err := cmd.CombinedOutput()
+	//fmt.Println(string(b), err)
 	cmd.CombinedOutput()
 }
 func ProcessThumbs(c *router.Context, guid string) {
