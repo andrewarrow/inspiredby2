@@ -18,7 +18,7 @@ func Speech() {
 	}
 	defer client.Close()
 
-	filePath := "path_to_your_audio_file.wav"
+	filePath := "data/output_audio.ogg"
 	audioData, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println(err)
@@ -26,11 +26,9 @@ func Speech() {
 
 	req := &speechpb.RecognizeRequest{
 		Config: &speechpb.RecognitionConfig{
-			Encoding:                 speechpb.RecognitionConfig_LINEAR16,
-			SampleRateHertz:          16000,
-			LanguageCode:             "en-US",
-			EnableSpeakerDiarization: true,
-			DiarizationSpeakerCount:  2,
+			Encoding:        speechpb.RecognitionConfig_OGG_OPUS,
+			SampleRateHertz: 16000,
+			LanguageCode:    "en-US",
 		},
 		Audio: &speechpb.RecognitionAudio{
 			AudioSource: &speechpb.RecognitionAudio_Content{Content: audioData},

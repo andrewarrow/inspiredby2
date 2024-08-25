@@ -8,6 +8,7 @@ mv save_main main.go
 export DATABASE_URL=inspiredby2
 export LINK_DOMAIN=http://localhost:3000
 export DATABASE_URL=inspiredby2
+export GOOGLE_APPLICATION_CREDENTIALS="./local-dev-353516-13d7127e0ead.json"  
 if [ $? -eq 0 ]; then
     cd assets/other
     rm json.wasm.gz

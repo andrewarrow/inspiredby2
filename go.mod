@@ -5,8 +5,10 @@ module inspiredby2
 go 1.21.0
 
 require (
+	cloud.google.com/go/speech v1.21.0
 	github.com/andrewarrow/feedback v0.0.0-20240712012406-3886d4afbd67
 	github.com/stripe/stripe-go/v74 v74.30.0
+	google.golang.org/genproto v0.0.0-20240123012728-ef4313101c80
 )
 
 require (
@@ -14,6 +16,7 @@ require (
 	cloud.google.com/go/compute v1.23.3 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	cloud.google.com/go/iam v1.1.5 // indirect
+	cloud.google.com/go/longrunning v0.5.4 // indirect
 	cloud.google.com/go/storage v1.36.0 // indirect
 	github.com/MicahParks/keyfunc/v2 v2.1.0 // indirect
 	github.com/aws/aws-sdk-go v1.45.19 // indirect
@@ -68,7 +71,6 @@ require (
 	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/api v0.155.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
-	google.golang.org/genproto v0.0.0-20240123012728-ef4313101c80 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240123012728-ef4313101c80 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240311173647-c811ad7063a7 // indirect
 	google.golang.org/grpc v1.62.1 // indirect

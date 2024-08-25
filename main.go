@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"inspiredby2/app"
+	"inspiredby2/google"
 	"math/rand"
 	"os"
 	"time"
@@ -36,6 +37,8 @@ func main() {
 	if arg == "import" {
 	} else if arg == "render" {
 		router.RenderMarkup()
+	} else if arg == "google" {
+		google.Speech()
 	} else if arg == "video" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
