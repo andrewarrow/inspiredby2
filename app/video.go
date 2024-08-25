@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"inspiredby2/google"
 	"inspiredby2/groq"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -21,6 +22,13 @@ import (
 rpc error: code = Unauthenticated desc = transport: per-RPC creds failed due to error: Post "https://oauth2.googleapis.com/token": read tcp [2606:8e80:2809:ef00:91fe:73a1:923f:7a03]:61562->[2607:f8b0:400a:800::200a]:443: read: no route to host
 */
 
+func fileExist(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	return true
+}
 func intCheck(a any, val int) bool {
 	aa := fmt.Sprintf("%v", a)
 	bb, _ := strconv.Atoi(aa)
@@ -41,14 +49,20 @@ func ProcessVideo(c *router.Context, guid string) {
 		for j := 0; j < 6; j++ {
 			sectionId := fmt.Sprintf("%d_%d_%d", one["id"], i, j)
 			oneSection := c.One("link_section", "where section=$1", sectionId)
-			output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
+			//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
+			output := fmt.Sprintf("data/%s_%d_%d.mp3", guid, i, j)
 
 			if len(oneSection) == 0 {
 
-				cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
+				//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
+				//	"-ss", fmt.Sprintf("%d", from), "-to",
+				//	fmt.Sprintf("%d", to),
+				//	"-c:v", "libx264", "-c:a", "aac", "-y",
+				//	output)
+				cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
 					"-ss", fmt.Sprintf("%d", from), "-to",
 					fmt.Sprintf("%d", to),
-					"-c:v", "libx264", "-c:a", "aac", "-y",
+					"-y",
 					output)
 				fmt.Println(i, j, from, to)
 				cmd.CombinedOutput()
@@ -62,6 +76,10 @@ func ProcessVideo(c *router.Context, guid string) {
 			}
 			oneSection = c.One("link_section", "where section=$1", sectionId)
 			//fmt.Println(string(b), err)
+
+			if fileExist(output) == false {
+				continue
+			}
 
 			flac := fmt.Sprintf("data/%s_%d_%d.flac", guid, i, j)
 			if intCheck(oneSection["meta"], 1) {
