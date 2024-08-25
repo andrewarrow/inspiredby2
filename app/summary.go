@@ -1,33 +1,71 @@
 package app
 
 import (
-	"fmt"
 	"inspiredby2/groq"
 	"strings"
 
 	"github.com/andrewarrow/feedback/router"
 )
 
+func groupArrayIntoThree(arr []map[string]any) [][]map[string]any {
+	result := make([][]map[string]any, 3)
+	itemsPerGroup := len(arr) / 3
+	remainingItems := len(arr) % 3
+
+	start := 0
+	for i := 0; i < 3; i++ {
+		end := start + itemsPerGroup
+		if i < remainingItems {
+			end++
+		}
+		result[i] = arr[start:end]
+		start = end
+	}
+
+	return result
+}
+
 func ProcessVideoSummary(c *router.Context, guid string) {
 	one := c.One("link", "where guid=$1", guid)
 
-	minuteKey := fmt.Sprintf("%d_%d", one["id"], i)
-	oneMinute := c.One("link_minute", "where minute_key=$1", minuteKey)
-
-	if len(oneMinute) == 0 {
-
-		all := c.All("link_section", "where link_id=$1 and minute=$2 order by sub", "",
-			one["id"], i)
+	items := c.All("link_minute", "where link_id=$1 order by minute", "", one["id"])
+	summaries := []string{}
+	for _, g := range groupArrayIntoThree(items) {
 		buffer := []string{}
-		for _, item := range all {
-			buffer = append(buffer, item["stt"].(string))
+		for _, item := range g {
+			s := item["summary"].(string)
+			buffer = append(buffer, s)
 		}
-		s := groq.Summarize(strings.Join(buffer, " "))
-		c.Params = map[string]any{}
+		summaries = append(summaries, strings.Join(buffer, " "))
+	}
+	first := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "first")
+	second := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "second")
+	third := c.One("link_third", "where link_id=$1 and link_key=$2", one["id"], "third")
+
+	c.Params = map[string]any{}
+
+	if len(first) == 0 {
+		s := groq.Summarize(summaries[0])
 		c.Params["link_id"] = one["id"]
-		c.Params["minute"] = i
-		c.Params["minute_key"] = minuteKey
+		c.Params["link_key"] = "first"
 		c.Params["summary"] = s
 		c.Insert("link_minute")
 	}
+
+	if len(second) == 0 {
+		s := groq.Summarize(summaries[1])
+		c.Params["link_id"] = one["id"]
+		c.Params["link_key"] = "second"
+		c.Params["summary"] = s
+		c.Insert("link_minute")
+	}
+
+	if len(third) == 0 {
+		s := groq.Summarize(summaries[2])
+		c.Params["link_id"] = one["id"]
+		c.Params["link_key"] = "third"
+		c.Params["summary"] = s
+		c.Insert("link_minute")
+	}
+
 }
