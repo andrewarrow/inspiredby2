@@ -36,6 +36,7 @@ func handleProfileStripePost(c *router.Context) {
 	}
 
 	c.FreeFormUpdate("update users set id_stripe_session=$1 where email=$2", s.ID, email)
+	router.SetCookie(c, "id_stripe_session", s.ID)
 
 	router.Redirect(c, s.URL)
 }
