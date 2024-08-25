@@ -8,6 +8,8 @@ import (
 	"github.com/andrewarrow/feedback/wasm"
 )
 
+var photos bool
+
 func PollForUpdates() {
 	guid := Document.Id("guid").Get("innerHTML")
 	guid = strings.TrimSpace(guid)
@@ -16,7 +18,8 @@ func PollForUpdates() {
 
 	for {
 		m := wasm.DoGetMap("/core/poll/" + guid)
-		if m["photos"] == true {
+		if m["photos"] == true && photos == false {
+			photos = true
 			p1 := Document.Id("photo1")
 			p2 := Document.Id("photo2")
 			p1.Set("src", "/bucket/"+guid+"_1.jpg")
@@ -27,7 +30,8 @@ func PollForUpdates() {
 			duration.Set("innerHTML", formatted)
 			canvas := Document.Id("canvas")
 			for i := 0; i < minutes; i++ {
-				div := Document.NewTag("div", fmt.Sprintf("index %d", i+1))
+				div := Document.NewTag("div", fmt.Sprintf("minute %d", i+1))
+				div.Set("id", fmt.Sprintf("minute-%d", i+1))
 				canvas.AppendChild(div.JValue)
 			}
 
