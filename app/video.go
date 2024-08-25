@@ -24,7 +24,7 @@ func ProcessVideo(c *router.Context, guid string) {
 	for i := 0; i < minutes+1; i++ {
 		from := 0 + (i * 60)
 		to := from + 10
-		for j := 0; i < 6; j++ {
+		for j := 0; j < 6; j++ {
 			cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
 				"-ss", fmt.Sprintf("%d", from), "-to",
 				fmt.Sprintf("%d", to),
