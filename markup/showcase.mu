@@ -44,43 +44,25 @@ div p-0
             div bg-white rounded-full p-3 w-24 h-24 flex items-center justify-center
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 5 1036 990" id="linkedin"><path d="M0 120c0-33.334 11.667-60.834 35-82.5C58.333 15.833 88.667 5 126 5c36.667 0 66.333 10.666 89 32 23.333 22 35 50.666 35 86 0 32-11.333 58.666-34 80-23.333 22-54 33-92 33h-1c-36.667 0-66.333-11-89-33S0 153.333 0 120zm13 875V327h222v668H13zm345 0h222V622c0-23.334 2.667-41.334 8-54 9.333-22.667 23.5-41.834 42.5-57.5 19-15.667 42.833-23.5 71.5-23.5 74.667 0 112 50.333 112 151v357h222V612c0-98.667-23.333-173.5-70-224.5S857.667 311 781 311c-86 0-153 37-201 111v2h-1l1-2v-95H358c1.333 21.333 2 87.666 2 199 0 111.333-.667 267.666-2 469z"></path></svg>
         div text-base font-mono
-          a hover:underline href=https://github.com/andrewarrow/feedback
-            [The opensource framework](https://github.com/andrewarrow/feedback)
+          a hover:underline href=https://youtu.be/wh_M25S2xUw
+            [Original Hour Long Uncut Youtube](https://youtu.be/wh_M25S2xUw)
         div text-base font-mono mt-3
-          a hover:underline href=https://github.com/andrewarrow/epoch
-            [Example App](https://github.com/andrewarrow/epoch)
+          a hover:underline href=https://github.com/andrewarrow/inspiredby2
+            [Made With](https://github.com/andrewarrow/inspiredby2)
         div mt-3
-          a href=/frame/andrew
+          a href=/
             div text-center bg-green-600 text-black hover:bg-green-300 font-allan text-4xl uppercase rounded-lg p-3
-              Hire Andrew
+              Experience Exec Summary
   div mt-9 w-full font-allan text-4xl text-white uppercase
     a href=/frame/templates
-      div relative w-full hidden md:block
-        div right-64 top-16 absolute flex items-center justify-center text-center
-          div text-center bg-red-600 text-white rounded-lg p-3
-            tailwindcss and daisyui 
-        div right-64 top-96 absolute flex space-x-6 items-center justify-center text-center
-          img src=https://i.imgur.com/lyKxOPd.png
-          div text-center bg-green-600 text-white rounded-lg p-3
-            templates
-      img bg-cover bg-no-repeat w-full border-2 src=https://i.imgur.com/0Vvu62X.png
-  div mb-9 block md:hidden mt-9 w-full font-allan text-4xl text-white uppercase
-    a href=/frame/templates
-      div w-full 
-        div flex items-center justify-center text-center
-          div text-center bg-red-600 text-white rounded-lg p-3
-            tailwindcss and daisyui 
-        div flex space-x-6 items-center justify-center text-center
-          img src=https://i.imgur.com/lyKxOPd.png
-          div text-center bg-green-600 text-white rounded-lg p-3
-            templates
+      img bg-cover bg-no-repeat w-full border-2 src=https://i.imgur.com/nTwdcaD.png
   div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
     div w-1/2 
       a href=/frame/migrations
         div font-allan text-4xl text-white uppercase 
-          Migrations from one json file
+          The nervous system, under stress, fragments autotomic bandwidth
     div w-1/2
       a href=/frame/migrations
-        <img src="https://i.imgur.com/3bN7SY0.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
+        <img src="https://i.imgur.com/h55A0wQ.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
   div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KU6-BTxQoCA?si=oX8HhdG6lSKJYoRu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
