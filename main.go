@@ -56,6 +56,10 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
 		app.ProcessVideo(c, os.Args[2])
+	} else if arg == "summary" {
+		fr := router.NewRouter("DATABASE_URL", embeddedFile)
+		c := fr.ToContext()
+		app.ProcessVideoSummary(c, os.Args[2])
 	} else if arg == "run" {
 		router.BuildTag = buildTag
 		router.EmbeddedTemplates = embeddedTemplates

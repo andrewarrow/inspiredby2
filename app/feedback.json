@@ -79,6 +79,25 @@
       ]
     },
     {
+      "name": "link_summary",
+      "fields": [
+        {
+          "name": "link_id",
+          "flavor": "int",
+          "index": "yes"
+        },
+        {
+          "name": "link_key",
+          "flavor": "text",
+          "index": "unique"
+        },
+        {
+          "name": "summary",
+          "flavor": "text"
+        }
+      ]
+    },
+    {
       "name": "link_minute",
       "fields": [
         {
