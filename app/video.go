@@ -17,6 +17,7 @@ func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
 	one := c.One("link", "where guid=$1", guid)
 	c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
+	c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
 
 	sec := int(d)
 	minutes := (sec % 3600) / 60
