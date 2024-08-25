@@ -8,6 +8,10 @@ import (
 	"github.com/stripe/stripe-go/v74/checkout/session"
 )
 
+func handlePoll(c *router.Context, guid string) {
+	m := map[string]any{}
+	c.SendContentAsJson(m, 200)
+}
 func handleAdd(c *router.Context) {
 	c.ReadJsonBodyIntoParams()
 	c.ValidateCreate("user")
@@ -34,5 +38,14 @@ func handleStripeSuccess(c *router.Context) {
 		return
 	}
 	one := c.One("user", "where id_stripe_session=$1", sid)
-	c.SendContentInLayout("success.html", one, 200)
+	link := c.One("link", "where link=$1", one["link"])
+	if len(link) == 0 {
+		c.Params = map[string]any{}
+		c.Params["link"] = one["link"]
+		c.Params["user_id"] = one["id"]
+		c.ValidateCreate("link")
+		c.Insert("link")
+	}
+	link = c.One("link", "where link=$1", one["link"])
+	c.SendContentInLayout("success.html", link, 200)
 }

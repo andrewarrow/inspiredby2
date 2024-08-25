@@ -24,6 +24,8 @@ func RegisterEvents() {
 		Global.AutoForm("login", "core", nil, afterLogin)
 	} else if Global.Start == "register.html" {
 		Global.AutoForm("register", "core", nil, afterRegister)
+	} else if Global.Start == "success.html" {
+		go PollForUpdates()
 	} else if Global.Start == "welcome.html" {
 		Global.SubmitEvent("welcome-form", HandleWelcome)
 	}

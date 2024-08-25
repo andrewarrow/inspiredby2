@@ -74,6 +74,31 @@
       ]
     },
     {
+      "name": "link",
+      "fields": [
+        {
+          "name": "link",
+          "flavor": "name",
+          "index": "yes"
+        },
+        {
+          "name": "user_id",
+          "flavor": "int",
+          "index": "yes"
+        },
+        {
+          "name": "download_started_at",
+          "flavor": "timestamp",
+          "null": "yes"
+        },
+        {
+          "name": "download_finished_at",
+          "flavor": "timestamp",
+          "null": "yes"
+        }
+      ]
+    },
+    {
       "name": "cookie_token",
       "fields": [
         {

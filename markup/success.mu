@@ -8,3 +8,6 @@ div p-0
         Thank you for your payment.
       div mt-3 bg-orange-900 rounded-lg p-3 text-white
         We are now downloading your link: {{.link}}
+      div mt-3 bg-orange-900 rounded-lg p-3 text-white
+        div id=guid
+          {{.guid}}
