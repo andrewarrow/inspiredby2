@@ -5,8 +5,11 @@ div p-0
       a href=/frame/routing 
         <img src="https://i.imgur.com/Dza3fNU.png" class="rounded-lg border-2" style="transform: rotate(-9deg);"/>
     div mt-6 md:mt-0 w-full md:w-1/2 font-allan text-4xl text-white uppercase
-      div
-        img w-64 rounded-md src=https://i.imgur.com/rmvpjcP.png
+      div flex
+        div
+          img w-64 rounded-md src=/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_1_125percent.jpg
+        div
+          img w-64 rounded-md src=/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_2_125percent.jpg
       div
         div text-white
           Chris Williamson &
