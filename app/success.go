@@ -14,6 +14,8 @@ func handlePoll(c *router.Context, guid string) {
 	one := c.One("link", "where guid=$1", guid)
 	if one["photos_ready"] == "1" {
 		m["photos"] = true
+		m["duration"] = one["duration"]
+		fmt.Println(m)
 	}
 	c.SendContentAsJson(m, 200)
 }

@@ -14,6 +14,7 @@ div p-0
       div hidden
         div id=guid
           {{.guid}}
+      div mt-3 id=duration
       div mt-3 bg-grey-900 rounded-lg p-3 text-white
         div 
           <img src="" id="photo1" class="w-64 rounded-lg"/>
