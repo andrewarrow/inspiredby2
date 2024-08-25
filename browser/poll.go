@@ -30,8 +30,33 @@ func PollForUpdates() {
 			duration.Set("innerHTML", formatted)
 			canvas := Document.Id("canvas")
 			for i := 0; i < minutes+1; i++ {
-				div := Document.NewTag("div", fmt.Sprintf("minute %d", i+1))
-				div.Set("id", fmt.Sprintf("minute-%d", i+1))
+				minute := i + 1
+				inside := `<div>
+<div>
+minute %d
+</div>
+<div id="sub-%d-0">
+&nbsp;&nbsp;section 1
+</div>
+<div id="sub-%d-1">
+&nbsp;&nbsp;section 2
+</div>
+<div id="sub-%d-2">
+&nbsp;&nbsp;section 3
+</div>
+<div id="sub-%d-3">
+&nbsp;&nbsp;section 4
+</div>
+<div id="sub-%d-4">
+&nbsp;&nbsp;section 5
+</div>
+<div id="sub-%d-5">
+&nbsp;&nbsp;section 6
+</div>
+</div>`
+				div := Document.NewTag("div", fmt.Sprintf(inside, minute,
+					minute, minute, minute, minute, minute, minute))
+				div.Set("id", fmt.Sprintf("minute-%d", minute))
 				canvas.AppendChild(div.JValue)
 			}
 
