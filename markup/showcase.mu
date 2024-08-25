@@ -29,25 +29,30 @@ div p-0
       div w-3/4 mt-9 ml-9
         div text-center bg-yellow-200 text-black rounded-lg p-3
           Effectively respond to stressors
-  div flex flex-col md:flex-row justify-center md:space-x-6
-    div mt-9 w-full text-4xl 
+  div mt-6 flex flex-col md:flex-row space-x-9 items-start justify-center
+    div w-full md:w-1/2
       div font-allan
         Part One
       div text-base font-familjen 
         Dr. Leah Lagos discusses Heart Rate Variability (HRV), a metric measuring oscillatory variability in milliseconds between heartbeats, linking to clinical conditions, wellness, and individual resilience, adaptability, and flexibility.
-    div mt-9 w-full text-4xl 
+      div
+        img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
+  div mt-6 flex flex-col md:flex-row space-x-9 items-start justify-center
+    div w-full md:w-1/2
       div font-allan
         Part Two
       div text-base font-familjen 
         Researchers found that heart rate variability (HRV) relates to cognitive dexterity, enabling flexible thinking and focus, while higher HRV is correlated with a lower risk of cardiovascular conditions and increased autonomic nervous system flexibility.
-    div mt-9 w-full text-4xl
+      div
+        img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
+  div mt-6 flex flex-col md:flex-row space-x-9 items-start justify-center
+    div w-full md:w-1/2
       div font-allan
         Part Three
       div text-base font-familjen 
         Researchers discovered a 0.1 Hz frequency rhythm that awakens the nervous system, treating anxiety, depression, and optimizing athletic performance by controlling heart rate variability through personalized breathing practices.
-  div mt-9 w-full font-allan text-4xl text-white uppercase
-    a href=/frame/templates
-      img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
+      div
+        img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
   div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
     div w-1/2 
       a href=/frame/migrations
