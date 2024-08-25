@@ -35,6 +35,11 @@
           "flavor": "name"
         },
         {
+          "name": "id_stripe_session",
+          "flavor": "name",
+          "index": "yes"
+        },
+        {
           "name": "password",
           "flavor": "fewWords",
           "index": "",
