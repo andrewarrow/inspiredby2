@@ -16,6 +16,7 @@ func Showcase(c *router.Context, second, third string) {
 	c.NotFound = true
 }
 func handleShowcaseItem(c *router.Context, id string) {
+	c.Title = "Heart Rate Variability"
 	send := map[string]any{}
 	c.SendContentInLayout("showcase.html", send, 200)
 }
