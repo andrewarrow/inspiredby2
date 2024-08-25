@@ -9,6 +9,7 @@ import (
 )
 
 var photos bool
+var sectionMap map[string]bool = map[string]bool{}
 
 func PollForUpdates() {
 	guid := Document.Id("guid").Get("innerHTML")
@@ -18,6 +19,21 @@ func PollForUpdates() {
 
 	for {
 		m := wasm.DoGetMap("/core/poll/" + guid)
+
+		list := m["all"].([]any)
+
+		if m["photos"] == true {
+			for _, item := range list {
+				fmt.Println(item)
+				thing := item.(map[string]any)
+				minute := int(thing["minute"].(float64))
+				sub := int(thing["sub"].(float64))
+
+				div := Document.Id(fmt.Sprintf("sub-%d-%d", minute, sub))
+				div.Set("innerHTML", fmt.Sprintf("&nbsp;&nbsp;section %d - READY", sub+1))
+			}
+		}
+
 		if m["photos"] == true && photos == false {
 			photos = true
 			p1 := Document.Id("photo1")
