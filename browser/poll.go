@@ -29,7 +29,7 @@ func PollForUpdates() {
 			formatted, minutes := FormatSeconds(d)
 			duration.Set("innerHTML", formatted)
 			canvas := Document.Id("canvas")
-			for i := 0; i < minutes; i++ {
+			for i := 0; i < minutes+1; i++ {
 				div := Document.NewTag("div", fmt.Sprintf("minute %d", i+1))
 				div.Set("id", fmt.Sprintf("minute-%d", i+1))
 				canvas.AppendChild(div.JValue)

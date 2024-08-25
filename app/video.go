@@ -1,6 +1,7 @@
 package app
 
 import (
+	"fmt"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -10,10 +11,30 @@ import (
 
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:11 -vframes 1 frame_2.jpg
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:00 -to 00:00:09 -c:v libx264 -c:a aac output.mp4
+// ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 0 -to 9 -c:v libx264 -c:a aac output.mp4
 
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
 	c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
+
+	sec := int(d)
+	minutes := (sec % 3600) / 60
+	for i := 0; i < minutes+1; i++ {
+		from := 0 + (i * 60)
+		to := from + 10
+		for j := 0; i < 6; j++ {
+			cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
+				"-ss", fmt.Sprintf("%d", from), "-to",
+				fmt.Sprintf("%d", to),
+				"-c:v", "libx264", "-c:a", "aac",
+				fmt.Sprintf("data/%s_%d_%d", guid, i, j))
+			cmd.CombinedOutput()
+			fmt.Println(i, j, from, to)
+			from += 10
+			to += 10
+		}
+	}
+
 }
 
 func getVideoDuration(filePath string) (float64, error) {
