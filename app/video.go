@@ -69,7 +69,7 @@ func ProcessVideo(c *router.Context, guid string) {
 					"-b:a", "32k", "-ar", "16000", "-acodec", "flac",
 					"-y",
 					flac)
-				fmt.Println(i, j, from, to)
+				fmt.Println("flac", i, j, from, to)
 				cmd.CombinedOutput()
 				c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
 			}

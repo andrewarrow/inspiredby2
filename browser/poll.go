@@ -21,10 +21,22 @@ func PollForUpdates() {
 		m := wasm.DoGetMap("/core/poll/" + guid)
 
 		list := m["all"].([]any)
+		summary := m["summary"].([]any)
 
-		if m["photos"] == true {
+		if photos {
+			for _, item := range summary {
+				thing := item.(map[string]any)
+				summary := thing["summary"].(string)
+				minute := int(thing["minute"].(float64))
+
+				div := Document.Id(fmt.Sprintf("sub-%d-summary", minute))
+				div.Set("innerHTML", summary)
+				div.RemoveClass("hidden")
+			}
+		}
+
+		if photos {
 			for _, item := range list {
-				fmt.Println(item)
 				thing := item.(map[string]any)
 				minute := int(thing["minute"].(float64))
 				sub := int(thing["sub"].(float64))
@@ -45,7 +57,6 @@ func PollForUpdates() {
 		}
 
 		if m["photos"] == true && photos == false {
-			photos = true
 			p1 := Document.Id("photo1")
 			p2 := Document.Id("photo2")
 			p1.Set("src", "/bucket/"+guid+"_1.jpg")
@@ -78,12 +89,15 @@ minute %d
 <div id="sub-%d-5">
 &nbsp;&nbsp;section 6
 </div>
+<div id="sub-%d-summary" class="bg-purple-900 rounded-lg p-3 hidden">
+</div>
 </div>`
 				div := Document.NewTag("div", fmt.Sprintf(inside, i+1,
-					i, i, i, i, i, i))
+					i, i, i, i, i, i, i))
 				div.Set("id", fmt.Sprintf("minute-%d", i))
 				canvas.AppendChild(div.JValue)
 			}
+			photos = true
 
 		}
 

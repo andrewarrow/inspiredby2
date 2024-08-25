@@ -18,6 +18,10 @@ func handlePoll(c *router.Context, guid string) {
 	}
 	all := c.FreeFormSelect("select minute,sub,meta from link_sections where link_id=$1", one["id"])
 	m["all"] = all
+
+	all = c.FreeFormSelect("select minute,summary from link_minutes where link_id=$1",
+		one["id"])
+	m["summary"] = all
 	c.SendContentAsJson(m, 200)
 }
 func handleAdd(c *router.Context) {
