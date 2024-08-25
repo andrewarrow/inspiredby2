@@ -63,9 +63,9 @@ div p-0
         <img src="https://i.imgur.com/h55A0wQ.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
   div justify-center flex mb-32
     div
-      div text-base font-mono
+      div text-base 
         a hover:underline href=https://youtu.be/wh_M25S2xUw
           [Original Hour Long Uncut Youtube](https://youtu.be/wh_M25S2xUw)
-      div text-base font-mono mt-3
+      div text-base mt-3
         a hover:underline href=https://github.com/andrewarrow/inspiredby2
           [Made With](https://github.com/andrewarrow/inspiredby2)
