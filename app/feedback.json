@@ -40,6 +40,11 @@
           "index": "yes"
         },
         {
+          "name": "verified_at",
+          "flavor": "timestamp",
+          "null": "yes"
+        },
+        {
           "name": "password",
           "flavor": "fewWords",
           "index": "",

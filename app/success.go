@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/andrewarrow/feedback/router"
 	"github.com/stripe/stripe-go/v74"
@@ -22,22 +23,26 @@ func handleAdd(c *router.Context) {
 
 func handleStripeSuccess(c *router.Context) {
 	sid := router.GetCookie(c, "id_stripe_session")
-	params := &stripe.CheckoutSessionParams{}
-	params.AddExpand("payment_intent")
-	params.AddExpand("line_items")
-	params.AddExpand("line_items.data")
-	params.AddExpand("line_items.data.price")
-	checkoutSession, err := session.Get(sid, params)
-	if err != nil {
-		fmt.Println(err)
-		router.Redirect(c, "/")
-		return
-	}
-	if checkoutSession.PaymentStatus != "paid" {
-		router.Redirect(c, "/")
-		return
-	}
 	one := c.One("user", "where id_stripe_session=$1", sid)
+	if one["verified_at"] == nil {
+		params := &stripe.CheckoutSessionParams{}
+		params.AddExpand("payment_intent")
+		params.AddExpand("line_items")
+		params.AddExpand("line_items.data")
+		params.AddExpand("line_items.data.price")
+		checkoutSession, err := session.Get(sid, params)
+		if err != nil {
+			fmt.Println(err)
+			router.Redirect(c, "/")
+			return
+		}
+		if checkoutSession.PaymentStatus != "paid" {
+			router.Redirect(c, "/")
+			return
+		}
+		c.FreeFormUpdate("update users set verified_at=$1 where id_stripe_session=$2",
+			time.Now().Unix(), sid)
+	}
 	link := c.One("link", "where link=$1", one["link"])
 	if len(link) == 0 {
 		c.Params = map[string]any{}
