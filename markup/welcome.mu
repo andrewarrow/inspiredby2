@@ -20,7 +20,7 @@ div p-0
           div
             youtube link
           div
-            input type=text id=link autofocus=true value=www.youtube.com/watch?v!Vcw1bYz3heI
+            <input type="text" id="link" autofocus="true" value="https://youtu.be/wh_M25S2xUw"/>
           div
             your email
           div

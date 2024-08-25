@@ -33,6 +33,6 @@ func handleStripeSuccess(c *router.Context) {
 		router.Redirect(c, "/")
 		return
 	}
-	send := map[string]any{}
-	c.SendContentInLayout("success.html", send, 200)
+	one := c.One("user", "where id_stripe_session=$1", sid)
+	c.SendContentInLayout("success.html", one, 200)
 }
