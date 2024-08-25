@@ -47,7 +47,7 @@ div p-0
         Researchers discovered a 0.1 Hz frequency rhythm that awakens the nervous system, treating anxiety, depression, and optimizing athletic performance by controlling heart rate variability through personalized breathing practices.
   div mt-9 w-full font-allan text-4xl text-white uppercase
     a href=/frame/templates
-      img bg-cover bg-no-repeat w-full border-2 src=https://i.imgur.com/qp1LJHm.png
+      img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
   div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
     div w-1/2 
       a href=/frame/migrations
