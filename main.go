@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/andrewarrow/feedback/router"
+	"github.com/stripe/stripe-go/v74"
 )
 
 //go:embed app/feedback.json
@@ -30,6 +31,7 @@ func main() {
 
 	arg := os.Args[1]
 	router.DB_FLAVOR = "sqlite"
+	stripe.Key = os.Getenv("STRIPE_SK")
 
 	if arg == "import" {
 	} else if arg == "render" {

@@ -10,7 +10,6 @@ import (
 
 func handleProfileStripePost(c *router.Context) {
 	email := c.Request.URL.Query().Get("email")
-	stripe.Key = os.Getenv("STRIPE_SK")
 	domain := os.Getenv("LINK_DOMAIN")
 	returnPath := "/"
 	params := &stripe.CheckoutSessionParams{
