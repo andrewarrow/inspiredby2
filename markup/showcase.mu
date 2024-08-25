@@ -44,7 +44,7 @@ div p-0
       div text-base font-familjen 
         Researchers found that heart rate variability (HRV) relates to cognitive dexterity, enabling flexible thinking and focus, while higher HRV is correlated with a lower risk of cardiovascular conditions and increased autonomic nervous system flexibility.
       div
-        img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
+        <video class="z-1 w-[30rem]" autoplay muted loop src="/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_4_4.mp4"/>
   div mt-6 flex flex-col md:flex-row space-x-9 items-start justify-center
     div w-full md:w-1/2
       div font-allan
