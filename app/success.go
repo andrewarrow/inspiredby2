@@ -11,6 +11,10 @@ import (
 
 func handlePoll(c *router.Context, guid string) {
 	m := map[string]any{}
+	one := c.One("link", "where guid=$1", guid)
+	if one["photos_ready"] == "1" {
+		m["photos"] = true
+	}
 	c.SendContentAsJson(m, 200)
 }
 func handleAdd(c *router.Context) {

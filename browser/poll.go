@@ -15,8 +15,13 @@ func PollForUpdates() {
 	time.Sleep(time.Second * 1)
 
 	for {
-		json, _ := wasm.DoGet("/core/poll/" + guid)
-		fmt.Println(json)
+		m := wasm.DoGetMap("/core/poll/" + guid)
+		if m["photos"] == true {
+			p1 := Document.Id("photo1")
+			p2 := Document.Id("photo2")
+			p1.Set("src", "/bucket/"+guid+"_1.jpg")
+			p2.Set("src", "/bucket/"+guid+"_2.jpg")
+		}
 
 		time.Sleep(time.Millisecond * 3000)
 	}

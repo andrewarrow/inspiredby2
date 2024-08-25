@@ -11,3 +11,8 @@ div p-0
       div mt-3 bg-orange-900 rounded-lg p-3 text-white
         div id=guid
           {{.guid}}
+      div mt-3 bg-grey-900 rounded-lg p-3 text-white
+        div 
+          <img src="" id="photo1" class="w-64"/>
+        div 
+          <img src="" id="photo2" class="w-64"/>

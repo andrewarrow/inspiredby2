@@ -92,6 +92,10 @@
           "index": "yes"
         },
         {
+          "name": "photos_ready",
+          "flavor": "bool"
+        },
+        {
           "name": "download_started_at",
           "flavor": "timestamp",
           "null": "yes"
