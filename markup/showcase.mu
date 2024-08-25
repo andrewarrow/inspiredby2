@@ -56,12 +56,11 @@ div p-0
     div w-1/2
       a href=/frame/migrations
         <img src="https://i.imgur.com/h55A0wQ.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
-  div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/KU6-BTxQoCA?si=oX8HhdG6lSKJYoRu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  div w-full font-familjen text-4xl mt-16 ml-0 md:ml-9
-    div text-base font-mono
-      a hover:underline href=https://youtu.be/wh_M25S2xUw
-        [Original Hour Long Uncut Youtube](https://youtu.be/wh_M25S2xUw)
-    div text-base font-mono mt-3
-      a hover:underline href=https://github.com/andrewarrow/inspiredby2
-        [Made With](https://github.com/andrewarrow/inspiredby2)
+  div justify-center flex mb-32
+    div
+      div text-base font-mono
+        a hover:underline href=https://youtu.be/wh_M25S2xUw
+          [Original Hour Long Uncut Youtube](https://youtu.be/wh_M25S2xUw)
+      div text-base font-mono mt-3
+        a hover:underline href=https://github.com/andrewarrow/inspiredby2
+          [Made With](https://github.com/andrewarrow/inspiredby2)
