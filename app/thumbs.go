@@ -1,25 +1,26 @@
 package app
 
 import (
+	"fmt"
 	"os/exec"
 
 	"github.com/andrewarrow/feedback/router"
 )
 
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:11 -vframes 1 frame_2.jpg
-func ProcessThumbs(c *router.Context, guid string) {
-	output := "data/" + guid + "_1.jpg"
+func extractFrameAt(index, seconds int, guid string) {
+	output := fmt.Sprintf("%s_%d.jpg", guid, index)
 	cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
-		"-ss", "1",
+		"-ss", fmt.Sprintf("%d", seconds),
 		"-vframes", "1",
 		"-y",
 		output)
 	cmd.CombinedOutput()
-	output = "data/" + guid + "_2.jpg"
-	cmd = exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
-		"-ss", "11",
-		"-vframes", "1",
-		"-y",
-		output)
-	cmd.CombinedOutput()
+}
+func ProcessThumbs(c *router.Context, guid string) {
+	extractFrameAt(1, 1, guid)
+	extractFrameAt(2, 11, guid)
+
+	// magick input.jpg -resize 50% output.jpg
+
 }
