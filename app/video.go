@@ -20,6 +20,13 @@ import (
 /*
 rpc error: code = Unauthenticated desc = transport: per-RPC creds failed due to error: Post "https://oauth2.googleapis.com/token": read tcp [2606:8e80:2809:ef00:91fe:73a1:923f:7a03]:61562->[2607:f8b0:400a:800::200a]:443: read: no route to host
 */
+
+func intCheck(a any, val int) bool {
+	aa := fmt.Sprintf("%v", a)
+	bb, _ := strconv.Atoi(aa)
+	return bb == val
+}
+
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
 	one := c.One("link", "where guid=$1", guid)
@@ -57,7 +64,7 @@ func ProcessVideo(c *router.Context, guid string) {
 			//fmt.Println(string(b), err)
 
 			flac := fmt.Sprintf("data/%s_%d_%d.flac", guid, i, j)
-			if oneSection["meta"] == "1" {
+			if intCheck(oneSection["meta"], 1) {
 				cmd := exec.Command("ffmpeg", "-i", output,
 					"-b:a", "32k", "-ar", "16000", "-acodec", "flac",
 					"-y",
@@ -68,7 +75,7 @@ func ProcessVideo(c *router.Context, guid string) {
 			}
 			oneSection = c.One("link_section", "where section=$1", sectionId)
 
-			if oneSection["meta"] == "2" {
+			if intCheck(oneSection["meta"], 2) {
 				stt := google.Speech(flac)
 				c.FreeFormUpdate("update link_sections set meta=3,stt=$1 where section=$2",
 					stt, sectionId)
