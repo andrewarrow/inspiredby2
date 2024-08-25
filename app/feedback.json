@@ -79,6 +79,29 @@
       ]
     },
     {
+      "name": "link_section",
+      "fields": [
+        {
+          "name": "link_id",
+          "flavor": "int",
+          "index": "yes"
+        },
+        {
+          "name": "minute",
+          "flavor": "int"
+        },
+        {
+          "name": "sub",
+          "flavor": "int"
+        },
+        {
+          "name": "section",
+          "flavor": "name",
+          "index": "unique"
+        }
+      ]
+    },
+    {
       "name": "link",
       "fields": [
         {

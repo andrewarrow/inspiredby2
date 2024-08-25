@@ -15,6 +15,7 @@ import (
 
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
+	one := c.One("link", "where guid=$1", guid)
 	c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
 
 	sec := int(d)
@@ -26,10 +27,16 @@ func ProcessVideo(c *router.Context, guid string) {
 			cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
 				"-ss", fmt.Sprintf("%d", from), "-to",
 				fmt.Sprintf("%d", to),
-				"-c:v", "libx264", "-c:a", "aac",
+				"-c:v", "libx264", "-c:a", "aac", "-y",
 				fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j))
 			fmt.Println(i, j, from, to)
 			cmd.CombinedOutput()
+			c.Params = map[string]any{}
+			c.Params["link_id"] = one["id"]
+			c.Params["section"] = fmt.Sprintf("%d_%d_%d", one["id"], i, j)
+			c.Params["minute"] = i
+			c.Params["sub"] = j
+			c.Insert("link_section")
 			//fmt.Println(string(b), err)
 			from += 10
 			to += 10
