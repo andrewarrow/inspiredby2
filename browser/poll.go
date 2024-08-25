@@ -31,8 +31,10 @@ func PollForUpdates() {
 				meta := int(thing["meta"].(float64))
 				metaString := ""
 				if meta == 1 {
-					metaString = "EXTRACTED"
+					metaString = "VIDEO_EXTRACTED"
 				} else if meta == 2 {
+					metaString = "AUDIO_EXTRACTED"
+				} else if meta == 3 {
 					metaString = "TRANSCRIBED"
 				}
 

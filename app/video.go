@@ -12,6 +12,8 @@ import (
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:11 -vframes 1 frame_2.jpg
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:00 -to 00:00:09 -c:v libx264 -c:a aac output.mp4
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 0 -to 9 -c:v libx264 -c:a aac output.mp4
+// ffmpeg -i input_video.mp4 -vn -acodec pcm_s16le -ar 16000 -ac 1 output_audio.wav
+// ffmpeg -i input_video.mp4 -vn -c:a libopus -b:a 32k output_audio.ogg
 
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := getVideoDuration("data/" + guid + ".mp4")
@@ -25,21 +27,34 @@ func ProcessVideo(c *router.Context, guid string) {
 		from := 0 + (i * 60)
 		to := from + 10
 		for j := 0; j < 6; j++ {
+			output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
 			cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
 				"-ss", fmt.Sprintf("%d", from), "-to",
 				fmt.Sprintf("%d", to),
 				"-c:v", "libx264", "-c:a", "aac", "-y",
-				fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j))
+				output)
 			fmt.Println(i, j, from, to)
+			sectionId := fmt.Sprintf("%d_%d_%d", one["id"], i, j)
 			cmd.CombinedOutput()
 			c.Params = map[string]any{}
 			c.Params["link_id"] = one["id"]
-			c.Params["section"] = fmt.Sprintf("%d_%d_%d", one["id"], i, j)
+			c.Params["section"] = sectionId
 			c.Params["minute"] = i
 			c.Params["sub"] = j
 			c.Params["meta"] = 1
 			c.Insert("link_section")
 			//fmt.Println(string(b), err)
+
+			cmd = exec.Command("ffmpeg", "-i", output,
+				"-vn", "-c:a", "libopus", "-b:a", "32k",
+				"-y",
+				fmt.Sprintf("data/%s_%d_%d.ogg", guid, i, j))
+			fmt.Println(i, j, from, to)
+			cmd.CombinedOutput()
+			c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
+
+			// ---
+
 			from += 10
 			to += 10
 		}
