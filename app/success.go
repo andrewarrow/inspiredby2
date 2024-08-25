@@ -9,7 +9,13 @@ import (
 func handleAdd(c *router.Context) {
 	c.ReadJsonBodyIntoParams()
 	fmt.Println(c.Params)
-	c.SendContentAsJson("ok", 200)
+
+	c.ValidateCreate("user")
+	c.Insert("user")
+
+	m := map[string]any{"guid": c.Params["guid"]}
+
+	c.SendContentAsJson(m, 200)
 }
 func handleStripeSuccess(c *router.Context) {
 	send := map[string]any{}
