@@ -16,11 +16,14 @@ func extractFrameAt(index, seconds int, guid string) {
 		"-y",
 		output)
 	cmd.CombinedOutput()
+
+	output50 := fmt.Sprintf("%s_%d_50percent.jpg", guid, index)
+	cmd = exec.Command("magic", output, "-resize",
+		"50%",
+		output50)
+	cmd.CombinedOutput()
 }
 func ProcessThumbs(c *router.Context, guid string) {
 	extractFrameAt(1, 1, guid)
 	extractFrameAt(2, 11, guid)
-
-	// magick input.jpg -resize 50% output.jpg
-
 }
