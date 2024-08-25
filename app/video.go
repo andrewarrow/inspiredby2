@@ -37,6 +37,7 @@ func ProcessVideo(c *router.Context, guid string) {
 			c.Params["section"] = fmt.Sprintf("%d_%d_%d", one["id"], i, j)
 			c.Params["minute"] = i
 			c.Params["sub"] = j
+			c.Params["meta"] = 1
 			c.Insert("link_section")
 			//fmt.Println(string(b), err)
 			from += 10

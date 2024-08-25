@@ -95,6 +95,10 @@
           "flavor": "int"
         },
         {
+          "name": "meta",
+          "flavor": "int"
+        },
+        {
           "name": "section",
           "flavor": "name",
           "index": "unique"

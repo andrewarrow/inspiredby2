@@ -28,9 +28,17 @@ func PollForUpdates() {
 				thing := item.(map[string]any)
 				minute := int(thing["minute"].(float64))
 				sub := int(thing["sub"].(float64))
+				meta := int(thing["meta"].(float64))
+				metaString := ""
+				if meta == 1 {
+					metaString = "EXTRACTED"
+				} else if meta == 2 {
+					metaString = "TRANSCRIBED"
+				}
 
 				div := Document.Id(fmt.Sprintf("sub-%d-%d", minute, sub))
-				div.Set("innerHTML", fmt.Sprintf("&nbsp;&nbsp;section %d - READY", sub+1))
+				div.Set("innerHTML", fmt.Sprintf("&nbsp;&nbsp;section %d - %s",
+					sub+1, metaString))
 			}
 		}
 
