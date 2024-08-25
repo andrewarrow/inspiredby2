@@ -2,10 +2,10 @@ package main
 
 import (
 	"embed"
+	"inspiredby2/app"
 	"math/rand"
 	"os"
 	"time"
-	"inspiredby2/app"
 
 	"github.com/andrewarrow/feedback/router"
 )
@@ -34,6 +34,10 @@ func main() {
 	if arg == "import" {
 	} else if arg == "render" {
 		router.RenderMarkup()
+	} else if arg == "video" {
+		fr = router.NewRouter("DATABASE_URL", embeddedFile)
+		c := fr.ToContext()
+		app.ProcessVideo(c, os.Args[2])
 	} else if arg == "run" {
 		router.BuildTag = buildTag
 		router.EmbeddedTemplates = embeddedTemplates

@@ -96,6 +96,10 @@
           "flavor": "bool"
         },
         {
+          "name": "duration",
+          "flavor": "float"
+        },
+        {
           "name": "download_started_at",
           "flavor": "timestamp",
           "null": "yes"
