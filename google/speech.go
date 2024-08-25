@@ -4,12 +4,13 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	speech "cloud.google.com/go/speech/apiv1"
 	speechpb "google.golang.org/genproto/googleapis/cloud/speech/v1"
 )
 
-func Speech() {
+func Speech(filePath string) string {
 	ctx := context.Background()
 
 	client, err := speech.NewClient(ctx)
@@ -18,7 +19,6 @@ func Speech() {
 	}
 	defer client.Close()
 
-	filePath := "data/output_audio.ogg"
 	audioData, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		fmt.Println(err)
@@ -26,9 +26,10 @@ func Speech() {
 
 	req := &speechpb.RecognizeRequest{
 		Config: &speechpb.RecognitionConfig{
-			Encoding:        speechpb.RecognitionConfig_OGG_OPUS,
-			SampleRateHertz: 16000,
-			LanguageCode:    "en-US",
+			Encoding:          speechpb.RecognitionConfig_FLAC,
+			SampleRateHertz:   16000,
+			LanguageCode:      "en-US",
+			AudioChannelCount: 2,
 		},
 		Audio: &speechpb.RecognitionAudio{
 			AudioSource: &speechpb.RecognitionAudio_Content{Content: audioData},
@@ -40,10 +41,12 @@ func Speech() {
 		fmt.Println(err)
 	}
 
+	buffer := []string{}
 	for _, result := range resp.Results {
 		for _, alt := range result.Alternatives {
-			fmt.Printf("Transcription: %v\n", alt.Transcript)
-			fmt.Printf("Confidence: %v\n", alt.Confidence)
+			buffer = append(buffer, fmt.Sprintf("%v", alt.Transcript))
 		}
 	}
+
+	return strings.Join(buffer, " ")
 }
