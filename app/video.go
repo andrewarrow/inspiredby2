@@ -3,6 +3,7 @@ package app
 import (
 	"fmt"
 	"inspiredby2/google"
+	"inspiredby2/groq"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -67,6 +68,20 @@ func ProcessVideo(c *router.Context, guid string) {
 			from += 10
 			to += 10
 		}
+		all := c.All("link_section", "where link_id=$1 and minute=$2 order by sub", "",
+			one["id"], i)
+		buffer := []string{}
+		for _, item := range all {
+			buffer = append(buffer, item["stt"].(string))
+		}
+		s := groq.Summarize(strings.Join(buffer, " "))
+		minuteKey := fmt.Sprintf("%d_%d", one["id"], i)
+		c.Params = map[string]any{}
+		c.Params["link_id"] = one["id"]
+		c.Params["minute"] = i
+		c.Params["minute_key"] = minuteKey
+		c.Params["summary"] = s
+		c.Insert("link_minute")
 	}
 
 }
