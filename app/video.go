@@ -27,9 +27,10 @@ func ProcessVideo(c *router.Context, guid string) {
 				"-ss", fmt.Sprintf("%d", from), "-to",
 				fmt.Sprintf("%d", to),
 				"-c:v", "libx264", "-c:a", "aac",
-				fmt.Sprintf("data/%s_%d_%d", guid, i, j))
-			cmd.CombinedOutput()
+				fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j))
 			fmt.Println(i, j, from, to)
+			cmd.CombinedOutput()
+			//fmt.Println(string(b), err)
 			from += 10
 			to += 10
 		}
