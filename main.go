@@ -35,7 +35,7 @@ func main() {
 	} else if arg == "render" {
 		router.RenderMarkup()
 	} else if arg == "video" {
-		fr = router.NewRouter("DATABASE_URL", embeddedFile)
+		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
 		app.ProcessVideo(c, os.Args[2])
 	} else if arg == "run" {
