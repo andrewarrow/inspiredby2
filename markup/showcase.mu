@@ -64,5 +64,20 @@ div p-0
     div w-1/2
       a href=/frame/migrations
         <img src="https://i.imgur.com/h55A0wQ.png" class="rounded-lg border-2" style="transform: rotate(9deg);"/>
+  div mt-9 w-full text-4xl text-white 
+    div font-allan
+      Part One
+    div text-base font-familjen w-full md:w-1/2
+      The speaker discusses Heart Rate Variability (HRV), a metric measuring oscillatory variability in milliseconds between heartbeats, linking to clinical conditions, wellness, and individual resilience, adaptability, and flexibility.
+  div mt-9 w-full text-4xl text-white 
+    div font-allan
+      Part Two
+    div text-base font-familjen w-full md:w-1/2
+      Researchers found that heart rate variability (HRV) relates to cognitive dexterity, enabling flexible thinking and focus, while higher HRV is correlated with a lower risk of cardiovascular conditions and increased autonomic nervous system flexibility.
+  div mt-9 w-full text-4xl text-white 
+    div font-allan
+      Part Three
+    div text-base font-familjen w-full md:w-1/2
+      Researchers discovered a 0.1 Hz frequency rhythm that awakens the nervous system, treating anxiety, depression, and optimizing athletic performance by controlling heart rate variability through personalized breathing practices.
   div mt-16 mb-16 flex space-x-9 items-start justify-center mx-16
     <iframe width="560" height="315" src="https://www.youtube.com/embed/KU6-BTxQoCA?si=oX8HhdG6lSKJYoRu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
