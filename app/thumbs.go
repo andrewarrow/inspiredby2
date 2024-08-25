@@ -24,6 +24,18 @@ func extractFrameAt(index, seconds int, guid string) {
 	//b, err := cmd.CombinedOutput()
 	//fmt.Println(string(b), err)
 	cmd.CombinedOutput()
+
+	output25 := fmt.Sprintf("data/%s_%d_25percent.jpg", guid, index)
+	cmd = exec.Command("magick", output50, "-resize",
+		"50%",
+		output25)
+	cmd.CombinedOutput()
+
+	output125 := fmt.Sprintf("data/%s_%d_125percent.jpg", guid, index)
+	cmd = exec.Command("magick", output25, "-resize",
+		"50%",
+		output125)
+	cmd.CombinedOutput()
 }
 func ProcessThumbs(c *router.Context, guid string) {
 	extractFrameAt(1, 1, guid)
