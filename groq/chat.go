@@ -20,7 +20,7 @@ func Summarize(text string) string {
 
 	message := map[string]any{}
 	message["role"] = "user"
-	message["content"] = "Summarize in 30 words the following text but do not include anything in your reply other than the summary itself: " + text
+	message["content"] = "Summarize in 30 words the following text but do not include anything in your reply other than the summary itself. Do not say 'here is your 30 word summary' just reply with the summary. Here is the text: " + text
 	messages := []any{message}
 	m := map[string]any{}
 	m["messages"] = messages
