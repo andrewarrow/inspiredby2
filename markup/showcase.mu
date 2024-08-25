@@ -3,33 +3,33 @@ div p-0
   div flex flex-col md:flex-row space-x-9 items-start justify-center
     div w-full md:w-1/2
       a href=/frame/routing 
-        <img src="https://i.imgur.com/tOwwZMf.png" class="rounded-lg border-2" style="transform: rotate(-9deg);"/>
+        <img src="https://i.imgur.com/Dza3fNU.png" class="rounded-lg border-2" style="transform: rotate(-9deg);"/>
     div mt-6 md:mt-0 w-full md:w-1/2 font-allan text-4xl text-white uppercase
       div w-3/4 mt-9
         a href=/frame/routing 
           div text-center bg-white hover:bg-red-600 text-black rounded-lg p-3
-            Ultimate Routing Control!
+            Heart Rate Variability (HRV)
       div w-3/4 mt-9 ml-9
         a href=/frame/sql
           div text-center bg-indigo-200 hover:bg-red-600 text-black rounded-lg p-3
-            Simple SQL that's NOT gorm 
+            Oscillatory variability in milliseconds
       div w-3/4 mt-9 ml-18
         a href=/frame/migrations
           div text-center bg-rose-200 hover:bg-red-600 text-black rounded-lg p-3
-            Effortless Migrations
+            It's a periodic pattern
       div w-3/4 mt-9 ml-9
         a href=/frame/wasm 
           div text-center bg-yellow-200 hover:bg-red-600 text-black rounded-lg p-3
-            Web Assembly WASM!
+            Effectively respond to stressors
   div w-full font-familjen text-4xl mt-16 ml-0 md:ml-9
     div flex flex-col md:flex-row space-x-6
       div
-        img w-64 rounded-md src=https://i.imgur.com/APVoeCW.png
+        img w-64 rounded-md src=https://i.imgur.com/rmvpjcP.png
       div
         div text-white
-          by Andrew Arrow
+          by Chris Williamson & Dr. Leah Lagos
         div text-2xl
-          Principal Software Engineer
+          How To Improve Your Heart Rate Variability
         div flex justify-center py-9 p-3 md:space-x-6 
           a href=https://github.com/andrewarrow/
             div bg-white rounded-full p-3 w-24 h-24 flex items-center justify-center
