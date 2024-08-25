@@ -36,7 +36,7 @@ div p-0
       div text-base font-familjen 
         Dr. Leah Lagos discusses Heart Rate Variability (HRV), a metric measuring oscillatory variability in milliseconds between heartbeats, linking to clinical conditions, wellness, and individual resilience, adaptability, and flexibility.
       div
-        img w-96 rounded-md src=https://i.imgur.com/qp1LJHm.png
+        <video class="z-1 w-[30rem]" autoplay muted loop src="https://i.imgur.com/fA99U7n.mp4"/>
   div mt-6 flex flex-col md:flex-row space-x-9 items-start justify-center
     div w-full md:w-1/2
       div font-allan
