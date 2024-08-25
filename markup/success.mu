@@ -20,3 +20,5 @@ div p-0
           <img src="" id="photo1" class="w-64 rounded-lg"/>
         div 
           <img src="" id="photo2" class="w-64 rounded-lg"/>
+      div id=canvas
+   

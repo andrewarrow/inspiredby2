@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func FormatSeconds(s string) string {
+func FormatSeconds(s string) (string, int) {
 	seconds, _ := strconv.ParseFloat(s, 64)
 	sec := int(seconds)
 
@@ -14,5 +14,5 @@ func FormatSeconds(s string) string {
 	newSeconds := sec % 60
 
 	timecode := fmt.Sprintf("%02d:%02d:%02d", hours, minutes, int(newSeconds))
-	return timecode
+	return timecode, minutes
 }

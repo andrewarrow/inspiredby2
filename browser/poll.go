@@ -23,7 +23,14 @@ func PollForUpdates() {
 			p2.Set("src", "/bucket/"+guid+"_2.jpg")
 			duration := Document.Id("duration")
 			d, _ := m["duration"].(string)
-			duration.Set("innerHTML", FormatSeconds(d))
+			formatted, minutes := FormatSeconds(d)
+			duration.Set("innerHTML", formatted)
+			canvas := Document.Id("canvas")
+			for i := 0; i < minutes; i++ {
+				div := Document.NewTag("div", fmt.Sprintf("index %d", i))
+				canvas.AppendChild(div)
+			}
+
 		}
 
 		time.Sleep(time.Millisecond * 3000)

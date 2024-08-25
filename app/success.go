@@ -15,7 +15,6 @@ func handlePoll(c *router.Context, guid string) {
 	if one["photos_ready"] == "1" {
 		m["photos"] = true
 		m["duration"] = one["duration"]
-		fmt.Println(m)
 	}
 	c.SendContentAsJson(m, 200)
 }
