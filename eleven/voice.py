@@ -11,7 +11,7 @@ client = ElevenLabs(
 
 def text_to_speech_file(text: str) -> str:
     response = client.text_to_speech.convert(
-        voice_id="pNInz6obpgDQGcFmaJgB", # Adam pre-made voice
+        voice_id="repzAAjoKlgcT2oOAIWt",
         output_format="mp3_22050_32",
         text=text,
         model_id="eleven_turbo_v2_5", # use the turbo model for low latency

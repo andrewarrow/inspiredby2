@@ -18,7 +18,7 @@ if response.status_code == 200:
     
     print("Available Voices:")
     for voice in voices:
-        print(f"Name: {voice.get('name')}, ID: {voice.get('id')}")
+        print(f"Name: {voice.get('name')}, ID: {voice.get('voice_id')}")
 else:
     print(f"Failed to fetch voices. Status code: {response.status_code}, Response: {response.text}")
 
