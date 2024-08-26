@@ -7,9 +7,15 @@ div p-0
       div mt-3 bg-yellow-300 rounded-lg p-3 text-black
         Thank you for your payment. (this is just a demo)
       div mt-3 bg-orange-900 rounded-lg p-3 text-white
-        div
+        div id=msg
           We are now downloading your link: {{.item.link}}
         div
           Stay on this page...
       div mt-6
         <progress id="progress" class="progress progress-success" value="0" max="100"></progress>
+      div mt-6 hidden id=thumbs
+        div flex
+          div
+            img w-64 rounded-md src=/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_1_125percent.jpg
+          div
+            img w-64 rounded-md src=/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_2_125percent.jpg

@@ -15,12 +15,31 @@ func PollForDemoUpdates() {
 	time.Sleep(time.Second * 1)
 
 	progress := 0
+	p := Document.Id("progress")
 
 	for {
-		p := Document.Id("progress")
 		p.Set("value", fmt.Sprintf("%d", progress))
 		progress += 10
 		time.Sleep(time.Second * 1)
+
+		if progress > 100 {
+			progress = 0
+			p.Set("value", "0")
+			break
+		}
+	}
+	Document.Id("thumbs").RemoveClass("hidden")
+	msg := Document.Id("msg")
+	msg.Set("innerHTML", "Breaking 55 min video into parts.")
+	for {
+		p.Set("value", fmt.Sprintf("%d", progress))
+		progress += 10
+		time.Sleep(time.Second * 1)
+
+		if progress > 100 {
+			p.Set("value", "0")
+			break
+		}
 	}
 }
 
