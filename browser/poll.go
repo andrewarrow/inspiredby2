@@ -40,6 +40,8 @@ func PollForDemoUpdates() {
 			div := Document.Id(fmt.Sprintf("sub-%d-%d", i, j))
 			div.Set("innerHTML", fmt.Sprintf("&nbsp;&nbsp;section %d - %s",
 				j+1, "done"))
+			m := wasm.DoGetMap(fmt.Sprintf("/core/demo-poll?key=%d_%d", i, j))
+			fmt.Println(m)
 			time.Sleep(time.Second * 1)
 		}
 		progress += 1

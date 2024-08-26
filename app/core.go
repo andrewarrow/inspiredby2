@@ -13,6 +13,10 @@ func Core(c *router.Context, second, third string) {
 		handleDemo(c)
 		return
 	}
+	if second == "demo-poll" && third == "" && c.Method == "GET" {
+		handleDemoPoll(c)
+		return
+	}
 	if second == "about-us" && third == "" && c.Method == "GET" {
 		handleAboutUs(c)
 		return
