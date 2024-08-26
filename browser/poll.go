@@ -11,12 +11,19 @@ import (
 var photos bool
 var sectionMap map[string]bool = map[string]bool{}
 
+var jump = false
+
+func jumpFunc() {
+	jump = true
+}
+
 func PollForDemoUpdates() {
+	Global.Event("jump", jumpFunc)
 	time.Sleep(time.Second * 1)
 
 	progress := 0
 	p := Document.Id("progress")
-	jump := Document.Id("jump")
+	jumpLink := Document.Id("jump")
 
 	for {
 		p.Set("value", fmt.Sprintf("%d", progress))
@@ -32,13 +39,19 @@ func PollForDemoUpdates() {
 	msg := Document.Id("msg")
 	msg.Set("innerHTML", "Breaking 55 min video into parts.")
 
-	jump.RemoveClass("hidden")
+	jumpLink.RemoveClass("hidden")
 	Document.Id("thumbs").RemoveClass("hidden")
 	minutes := 55
 	drawEachMinute(minutes)
 	p.Set("value", "1")
 	for i := 0; i < minutes+1; i++ {
+		if jump {
+			break
+		}
 		for j := 0; j < 6; j++ {
+			if jump {
+				break
+			}
 			div := Document.Id(fmt.Sprintf("sub-%d-%d", i, j))
 			m := wasm.DoGetMap(fmt.Sprintf("/core/demo-poll?key=%d_%d", i, j))
 			stt, _ := m["stt"].(string)
@@ -50,6 +63,10 @@ func PollForDemoUpdates() {
 		p.Set("value", fmt.Sprintf("%d", progress))
 	}
 
+	m := wasm.DoGetMap("/core/demo-poll?key=summaries")
+	canvas := Document.Id("canvas")
+	canvas.Set("innerHTML", fmt.Sprintf("%v", m))
+	msg.Set("innerHTML", "foo.")
 }
 
 func drawEachMinute(minutes int) {
