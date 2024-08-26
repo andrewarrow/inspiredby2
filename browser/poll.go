@@ -65,10 +65,32 @@ func PollForDemoUpdates() {
 
 	m := wasm.DoGetMap("/core/demo-poll?key=summaries")
 	canvas := Document.Id("canvas")
-	canvas.Set("innerHTML", fmt.Sprintf("%v", m))
+	canvas.Set("innerHTML", "")
+	drawEachMinuteNoSubs(minutes)
+	for k, v := range m {
+		div := Document.Id(fmt.Sprintf("sub-%s-summary", k))
+		div.Set("innerHTML", v)
+	}
 	msg.Set("innerHTML", "foo.")
 }
 
+func drawEachMinuteNoSubs(minutes int) {
+	canvas := Document.Id("canvas")
+	for i := 0; i < minutes+1; i++ {
+		inside := `<div>
+<div>
+minute %d
+</div>
+<div id="sub-%d-summary" class="bg-purple-900 rounded-lg p-3">
+</div>
+</div>`
+		div := Document.NewTag("div", fmt.Sprintf(inside, i+1,
+			i))
+		div.Set("id", fmt.Sprintf("minute-%d", i))
+		canvas.AppendChild(div.JValue)
+	}
+	canvas.RemoveClass("hidden")
+}
 func drawEachMinute(minutes int) {
 	canvas := Document.Id("canvas")
 	for i := 0; i < minutes+1; i++ {
