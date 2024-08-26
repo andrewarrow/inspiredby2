@@ -26,7 +26,7 @@ func handleDemoPoll(c *router.Context) {
 }
 
 var summaryLookup = map[string]string{
-	"0":  "HIV did not exist; the speaker discusses HRV (Heart Rate Variability), a metric initially used to predict newborn health, which later linked to various clinical conditions and wellness goals.",
+	"0":  "HRV did not exist; the speaker discusses HRV (Heart Rate Variability), a metric initially used to predict newborn health, which later linked to various clinical conditions and wellness goals.",
 	"1":  "HRV (Heart Rate Variability) measures the oscillatory variability in milliseconds between each heartbeat, a technical definition that aims to understand greater health and resilience.",
 	"2":  "Variations in heart rhythm, known as resonance sinus arrhythmia, must be optimized for resilience, adaptability, and flexibility to effectively respond and acclimate to stressors.",
 	"3":  "HRV measures individual resilience, amplifying factors, and natural gifts, providing insights through calibrated breathing and research, while also addressing the unknown benefits of lower HRV during stress.",
