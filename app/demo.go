@@ -10,7 +10,7 @@ func handleDemo(c *router.Context) {
 	c.SendContentInLayout("demo.html", send, 200)
 }
 
-func handleDemoPoll(c *router.Context, guid string) {
+func handleDemoPoll(c *router.Context) {
 	key := c.Request.URL.Query().Get("key")
 	m := map[string]any{}
 	m["stt"] = lookup[key]
