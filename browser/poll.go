@@ -16,6 +16,7 @@ func PollForDemoUpdates() {
 
 	progress := 0
 	p := Document.Id("progress")
+	jump := Document.Id("jump")
 
 	for {
 		p.Set("value", fmt.Sprintf("%d", progress))
@@ -31,6 +32,7 @@ func PollForDemoUpdates() {
 	msg := Document.Id("msg")
 	msg.Set("innerHTML", "Breaking 55 min video into parts.")
 
+	jump.RemoveClass("hidden")
 	Document.Id("thumbs").RemoveClass("hidden")
 	minutes := 55
 	drawEachMinute(minutes)

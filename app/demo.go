@@ -13,6 +13,10 @@ func handleDemo(c *router.Context) {
 func handleDemoPoll(c *router.Context) {
 	key := c.Request.URL.Query().Get("key")
 	m := map[string]any{}
+	if key == "summaries" {
+		c.SendContentAsJson(summaryLookup, 200)
+		return
+	}
 	s := lookup[key]
 	if len(s) > 36 {
 		s = s[0:36] + "..."
@@ -21,6 +25,63 @@ func handleDemoPoll(c *router.Context) {
 	c.SendContentAsJson(m, 200)
 }
 
+var summaryLookup = map[string]string{
+	"0":  "HIV did not exist; the speaker discusses HRV (Heart Rate Variability), a metric initially used to predict newborn health, which later linked to various clinical conditions and wellness goals.",
+	"1":  "HRV (Heart Rate Variability) measures the oscillatory variability in milliseconds between each heartbeat, a technical definition that aims to understand greater health and resilience.",
+	"2":  "Variations in heart rhythm, known as resonance sinus arrhythmia, must be optimized for resilience, adaptability, and flexibility to effectively respond and acclimate to stressors.",
+	"3":  "HRV measures individual resilience, amplifying factors, and natural gifts, providing insights through calibrated breathing and research, while also addressing the unknown benefits of lower HRV during stress.",
+	"4":  "The Reptilian response mobilizes the body to conserve energy, but in modern times it often persists longer than needed, whereas a high Heart Rate Variability (HRV) would have been essential for reptiles to regain energy.",
+	"5":  "The nervous system, under stress, fragments \"auten IC bandwidth\" to conserve energy, potentially adapting to a dynamic environment by prioritizing specific frequencies or functions over others.",
+	"6":  "Reduced response ability arises from prolonged rumination on stressors, extending stress beyond conscious control; instead, physiological constructs like heart rate variability training may help learn to let go.",
+	"7":  "The range of HRV is influenced by biological factors and underlying conditions, including chronic stress, and it's pointless to compare HRV scores with others, as individual limits and goals vary.",
+	"8":  "Individuals with heightened physiological sensitivity, or \"physiologically gifted\" people, have a natural increased heart rate reactivity to stress, which can be influenced by factors such as caffeine intake or other underlying conditions.",
+	"9":  "Chris discusses variables affecting nerve sensitivity, including sleep, alcohol, exercise, and stress, which can impact HIV, and describes the experiential feel of low heart rate variability (HRV).",
+	"10": "Athletes develop somatic awareness by recognizing when their heart rate (HR) is lower or higher than usual upon waking, as perceived physical sensations and emotional states vary depending on individual HR heart rate variability (HRV).",
+	"11": "The relationship between heart rate variability, autonomic flexibility, and brain function allows for flexible responses to changing needs, adapting to stress rather than simply being calm or relaxed.",
+	"12": "Researchers have studied heart rate variability's impact on cognitive dexterity, discovering a link between oscillations in heart rate and brain function, demonstrating flexible thinking and focus.",
+	"13": "The ability to pause before reacting and consider multiple factors is a key cognitive benefit of heart rate variability, particularly the ability to inhibit impulsive thoughts and emotions.",
+	"14": "HRV impacts cognitive process and autonomic flexibility, with healthier hearts typically having higher HRV, which is correlated with a lower risk of cardiovascular conditions.",
+	"15": "The speaker wants a heart to have large and abundant oscillations, essentially desiring its vital functions to operate with great flexibility and movement.",
+	"16": "HRV has two distinct pathways: short-term hacking for immediate results vs. long-term training for improved autonomic nervous system flexibility, leading to flexible responses to life's demands.",
+	"17": "Optimizing the nervous system through resonant frequency breathing can increase baroreflex gain and precision in sensing and responding to stimuli, transforming one into a more agile and responsive system.",
+	"18": "The text describes how expanding energy and strengthening the parasympathetic nervous system allows for quicker relaxation and calmness in response to stressors, enabling more effective management of daily stressors like email overload.",
+	"19": "The nervous system becomes more precise as you process emails, reducing stress and allowing for increased flexibility, agility, and adaptability with HRV training and wearable calibration.",
+	"20": "Understanding individual responses to variables requires personalized tracking and calibration to identify what works for each person, as variables affect people differently.",
+	"21": "Researchers at UMDNJ discovered residents sinus arrhythmia, a 0.1 Hertz frequency that awakens the entire nervous system, engaging brain-heart-digestive tract pathways, strengthening homeostatic regulatory mechanisms.",
+	"22": "The text discusses using a technique to treat various health conditions, including anxiety and depression, and its application in optimizing athletic performance by gaining control over anxiety and heart rate oscillations.",
+	"23": "Maximizing baseline heart rate variability through 15-minute daily practices for 4 weeks, followed by stress management protocol to oscillate between sympathetic and parasympathetic states.",
+	"24": "The individual is trained to enter a parasympathetic state to improve focus and learning, tailored to their specific needs through modulation of physiological states and behavior.",
+	"25": "Practice specific breathing paces (15min morning and evening, 4 weeks to dial in rate) can amplify or worsen heart rate variability, with initial sessions focusing on identifying resonant frequency (5-6.5 breaths per minute) and abdominal breathing.",
+	"26": "The Pacer app helps optimize oxygen and blood flow to the brain's prefrontal lobe, enhancing cognitive abilities by synchronizing breathing with a visual cue, such as a rising and falling line on a screen.",
+	"27": "Watching the Pacer for 15 minutes twice a day can affect cognitive impact, but it takes unknown time to alter breath rate, which requires 30 minutes of training to reprogram.",
+	"28": "The protocol focuses on training the heart to resonate at a specific frequency, which becomes the new baseline, and breath training begins after 7-8 weeks, aiming to maintain gains after completing the 10-12 week program.",
+	"29": "Regular breathing exercises, like calf raises, can help develop mental clarity, and while frequency varies among individuals, it's recommended to maintain breathing exercises at least 3-4 times a week for 15 minutes.",
+	"30": "Clients learn to titrate deep breathing for 15 minutes twice a day based on their needs, adapting throughout the day to manage anxiety and maintain overall well-being.",
+	"31": "Practicing the Power 5 technique involves focusing on breathing, inhaling fresh air and exhaling fear/anxiety to reset, with potential applications in parenthood and stress management.",
+	"32": "Professional athletes often struggle with racing minds, using techniques like breathing and counting to clear their minds and return to a baseline state.",
+	"33": "Counting while breath-counting during meditation is challenging due to the same brain area being used, causing loss of focus and account keeping, making it difficult to maintain attention.",
+	"34": "For some, Power 5 is used to manage anxiety or fast heart rate, while others use it as a daily reminder to remain centered, pairing it with habitual activities like eating or taking moments to breathe.",
+	"35": "Research shows nasal breathing can positively impact HRV, and a facial strategy of inhaling through the nose and exhaling through the mouth can optimize HRV training.",
+	"36": "North maximizes HRV, but often inhaling/exhaling through nose leads to increased HIV risk, and each individual's nervous system requires nuanced approaches to achieve optimal breathing.",
+	"37": "Nasal breathing produces greater HRV gains than nasal inhale/mouth exhale, also enhances peak expiratory flow, and may contribute to increased endurance without changes in training.",
+	"38": "The HRV training process helps individuals, regardless of their profession or skill level, maximize their potential by reducing performance anxiety and consistently staying at their maximum talent and ability.",
+	"39": "The speaker asks about the relative effect of increasing VO2 max through fitness training versus resonant breathing practices, noting that while both work well together, only resonant breathing can develop a reflex to unconsciously modulate stress.",
+	"40": "The effectiveness of low-intensity training vs. VO2 max training for improving heart rate variability and cardiovascular fitness is debated, with research suggesting benefits for both approaches.",
+	"41": "The speaker advises physical training integration for specific outcomes, collaborating with athletic trainers to analyze data, and has observed reliable improvements in performance from certain protocols.",
+	"42": "The speaker discusses how measuring HRV can be insightful, notes improvements in HRV due to acupuncture, and shares examples of unexpected benefits from energy healing on actors' heart rate variability.",
+	"43": "People access their parasympathetic state more easily with supplements, such as Lima, which has antioxidant and anti-anxiety effects, and may improve sleep, according to anecdotal reports and measured improvements in clients.",
+	"44": "Researchers use heart rate variability (HRV) to measure the effectiveness of interventions on the autonomic nervous system, noting that nocturnal HRV is a reliable method due to minimal movement and variables at night.",
+	"45": "Wearable data may be skewed by various stressors or behaviors, and even unusual results can lead to understanding with proper collection and analysis.",
+	"46": "Wearables' HRV readings can be skewed by sleeping position and wakefulness, making continuous monitoring challenging, with a potential solution being a device that takes a snapshot upon waking.",
+	"47": "The speaker recommends Polar straps for heart rate variability measurement, citing their scientific reliability, ease of use, and ability to track HRV in real-time and during sleep, with optional phone app downloads.",
+	"48": "Practicing sounds, such as sound baths, can increase heart rate variability and induce an ideal performance state, while also activating the parasympathetic nervous system.",
+	"49": "Understand and measure individual responses to amplify or detract from elite selves, align with goals, and prioritize calibration of autonomic nervous system, especially heart rate variability (HRV), before implementing interventions.",
+	"50": "Training HRV with resonant frequency for 10-12 weeks, 15 minutes twice a day, optimizes heart rate variability and modulatory mechanisms, but may not work for everyone, including those who don't commit to the full program.",
+	"51": "HRV training requires detective work to understand why someone isn't responding, often revealing physiological stress, overtraining, or lack of recovery, which can be addressed and resolved for effective training.",
+	"52": "Common errors in breathing include frequency and rate misalignment, and excessive pressure and perfectionism can compromise the effectiveness of breathing exercises.",
+	"53": "Trying to rewire the nervous system to be safe and flexible, which can enhance decision-making, despite potential top-down interference, especially in PTSD patients, but persistence is key.",
+	"54": "Pairing a safe feeling with a memory can help access physiological imprints, even in times of stress, by connecting to a sense of safety and letting go of the rest of the world.",
+}
 var lookup = map[string]string{
 	"0_0":  "what's the history of HIV who who discovered it  no it's really interesting it originated  being a metric that  doctors looked at before babies were born",
 	"0_1":  "to predict the Vitality of the of the unborn baby that they would be healthy upon birth  and then in time doctors began using it as a metric,",
