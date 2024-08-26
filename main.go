@@ -52,6 +52,8 @@ across the street I can this isn't this isn't associated with relaxation or just
 and resilience in the last 10 to 15 years uh myself and several other researchers have focused on heart rate variabilities impact.`
 		s := groq.Summarize(textToSummarize)
 		fmt.Println(s)
+	} else if arg == "fix" {
+		app.ProcessVideoFix()
 	} else if arg == "thumb" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
