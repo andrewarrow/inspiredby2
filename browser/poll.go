@@ -20,7 +20,9 @@ func jumpFunc() {
 	summaries := Document.Id("summaries")
 	summaries.RemoveClass("hidden")
 	msg := Document.Id("msg")
-	msg.Set("innerHTML", "foo.")
+	msg.Set("innerHTML", "Select your 9 favorite minutes.")
+	jumpLink := Document.Id("jump")
+	jumpLink.AddClass("hidden")
 }
 
 func PollForDemoUpdates() {
