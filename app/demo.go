@@ -13,7 +13,11 @@ func handleDemo(c *router.Context) {
 func handleDemoPoll(c *router.Context) {
 	key := c.Request.URL.Query().Get("key")
 	m := map[string]any{}
-	m["stt"] = lookup[key]
+	s := lookup[key]
+	if len(s) > 18 {
+		s = s[0:18] + "..."
+	}
+	m["stt"] = s
 	c.SendContentAsJson(m, 200)
 }
 
