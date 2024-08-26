@@ -12,6 +12,7 @@ func handleDemo(c *router.Context) {
 	send := map[string]any{}
 	send["item"] = link
 	send["summaries"] = summaryLookup
+	send["thirds"] = summaryThirdsLookup
 	count := []string{}
 	for i := 0; i < 55; i++ {
 		count = append(count, fmt.Sprintf("%d", i))
@@ -33,6 +34,12 @@ func handleDemoPoll(c *router.Context) {
 	}
 	m["stt"] = s
 	c.SendContentAsJson(m, 200)
+}
+
+var summaryThirdsLookup = map[string]string{
+	"first":  "The speaker discusses Heart Rate Variability (HRV), a metric measuring oscillatory variability in milliseconds between heartbeats, linking to clinical conditions, wellness, and individual resilience, adaptability, and flexibility.",
+	"second": "Researchers found that heart rate variability (HRV) relates to cognitive dexterity, enabling flexible thinking and focus, while higher HRV is correlated with a lower risk of cardiovascular conditions and increased autonomic nervous system flexibility.",
+	"third":  "Researchers discovered a 0.1 Hz frequency rhythm that awakens the nervous system, treating anxiety, depression, and optimizing athletic performance by controlling heart rate variability through personalized breathing practices.",
 }
 
 var summaryLookup = map[string]string{

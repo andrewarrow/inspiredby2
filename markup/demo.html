@@ -26,6 +26,21 @@ div p-0
       div mt-6 bt-32 id=canvas font-mono hidden
       div mt-6 bt-32 id=summaries hidden
         {{ $summaries := .summaries }}
+        div
+          div text-white
+            beginning
+          div pb-3
+            {{ index .thirds "first" }}
+        div
+          div text-white
+            middle
+          div pb-3
+            {{ index .thirds "second" }}
+        div
+          div text-white
+            end
+          div pb-3
+            {{ index .thirds "third" }}
         {{ range $i, $item := .count }}
           div text-white
             minute {{add $i 1}}
