@@ -10,11 +10,14 @@ div p-0
         div id=msg
           We are now downloading your link: {{.item.link}}
         div space-x-3
-          span
+          span id=stay
             Stay on this page... 
           span text-sm hidden id=jump
             a href=/ link
               Jump to next part (demo only)
+          span text-sm hidden id=generate
+            a href=/ btn btn-primary
+              Generate Video
       div mt-6
         <progress id="progress" class="progress progress-success" value="0" max="100"></progress>
       div mt-6 hidden id=thumbs
@@ -31,7 +34,7 @@ div p-0
             beginning
           div pb-3
             {{ index .thirds "first" }}
-        div
+        div 
           div text-white
             middle
           div pb-3
@@ -42,8 +45,9 @@ div p-0
           div pb-3
             {{ index .thirds "third" }}
         {{ range $i, $item := .count }}
-          div text-white
-            minute {{add $i 1}}
-          div pb-3
-            {{ index $summaries $item }}
+          div
+            div text-white
+              minute {{add $i 1}}
+            div pb-3
+              {{ index $summaries $item }}
         {{ end }}

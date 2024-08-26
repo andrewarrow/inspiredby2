@@ -23,6 +23,7 @@ func jumpFunc() {
 	msg.Set("innerHTML", "Select your 9 favorite minutes.")
 	jumpLink := Document.Id("jump")
 	jumpLink.AddClass("hidden")
+	Document.Id("generate").RemoveClass("hidden")
 }
 
 func PollForDemoUpdates() {
