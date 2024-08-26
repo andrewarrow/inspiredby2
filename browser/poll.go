@@ -20,7 +20,7 @@ func PollForDemoUpdates() {
 	for {
 		p.Set("value", fmt.Sprintf("%d", progress))
 		progress += 10
-		time.Sleep(time.Second * 1)
+		time.Sleep(time.Millisecond * 1)
 
 		if progress > 100 {
 			progress = 0

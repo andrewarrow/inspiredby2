@@ -14,8 +14,8 @@ func handleDemoPoll(c *router.Context) {
 	key := c.Request.URL.Query().Get("key")
 	m := map[string]any{}
 	s := lookup[key]
-	if len(s) > 18 {
-		s = s[0:18] + "..."
+	if len(s) > 36 {
+		s = s[0:36] + "..."
 	}
 	m["stt"] = s
 	c.SendContentAsJson(m, 200)
