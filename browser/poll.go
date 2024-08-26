@@ -15,6 +15,12 @@ var jump = false
 
 func jumpFunc() {
 	jump = true
+	canvas := Document.Id("canvas")
+	canvas.Set("innerHTML", "")
+	summaries := Document.Id("summaries")
+	summaries.RemoveClass("hidden")
+	msg := Document.Id("msg")
+	msg.Set("innerHTML", "foo.")
 }
 
 func PollForDemoUpdates() {
@@ -63,11 +69,6 @@ func PollForDemoUpdates() {
 		p.Set("value", fmt.Sprintf("%d", progress))
 	}
 
-	canvas := Document.Id("canvas")
-	canvas.Set("innerHTML", "")
-	summaries := Document.Id("summaries")
-	summaries.RemoveClass("hidden")
-	msg.Set("innerHTML", "foo.")
 }
 
 func drawEachMinuteNoSubs(minutes int) {
