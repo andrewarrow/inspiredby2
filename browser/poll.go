@@ -28,20 +28,24 @@ func PollForDemoUpdates() {
 			break
 		}
 	}
-	Document.Id("thumbs").RemoveClass("hidden")
-	drawEachMinute(55)
 	msg := Document.Id("msg")
 	msg.Set("innerHTML", "Breaking 55 min video into parts.")
-	for {
-		p.Set("value", fmt.Sprintf("%d", progress))
-		progress += 10
-		time.Sleep(time.Second * 1)
 
-		if progress > 100 {
-			p.Set("value", "0")
-			break
+	Document.Id("thumbs").RemoveClass("hidden")
+	minutes := 55
+	drawEachMinute(minutes)
+	p.Set("value", "1")
+	for i := 0; i < minutes+1; i++ {
+		for j := 0; j < 6; j++ {
+			div := Document.Id(fmt.Sprintf("sub-%d-%d", i, j))
+			div.Set("innerHTML", fmt.Sprintf("&nbsp;&nbsp;section %d - %s",
+				j+1, "done"))
+			time.Sleep(time.Second * 1)
 		}
+		progress += 1
+		p.Set("value", fmt.Sprintf("%d", progress))
 	}
+
 }
 
 func drawEachMinute(minutes int) {
