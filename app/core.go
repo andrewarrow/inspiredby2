@@ -9,6 +9,10 @@ func Core(c *router.Context, second, third string) {
 		handleStart(c)
 		return
 	}
+	if second == "demo" && third == "" && c.Method == "GET" {
+		handleDemo(c)
+		return
+	}
 	if second == "about-us" && third == "" && c.Method == "GET" {
 		handleAboutUs(c)
 		return
