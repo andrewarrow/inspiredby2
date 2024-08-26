@@ -6,15 +6,20 @@ div p-0
         Welcome to InspiredBy2
       div mt-3
         You give us a youtube link and $6 USD and we turn it into the
-        ultimate summary page with a link you can send to a busy person.
+        ultimate summary video.
       div mt-3 bg-red-900 rounded-lg p-3
-        There are lots of ways to pick which parts of the video are most important that should have a big part in the exec summary you are making. 
-        Having to select the exact time codes in the video doesn't work very well.
-        Instead we use AI to find some good candidates and then let you click
-        next, next, next until you agree the AI found the perfect 1 min clip.
+        We download the entire video. (Max length is 2 hours.)
+        We break it into N segments one for each minute.
+        Within each minute we break that into six, ten second files.
+        We create summaries for each minute, and then summaries for the
+        entire first third, middle third, and final third. i.e. the begining, 
+        middle and end.
       div mt-3 bg-purple-900 rounded-lg p-3
-        But that's just the start, we do a lot more to, see demo. Or pony up
-        six dollars and just go for it.
+        span
+          To see what the process looks like, see
+        span
+          a href=/core/demo link
+            our demo.
       div mt-3
         form id=welcome-form
           div
