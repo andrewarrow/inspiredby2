@@ -1,12 +1,22 @@
 package app
 
-import "github.com/andrewarrow/feedback/router"
+import (
+	"fmt"
+
+	"github.com/andrewarrow/feedback/router"
+)
 
 func handleDemo(c *router.Context) {
 	link := map[string]any{}
 	link["link"] = "https://youtu.be/wh_M25S2xUw"
 	send := map[string]any{}
 	send["item"] = link
+	send["summaries"] = summaryLookup
+	count := []string{}
+	for i := 0; i < 56; i++ {
+		count = append(count, fmt.Sprintf("%d", i))
+	}
+	send["count"] = count
 	c.SendContentInLayout("demo.html", send, 200)
 }
 
