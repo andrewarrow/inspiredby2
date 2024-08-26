@@ -11,6 +11,19 @@ import (
 var photos bool
 var sectionMap map[string]bool = map[string]bool{}
 
+func PollForDemoUpdates() {
+	time.Sleep(time.Second * 1)
+
+	progress := 0
+
+	for {
+		p := Document.Id("progress")
+		p.Set("value", fmt.Sprintf("%d", progress))
+		progress += 10
+		time.Sleep(time.Second * 1)
+	}
+}
+
 func PollForUpdates() {
 	guid := Document.Id("guid").Get("innerHTML")
 	guid = strings.TrimSpace(guid)
