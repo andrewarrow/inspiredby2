@@ -27,5 +27,7 @@ div p-0
       div mt-6 bt-32 id=summaries hidden2
         {{ range $i, $item := .count }}
           div
-            {{$i}}
+            minute {{add $i 1}}
+          div
+            {{index .summaries $item}}
         {{ end }}
