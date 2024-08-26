@@ -25,9 +25,10 @@ div p-0
             img w-64 rounded-md src=/bucket/cd0bc6a1-a7aa-0b7d-d318-601f22783be8_2_125percent.jpg
       div mt-6 bt-32 id=canvas font-mono hidden
       div mt-6 bt-32 id=summaries hidden2
+        {{ $summaries := .summaries }}
         {{ range $i, $item := .count }}
-          div
+          div text-white
             minute {{add $i 1}}
-          div
-            {{index .summaries $item}}
+          div pb-3
+            {{ index $summaries $item }}
         {{ end }}

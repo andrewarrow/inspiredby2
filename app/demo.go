@@ -13,7 +13,7 @@ func handleDemo(c *router.Context) {
 	send["item"] = link
 	send["summaries"] = summaryLookup
 	count := []string{}
-	for i := 0; i < 56; i++ {
+	for i := 0; i < 55; i++ {
 		count = append(count, fmt.Sprintf("%d", i))
 	}
 	send["count"] = count
