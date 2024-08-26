@@ -65,12 +65,8 @@ func PollForDemoUpdates() {
 
 	canvas := Document.Id("canvas")
 	canvas.Set("innerHTML", "")
-	m := wasm.DoGetMap("/core/demo-poll?key=summaries")
-	drawEachMinuteNoSubs(minutes)
-	for k, v := range m {
-		div := Document.Id(fmt.Sprintf("sub-%s-summary", k))
-		div.Set("innerHTML", v)
-	}
+	summaries := Document.Id("summaries")
+	summaries.RemoveClass("hidden")
 	msg.Set("innerHTML", "foo.")
 }
 
