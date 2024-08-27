@@ -45,7 +45,7 @@ data = (
     b'-----------------------------266926460920144731353527800262--\r\n'
 )
 
-response = requests.post(url, headers=headers, data=data)
+response = requests.post(url, headers=headers, data=data, verify=False)
 
 print(response.text)
 
