@@ -6,6 +6,7 @@ import (
 	"inspiredby2/app"
 	"inspiredby2/google"
 	"inspiredby2/groq"
+	"inspiredby2/video"
 	"math/rand"
 	"os"
 	"time"
@@ -55,7 +56,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "fix" {
 		app.ProcessVideoFix()
 	} else if arg == "remove_bottom" {
-		video.RemoveBotton(os.Args[2])
+		video.RemoveBottom(os.Args[2])
 	} else if arg == "thumb" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
