@@ -36,6 +36,7 @@ data = (
     b'Content-Disposition: form-data; name="promptText"\r\n\r\n' + txt.encode('utf-8') + b'\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="video"\r\n\r\n' + image.encode('utf-8') + b'\r\n'
+    b'-----------------------------22873565889877403161123272127\r\nContent-Disposition: form-data; name="sfx"\r\n\r\ntrue\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="options"\r\n\r\n{"frameRate":24,"parameters":{"guidanceScale":12,"motion":1},"camera":{"zoom":null,"pan":null,"tilt":null,"rotate":null},"extend":true}\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
