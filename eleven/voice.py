@@ -11,10 +11,7 @@ client = ElevenLabs(
 
 def text_to_speech_file(text: str) -> str:
     response = client.text_to_speech.convert(
-        #voice_id="repzAAjoKlgcT2oOAIWt",
-        #voice_id="XjLkpWUlnhS8i7gGz3lZ", # tiggy
-        #voice_id="TX3LPaxmHKxFdv7VOQHJ",
-        voice_id="Xb7hH8MSUJpSbSDYk0k2", #female
+        voice_id="XjLkpWUlnhS8i7gGz3lZ", # tiggy
         output_format="mp3_22050_32",
         text=text,
         model_id="eleven_turbo_v2_5", # use the turbo model for low latency
@@ -41,4 +38,5 @@ def text_to_speech_file(text: str) -> str:
     return save_file_path
 
 
-text_to_speech_file("Please find me Tiggy! You know where I am. Follow what you know to be true and you will find me there.")
+text_to_speech_file("<speak>You can re-write your nervous system. That's right, maybe you don't like when your nervous system is stressed. Dr Leah Lagos and Chris Williamson discus how to break free from your default reptillian brain programming. And go from this <break time=\"1.5s\" />  to this.</speak>")
+
