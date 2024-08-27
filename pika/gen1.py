@@ -2,6 +2,8 @@ import requests
 import os
 import uuid
 import sys
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 txt = sys.argv[1]
 image = sys.argv[2]
@@ -34,8 +36,6 @@ data = (
     b'Content-Disposition: form-data; name="styleId"\r\n\r\n\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="promptText"\r\n\r\n' + txt.encode('utf-8') + b'\r\n'
-    b'-----------------------------266926460920144731353527800262\r\n'
-    b'Content-Disposition: form-data; name="sfx"\r\n\r\ntrue\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="video"\r\n\r\n' + image.encode('utf-8') + b'\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'

@@ -2,6 +2,8 @@ import requests
 import os
 import uuid
 import sys
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 txt = sys.argv[1]
 PIKA = os.getenv("PIKA")
@@ -35,7 +37,7 @@ data = (
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="sfx"\r\n\r\ntrue\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
-    b'Content-Disposition: form-data; name="options"\r\n\r\n{"frameRate":24,"parameters":{"guidanceScale":12,"motion":1},"camera":{"zoom":null,"pan":null,"tilt":null,"rotate":null},"extend":false}\r\n'
+    b'Content-Disposition: form-data; name="options"\r\n\r\n{"frameRate":24,"parameters":{"guidanceScale":25,"motion":4},"camera":{"zoom":null,"pan":null,"tilt":null,"rotate":null},"extend":false}\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="userId"\r\n\r\n8d46d0a2-7e9a-46d8-9796-f0458ccb4171\r\n'
     b'-----------------------------266926460920144731353527800262--\r\n'
