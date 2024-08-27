@@ -31,7 +31,7 @@ data = (
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="styleId"\r\n\r\n\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
-    b'Content-Disposition: form-data; name="promptText"\r\n\r\n{}\r\n'.format(txt)
+    b'Content-Disposition: form-data; name="promptText"\r\n\r\n' + txt.encode('utf-8') + b'\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="options"\r\n\r\n{"frameRate":24,"parameters":{"guidanceScale":12,"motion":1},"camera":{"zoom":null,"pan":null,"tilt":null,"rotate":null},"extend":false}\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
