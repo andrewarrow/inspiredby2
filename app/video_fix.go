@@ -6,8 +6,7 @@ import (
 )
 
 func ProcessVideoFix() {
-	//for i := 0; i < 335; i++ {
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 335; i++ {
 		output := fmt.Sprintf("data2/%06d.mov", i)
 		cmd := exec.Command("ffmpeg",
 			"-i", fmt.Sprintf("data2/%06d.mp4", i),

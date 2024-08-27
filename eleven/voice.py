@@ -11,7 +11,10 @@ client = ElevenLabs(
 
 def text_to_speech_file(text: str) -> str:
     response = client.text_to_speech.convert(
-        voice_id="repzAAjoKlgcT2oOAIWt",
+        #voice_id="repzAAjoKlgcT2oOAIWt",
+        #voice_id="XjLkpWUlnhS8i7gGz3lZ", # tiggy
+        #voice_id="TX3LPaxmHKxFdv7VOQHJ",
+        voice_id="Xb7hH8MSUJpSbSDYk0k2", #female
         output_format="mp3_22050_32",
         text=text,
         model_id="eleven_turbo_v2_5", # use the turbo model for low latency
@@ -26,7 +29,7 @@ def text_to_speech_file(text: str) -> str:
     # uncomment the line below to play the audio back
     # play(response)
 
-    save_file_path = f"{uuid.uuid4()}.mp3"
+    save_file_path = f"third.mp3"
 
     with open(save_file_path, "wb") as f:
         for chunk in response:
@@ -38,4 +41,4 @@ def text_to_speech_file(text: str) -> str:
     return save_file_path
 
 
-text_to_speech_file("Researchers found that heart rate variability (HRV) relates to cognitive dexterity, enabling flexible thinking and focus, while higher HRV is correlated with a lower risk of cardiovascular conditions and increased autonomic nervous system flexibility.")
+text_to_speech_file("Please find me Tiggy! You know where I am. Follow what you know to be true and you will find me there.")
