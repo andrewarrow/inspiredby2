@@ -1,6 +1,10 @@
 import requests
 import os
 import uuid
+import sys
+
+txt = sys.argv[1]
+image = sys.argv[2]
 
 PIKA = os.getenv("PIKA")
 
@@ -29,9 +33,9 @@ data = (
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="styleId"\r\n\r\n\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
-    b'Content-Disposition: form-data; name="promptText"\r\n\r\nenter a parasympathetic state\r\n'
+    b'Content-Disposition: form-data; name="promptText"\r\n\r\n' + txt.encode('utf-8') + b'\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
-    b'Content-Disposition: form-data; name="video"\r\n\r\nhttps://cdn.pika.art/v1/b6c7af4e-1f60-4971-b36f-2b54664f4972/collaborating_with_athletic_trainers_to_analyze_data_seed953383702472775.mp4\r\n'
+    b'Content-Disposition: form-data; name="video"\r\n\r\n' + image.encode('utf-8') + b'\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
     b'Content-Disposition: form-data; name="options"\r\n\r\n{"frameRate":24,"parameters":{"guidanceScale":12,"motion":1},"camera":{"zoom":null,"pan":null,"tilt":null,"rotate":null},"extend":true}\r\n'
     b'-----------------------------266926460920144731353527800262\r\n'
