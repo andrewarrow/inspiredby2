@@ -9,7 +9,7 @@ func RemoveBottom(id string) {
 	output := id + "_remove_bottom.mp4"
 	cmd := exec.Command("ffmpeg",
 		"-i", id,
-		"-vf", "crop=in_w:in_h-110:0:0", "-c:a", "copy",
+		"-vf", "crop=in_w:in_h-51:0:0", "-c:a", "copy",
 		"-y",
 		output)
 	cmd.CombinedOutput()
