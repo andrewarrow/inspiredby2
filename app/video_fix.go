@@ -6,6 +6,19 @@ import (
 )
 
 func ProcessVideoFix() {
+	//for i := 0; i < 335; i++ {
+	for i := 0; i < 1; i++ {
+		output := fmt.Sprintf("data2/%06d.mov", i)
+		cmd := exec.Command("ffmpeg",
+			"-i", fmt.Sprintf("data2/%06d.mp4", i),
+			"-y",
+			output)
+		fmt.Println(i)
+		cmd.CombinedOutput()
+	}
+}
+
+func Foo() {
 	guid := "cd0bc6a1-a7aa-0b7d-d318-601f22783be8"
 
 	//ffmpeg -i input.mp4 -c copy -f segment -segment_time 10 -reset_timestamps 1 output_%06d.mp4
