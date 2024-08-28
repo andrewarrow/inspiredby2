@@ -25,6 +25,9 @@ func FindPrompts() {
 			for _, sub := range item {
 				buffer = append(buffer, sub)
 			}
+			if len(buffer) < 3 {
+				continue
+			}
 			m[strings.Join(buffer, " ")] = k
 		}
 
