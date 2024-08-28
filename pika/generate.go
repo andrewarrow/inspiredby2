@@ -12,7 +12,7 @@ import (
 func Generate(text string) string {
 	url := fmt.Sprintf("https://api.pika.art/generate")
 
-	message := map[string]any{}
+	m := map[string]any{}
 	b, _ := json.Marshal(m)
 
 	client := &http.Client{}
