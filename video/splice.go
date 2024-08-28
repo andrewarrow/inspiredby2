@@ -50,6 +50,7 @@ func Splice(dir string) {
 
 func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
 	//ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -map 0:v -map 1:a output.mp4
+
 	output := dir + "/foo/" + name + "_opening3.mp4"
 	cmd := exec.Command("ffmpeg",
 		"-i", "/Users/aa/os/inspiredby2/data4/"+rightPika,
@@ -71,11 +72,13 @@ func combineToMakeGoodFile(dir, name string) {
 }
 
 // ffmpeg -i 000001.mp4 -t 3 -vn -acodec copy output.m4a
+// ffmpeg -i 000001.mp4 -t 3 -vn -acodec aac output.m4a
+
 func makeAudioFromSmall(dir, path, name string) {
 	output := dir + "/" + name + ".m4a"
 	cmd := exec.Command("ffmpeg",
 		"-i", path,
-		"-t", "3", "-vn", "-acodec", "copy",
+		"-t", "3", "-vn", "-acodec", "aac",
 		"-y",
 		output)
 	cmd.CombinedOutput()
@@ -87,13 +90,15 @@ func makeAudioFromSmall(dir, path, name string) {
 // ffmpeg -i input_video.mp4 -t 3 -q:a 0 -map a output_audio.mp3
 
 // ffmpeg -ss 00:00:03 -i input.mp4 -c copy output.mp4
+// ffmpeg -ss 00:00:03 -i input.mp4 -c:v libx264 -c:a aac output.mp4
 
 func removeFirstThreeSeconds(dir, path, name string) {
 	output := dir + "/" + name + "_without_first3.mp4"
 	cmd := exec.Command("ffmpeg",
 		"-ss", "00:00:03",
 		"-i", path,
-		"-c", "copy",
+		"-c:v", "libx264",
+		"-c:a", "aac",
 		"-y",
 		output)
 	//b, err := cmd.CombinedOutput()
