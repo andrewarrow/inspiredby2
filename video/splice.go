@@ -38,7 +38,7 @@ func Splice(dir string) {
 				rightPika := findRightPika()
 				d2, _ := GetVideoDuration("data4/" + rightPika)
 
-				fmt.Println(num, numInt, d1, d2)
+				fmt.Println(num, numInt, d1, d2, rightPika)
 				makeAudioFromSmall(dir, videoPath, num)
 				removeFirstThreeSeconds(dir, videoPath, num)
 				mergePikeFileAnd3SecAudio(dir, num, rightPika)
@@ -50,17 +50,23 @@ func Splice(dir string) {
 
 func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
 	//ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -map 0:v -map 1:a output.mp4
+	//ffmpeg -i video.mp4 -i audio.mp3 -filter_complex "[0:a][1:a]amix=inputs=2:duration=first:dropout_transition=3[aout]" -map 0:v -map "[aout]" -c:v copy -c:a aac output.mp4
 
 	output := dir + "/foo/" + name + "_opening3.mp4"
 	cmd := exec.Command("ffmpeg",
 		"-i", "/Users/aa/os/inspiredby2/data4/"+rightPika,
 		"-i", dir+"/"+name+".m4a",
+		"-filter_complex",
+		"[0:a][1:a]amix=inputs=2:duration=first:dropout_transition=3[aout]",
+		"-map", "0:v", "-map", "[aout]",
 		"-c:v",
-		"copy", "-c:a", "aac", "-map", "0:v", "-map", "1:a",
+		"copy", "-c:a", "aac",
 		"-y",
 		output)
-	cmd.CombinedOutput()
-	//b, err := cmd.CombinedOutput()
+	//cmd.CombinedOutput()
+	//fmt.Println(string(b), err)
+	b, err := cmd.CombinedOutput()
+	fmt.Println(string(b), err)
 
 }
 
