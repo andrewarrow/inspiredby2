@@ -3,6 +3,7 @@ package video
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -26,19 +27,79 @@ func Splice(dir string) {
 			num := tokens[0]
 			numInt, _ := strconv.Atoi(num)
 			if numInt%2 == 0 && numInt > 0 {
-				d, _ := GetVideoDuration(videoPath)
-				fmt.Println(num, numInt, d)
-				makeAudioFromSmall(dir, videoPath, name)
+				d1, _ := GetVideoDuration(videoPath)
+				rightPike := findRightPike()
+				d2, _ := GetVideoDuration("data4/" + rightPike)
+
+				fmt.Println(num, numInt, d1, d2)
+				makeAudioFromSmall(dir, videoPath, num)
+				removeFirstThreeSeconds(dir, videoPath, num)
+				combineToMakeGoodFile(dir, num)
 			}
 		}
 	}
+}
+
+// ffmpeg -i file1.mp4 -i file2.mp3 -filter_complex "[0:a][1:a]amix=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k file3.mp4
+func combineToMakeGoodFile(dir, name string) {
+	output := dir + "/" + name + "_good.mp4"
+	cmd := exec.Command("ffmpeg",
+		"-i", dir+"/"+name+"_without_first3.mp4",
+		"-i", dir+"/"+name+".mp3",
+		"-filter_complex",
+		"[0:a][1:a]amix=inputs=2[a]",
+		"-map", "0:v",
+		"-map", "[a]",
+		"-c:v",
+		"copy", "-c:a", "aac", "-b:a", "192k",
+		"-y",
+		output)
+	cmd.CombinedOutput()
 }
 
 func makeAudioFromSmall(dir, path, name string) {
 	output := dir + "/" + name + ".mp3"
 	cmd := exec.Command("ffmpeg",
 		"-i", path,
+		"-t", "3", "-q:a 0", "-map", "a",
 		"-y",
 		output)
 	cmd.CombinedOutput()
+}
+
+// ffmpeg -i input_video.mp4 -ss 0 -t 3 -q:a 0 -map a output_audio.mp3
+// ffmpeg -i input_video.mp4 -t 3 -q:a 0 -map a output_audio.mp3
+
+// ffmpeg -ss 00:00:03 -i input.mp4 -c copy output.mp4
+
+func removeFirstThreeSeconds(dir, path, name string) {
+	output := dir + "/" + name + "_without_first3.mp4"
+	cmd := exec.Command("ffmpeg",
+		"-ss 00:00:03",
+		"-i", path,
+		"-c", "copy",
+		"-y",
+		output)
+	cmd.CombinedOutput()
+}
+
+func findRightPike() string {
+	dir := "data4"
+	files, err := ioutil.ReadDir(dir)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	items := []string{}
+	for _, file := range files {
+		if !file.IsDir() {
+			if file.Name() == ".DS_Store" {
+				continue
+			}
+			name := file.Name()
+			items = append(items, name)
+		}
+	}
+
+	return items[rand.Intn(len(items))]
 }
