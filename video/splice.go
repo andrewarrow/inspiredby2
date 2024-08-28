@@ -42,7 +42,7 @@ func Splice(dir string) {
 				makeAudioFromSmall(dir, videoPath, num)
 				removeFirstThreeSeconds(dir, videoPath, num)
 				mergePikeFileAnd3SecAudio(dir, num, rightPika)
-				//combineToMakeGoodFile(dir, num)
+				combineToMakeGoodFile(dir, num)
 			}
 		}
 	}
@@ -63,21 +63,11 @@ func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
 
 }
 
-// ffmpeg -i file1.mp4 -i file2.mp3 -filter_complex "[0:a][1:a]amix=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k file3.mp4
 func combineToMakeGoodFile(dir, name string) {
-	output := dir + "/foo/" + name + "_good.mp4"
-	cmd := exec.Command("ffmpeg",
-		"-i", dir+"/"+name+"_without_first3.mp4",
-		"-i", dir+"/"+name+".mp3",
-		"-filter_complex",
-		"[0:a][1:a]amix=inputs=2[a]",
-		"-map", "0:v",
-		"-map", "[a]",
-		"-c:v",
-		"copy", "-c:a", "aac", "-b:a", "192k",
-		"-y",
-		output)
-	cmd.CombinedOutput()
+	file1 := dir + "/foo/" + name + "_opening3.mp4"
+	file2 := dir + "/" + name + "_without_first3.mp4"
+	file3 := dir + "/foo2/" + name + "_ready.mp4"
+	CombineTwoFiles(file1, file2, file3)
 }
 
 // ffmpeg -i 000001.mp4 -t 3 -vn -acodec copy output.m4a
