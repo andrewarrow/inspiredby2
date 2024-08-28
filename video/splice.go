@@ -47,7 +47,7 @@ func Splice(dir string) {
 				combineToMakeGoodFile(dir, num)
 			} else {
 				file1 := videoPath
-				file2 := dir + "/foo2/" + name + "_ready.mp4"
+				file2 := dir + "/foo2/" + num + "_ready.mp4"
 				copyFile12(file1, file2)
 			}
 		}
