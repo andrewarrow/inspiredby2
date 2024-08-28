@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
 /*
@@ -73,7 +74,17 @@ func List() string {
 		return ""
 	}
 
-	fmt.Println(string(body))
+	lines := strings.Split(string(body), "\n")
+	if len(lines) < 2 {
+		return ""
+	}
+	js := lines[1][2:]
+	fmt.Println(js)
+
+	json.Unmarshal(body, &m)
+	data, _ := m["data"].(map[string]any)
+	fmt.Println(data)
+
 	return ""
 
 }
