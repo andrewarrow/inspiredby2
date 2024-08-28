@@ -66,6 +66,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		video.Combine("data2/foo2")
 	} else if arg == "pika" {
 		pika.FindPrompts()
+	} else if arg == "PikaDelete" {
+		pika.Delete("test")
 	} else if arg == "PikaList" {
 		lastId := pika.List("")
 		for {
