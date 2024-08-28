@@ -84,7 +84,9 @@ func Combine(dir string) {
 		fmt.Println(err)
 	}
 
-	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c:v", "libx264", "-y", "/Users/aa/Downloads/output.mp4")
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c:v", "libx264",
+		"-c:a", "aac", "-strict", "experimental", "-b:a", "192k",
+		"-y", "/Users/aa/Downloads/output2.mp4")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
