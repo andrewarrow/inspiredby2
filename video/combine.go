@@ -15,7 +15,7 @@ func CombineTwoFiles(file1, file2, file3 string) {
 	lines := []string{line1, line2}
 	data := strings.Join(lines, "\n")
 	ioutil.WriteFile("/Users/aa/list.txt", []byte(data), 0644)
-	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy", "-y", file3)
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c:v", "libx264", "-c:a", "aac", "-strict", "experimental", "-b:a", "192k", "-y", file3)
 	cmd.CombinedOutput()
 	//b, err := cmd.CombinedOutput()
 	//fmt.Println(string(b), err)
