@@ -50,19 +50,16 @@ func Splice(dir string) {
 
 func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
 	//ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -map 0:v -map 1:a output.mp4
-	output := dir + "/foo/" + name + "_good.mp4"
+	output := dir + "/foo/" + name + "_opening3.mp4"
 	cmd := exec.Command("ffmpeg",
+		"-i", "/Users/aa/os/inspiredby2/data4/"+rightPika,
 		"-i", dir+"/"+name+".m4a",
-		"-i", rightPika,
-		"-filter_complex",
-		"[0:a][1:a]amix=inputs=2[a]",
-		"-map", "0:v",
-		"-map", "[a]",
 		"-c:v",
-		"copy", "-c:a", "aac", "-b:a", "192k",
+		"copy", "-c:a", "aac", "-map", "0:v", "-map", "1:a",
 		"-y",
 		output)
 	cmd.CombinedOutput()
+	//b, err := cmd.CombinedOutput()
 
 }
 
