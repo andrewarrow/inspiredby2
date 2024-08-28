@@ -9,6 +9,16 @@ import (
 	"strings"
 )
 
+func CombineTwoFiles(file1, file2, file3 string) {
+	line1 := fmt.Sprintf("file '%s'", file1)
+	line2 := fmt.Sprintf("file '%s'", file2)
+	lines := []string{line1, line2}
+	data := strings.Joins(buffer, "\n")
+	ioutil.WriteFile("/Users/aa/list.txt", []byte(data), 0644)
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy", "-y", file3)
+	cmd.CombinedOutput()
+}
+
 func Combine(dir string) {
 
 	listFile, err := os.Create("/Users/aa/list.txt")
