@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"inspiredby2/google"
 	"inspiredby2/groq"
+	"inspiredby2/video"
 	"os"
 	"os/exec"
 	"strconv"
@@ -36,7 +37,7 @@ func intCheck(a any, val int) bool {
 }
 
 func ProcessVideo(c *router.Context, guid string) {
-	d, _ := getVideoDuration("data/" + guid + ".mp4")
+	d, _ := video.GetVideoDuration("data/" + guid + ".mp4")
 	one := c.One("link", "where guid=$1", guid)
 	c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
 	c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
@@ -125,20 +126,4 @@ func ProcessVideo(c *router.Context, guid string) {
 		}
 	}
 
-}
-
-func getVideoDuration(filePath string) (float64, error) {
-	cmd := exec.Command("ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "default=noprint_wrappers=1:nokey=1", filePath)
-	output, err := cmd.Output()
-	if err != nil {
-		return 0, err
-	}
-
-	durationStr := strings.TrimSpace(string(output))
-	duration, err := strconv.ParseFloat(durationStr, 64)
-	if err != nil {
-		return 0, err
-	}
-
-	return duration, nil
 }

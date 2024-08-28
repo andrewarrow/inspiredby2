@@ -24,7 +24,8 @@ func Splice(dir string) {
 			num := tokens[0]
 			numInt, _ := strconv.Atoi(num)
 			if numInt%2 == 0 && numInt > 0 {
-				fmt.Println(num)
+				d, _ := GetVideoDuration("data2/" + name)
+				fmt.Println(num, numInt, d)
 			}
 		}
 	}
