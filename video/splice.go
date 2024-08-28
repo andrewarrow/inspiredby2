@@ -74,7 +74,7 @@ func combineToMakeGoodFile(dir, name string) {
 	file1 := dir + "/foo/" + name + "_opening3.mp4"
 	file2 := dir + "/" + name + "_without_first3.mp4"
 	file3 := dir + "/foo2/" + name + "_ready.mp4"
-	CombineTwoFiles(file1, file2, file3)
+	CombineTwoFiles(dir, file1, file2, file3)
 }
 
 // ffmpeg -i 000001.mp4 -t 3 -vn -acodec copy output.m4a
