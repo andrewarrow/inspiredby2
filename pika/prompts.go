@@ -32,11 +32,11 @@ func FindPrompts() {
 		}
 
 	}
-	for k, _ := range m {
+	for k, v := range m {
 		fmt.Println(k)
-		Generate("3D render " + k)
-		Generate("Moody " + k)
-		Generate(k)
+		Generate("3D render " + k + " (" + v + ")")
+		Generate("Moody " + k + " (" + v + ")")
+		Generate(k + " (" + v + ")")
 	}
 }
 

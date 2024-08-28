@@ -52,8 +52,8 @@ func Generate(text string) string {
 		return ""
 	}
 
-	fmt.Println(string(body))
-	time.Sleep(time.Second * 9)
+	fmt.Println(len(body))
+	time.Sleep(time.Second * 90)
 	return ""
 
 }
