@@ -8,14 +8,18 @@ import (
 func FindPrompts() {
 	m := map[string]string{}
 	for k, v := range lookup {
-		if strings.Contains(v, "'") {
-			continue
-		}
-		if len(v) < 5 {
-			continue
-		}
 		tokens := strings.Split(v, " ")
-		list := groupArrayIntoThree(tokens)
+		words := []string{}
+		for _, word := range tokens {
+			if strings.Contains(word, "'") {
+				continue
+			}
+			if len(word) < 5 {
+				continue
+			}
+			words = append(words, word)
+		}
+		list := groupArrayIntoThree(words)
 		for _, item := range list {
 			buffer := []string{}
 			for _, sub := range item {
@@ -23,6 +27,7 @@ func FindPrompts() {
 			}
 			m[strings.Join(buffer, " ")] = k
 		}
+
 	}
 	for k, _ := range m {
 		fmt.Println(k)
