@@ -79,11 +79,28 @@ func List() string {
 		return ""
 	}
 	js := lines[1][2:]
-	fmt.Println(js)
 
-	json.Unmarshal(body, &m)
+	json.Unmarshal([]byte(js), &m)
 	data, _ := m["data"].(map[string]any)
-	fmt.Println(data)
+	results := data["results"].([]any)
+	for _, item := range results {
+		thing, _ := item.(map[string]any)
+		id, _ := thing["id"].(string)
+		promptText, _ := thing["promptText"].(string)
+		videos := thing["videos"].([]any)
+		for _, videoThing := range videos {
+			video, _ := videoThing.(map[string]any)
+			status, _ := video["status"].(string)
+			resultUrl, _ := video["resultUrl"].(string)
+			videoPoster, _ := video["videoPoster"].(string)
+
+			fmt.Println(id)
+			fmt.Println(promptText)
+			fmt.Println(status)
+			fmt.Println(resultUrl)
+			fmt.Println(videoPoster)
+		}
+	}
 
 	return ""
 
