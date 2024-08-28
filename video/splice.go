@@ -35,21 +35,40 @@ func Splice(dir string) {
 			numInt, _ := strconv.Atoi(num)
 			if numInt%2 == 0 && numInt > 0 {
 				d1, _ := GetVideoDuration(videoPath)
-				rightPike := findRightPike()
-				d2, _ := GetVideoDuration("data4/" + rightPike)
+				rightPika := findRightPika()
+				d2, _ := GetVideoDuration("data4/" + rightPika)
 
 				fmt.Println(num, numInt, d1, d2)
 				makeAudioFromSmall(dir, videoPath, num)
 				removeFirstThreeSeconds(dir, videoPath, num)
+				mergePikeFileAnd3SecAudio(dir, num, rightPika)
 				//combineToMakeGoodFile(dir, num)
 			}
 		}
 	}
 }
 
+func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
+	//ffmpeg -i video.mp4 -i audio.mp3 -c:v copy -c:a aac -map 0:v -map 1:a output.mp4
+	output := dir + "/foo/" + name + "_good.mp4"
+	cmd := exec.Command("ffmpeg",
+		"-i", dir+"/"+name+".m4a",
+		"-i", rightPika,
+		"-filter_complex",
+		"[0:a][1:a]amix=inputs=2[a]",
+		"-map", "0:v",
+		"-map", "[a]",
+		"-c:v",
+		"copy", "-c:a", "aac", "-b:a", "192k",
+		"-y",
+		output)
+	cmd.CombinedOutput()
+
+}
+
 // ffmpeg -i file1.mp4 -i file2.mp3 -filter_complex "[0:a][1:a]amix=inputs=2[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k file3.mp4
 func combineToMakeGoodFile(dir, name string) {
-	output := dir + "/" + name + "_good.mp4"
+	output := dir + "/foo/" + name + "_good.mp4"
 	cmd := exec.Command("ffmpeg",
 		"-i", dir+"/"+name+"_without_first3.mp4",
 		"-i", dir+"/"+name+".mp3",
@@ -94,7 +113,7 @@ func removeFirstThreeSeconds(dir, path, name string) {
 	cmd.CombinedOutput()
 }
 
-func findRightPike() string {
+func findRightPika() string {
 	dir := "data4"
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
