@@ -57,6 +57,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		app.ProcessVideoFix()
 	} else if arg == "remove_bottom" {
 		video.RemoveBottom(os.Args[2])
+	} else if arg == "Resize1280x720" {
+		video.Resize1280x720(os.Args[2])
 	} else if arg == "thumb" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
