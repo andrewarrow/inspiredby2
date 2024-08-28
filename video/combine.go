@@ -23,8 +23,11 @@ func Combine(dir string) {
 
 	for _, file := range files {
 		if !file.IsDir() {
+			if file.Name() == ".DS_Store" {
+				continue
+			}
 			videoPath := filepath.Join(dir, file.Name())
-			fmt.Fprintf(listFile, "file '%s'\n", videoPath)
+			fmt.Fprintf(listFile, "file '/Users/aa/os/inspiredby2/%s'\n", videoPath)
 		}
 	}
 
@@ -32,7 +35,7 @@ func Combine(dir string) {
 		fmt.Println(err)
 	}
 
-	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy", "/Users/aa/Downloads/output.mp4")
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy", "-y", "/Users/aa/Downloads/output.mp4")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
