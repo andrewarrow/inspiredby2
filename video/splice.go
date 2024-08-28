@@ -18,11 +18,18 @@ func Splice(dir string) {
 
 	for _, file := range files {
 		if !file.IsDir() {
-			if file.Name() == ".DS_Store" {
+
+			name := file.Name()
+			if name == ".DS_Store" {
+				continue
+			}
+			if strings.HasSuffix(name, ".mp3") {
+				continue
+			}
+			if strings.Contains(name, "_") {
 				continue
 			}
 			videoPath := filepath.Join(dir, file.Name())
-			name := file.Name()
 			tokens := strings.Split(name, ".")
 			num := tokens[0]
 			numInt, _ := strconv.Atoi(num)
@@ -33,8 +40,8 @@ func Splice(dir string) {
 
 				fmt.Println(num, numInt, d1, d2)
 				makeAudioFromSmall(dir, videoPath, num)
-				removeFirstThreeSeconds(dir, videoPath, num)
-				combineToMakeGoodFile(dir, num)
+				//removeFirstThreeSeconds(dir, videoPath, num)
+				//combineToMakeGoodFile(dir, num)
 			}
 		}
 	}
@@ -57,15 +64,18 @@ func combineToMakeGoodFile(dir, name string) {
 	cmd.CombinedOutput()
 }
 
+// ffmpeg -i 000001.mp4 -t 3 -vn -acodec copy output.m4a
 func makeAudioFromSmall(dir, path, name string) {
-	output := dir + "/" + name + ".mp3"
+	output := dir + "/" + name + ".m4a"
 	cmd := exec.Command("ffmpeg",
 		"-i", path,
-		"-t", "3", "-q:a 0", "-map", "a",
+		"-t", "3", "-vn", "-acodec",
 		"-y",
 		output)
 	cmd.CombinedOutput()
 }
+
+// ffmpeg -i input.mp3 -t 3 -c copy output.mp3
 
 // ffmpeg -i input_video.mp4 -ss 0 -t 3 -q:a 0 -map a output_audio.mp3
 // ffmpeg -i input_video.mp4 -t 3 -q:a 0 -map a output_audio.mp3
