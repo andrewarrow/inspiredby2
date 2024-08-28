@@ -6,6 +6,7 @@ import (
 	"inspiredby2/app"
 	"inspiredby2/google"
 	"inspiredby2/groq"
+	"inspiredby2/pika"
 	"inspiredby2/video"
 	"math/rand"
 	"os"
@@ -59,6 +60,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		video.RemoveBottom(os.Args[2])
 	} else if arg == "Resize1280x720" {
 		video.Resize1280x720(os.Args[2])
+	} else if arg == "pike" {
+		pika.FindPrompts()
 	} else if arg == "thumb" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
