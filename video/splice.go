@@ -69,7 +69,7 @@ func makeAudioFromSmall(dir, path, name string) {
 	output := dir + "/" + name + ".m4a"
 	cmd := exec.Command("ffmpeg",
 		"-i", path,
-		"-t", "3", "-vn", "-acodec",
+		"-t", "3", "-vn", "-acodec", "copy",
 		"-y",
 		output)
 	cmd.CombinedOutput()
