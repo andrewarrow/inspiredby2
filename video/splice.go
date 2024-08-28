@@ -40,7 +40,7 @@ func Splice(dir string) {
 
 				fmt.Println(num, numInt, d1, d2)
 				makeAudioFromSmall(dir, videoPath, num)
-				//removeFirstThreeSeconds(dir, videoPath, num)
+				removeFirstThreeSeconds(dir, videoPath, num)
 				//combineToMakeGoodFile(dir, num)
 			}
 		}
@@ -85,11 +85,12 @@ func makeAudioFromSmall(dir, path, name string) {
 func removeFirstThreeSeconds(dir, path, name string) {
 	output := dir + "/" + name + "_without_first3.mp4"
 	cmd := exec.Command("ffmpeg",
-		"-ss 00:00:03",
+		"-ss", "00:00:03",
 		"-i", path,
 		"-c", "copy",
 		"-y",
 		output)
+	//b, err := cmd.CombinedOutput()
 	cmd.CombinedOutput()
 }
 
