@@ -111,7 +111,6 @@ func List(after string) string {
 				continue
 			}
 			Download(resultUrl)
-			time.Sleep(time.Second)
 		}
 		lastId = id
 	}
@@ -120,9 +119,22 @@ func List(after string) string {
 
 }
 
+func exists(path string) bool {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true
+	}
+	return false
+}
+
 func Download(url string) {
 	tokens := strings.Split(url, "/")
 	last := tokens[len(tokens)-1]
+
+	if exists("data4/" + last) {
+		return
+	}
+	time.Sleep(time.Second)
 
 	resp, err := http.Get(url)
 	if err != nil {
