@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 func Combine(dir string) {
@@ -23,7 +24,11 @@ func Combine(dir string) {
 
 	for _, file := range files {
 		if !file.IsDir() {
-			if file.Name() == ".DS_Store" {
+			name := file.Name()
+			if name == ".DS_Store" {
+				continue
+			}
+			if strings.HasSuffix(name, ".mp3") {
 				continue
 			}
 			videoPath := filepath.Join(dir, file.Name())
