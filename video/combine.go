@@ -10,26 +10,26 @@ import (
 )
 
 func CombineTwoFiles(dir, file1, file2, file3 string) {
-	tmpFile1 := dir + "/" + file1
-	tmpFile2 := dir + "/" + file2
+	tmpFile1 := dir + "/" + "t1.mp4"
+	tmpFile2 := dir + "/" + "t2.mp4"
 
 	normalizeCmd1 := exec.Command("ffmpeg", "-i", file1, "-c:v", "libx264", "-c:a", "aac", "-ar", "48000", "-ac", "2", "-strict", "experimental", "-y", tmpFile1)
 	normalizeCmd2 := exec.Command("ffmpeg", "-i", file2, "-c:v", "libx264", "-c:a", "aac", "-ar", "48000", "-ac", "2", "-strict", "experimental", "-y", tmpFile2)
 
-	_, err := normalizeCmd1.CombinedOutput()
+	b, err := normalizeCmd1.CombinedOutput()
 	if err != nil {
-		fmt.Println("Error during normalization of file1:", err)
+		fmt.Println(string(b), err)
 		return
 	}
 
-	_, err = normalizeCmd2.CombinedOutput()
+	b, err = normalizeCmd2.CombinedOutput()
 	if err != nil {
-		fmt.Println("Error during normalization of file2:", err)
+		fmt.Println(string(b), err)
 		return
 	}
 
-	line1 := fmt.Sprintf("file '%s'", tmpFile1)
-	line2 := fmt.Sprintf("file '%s'", tmpFile2)
+	line1 := fmt.Sprintf("file '%s'", "/Users/aa/os/inspiredby2/"+tmpFile1)
+	line2 := fmt.Sprintf("file '%s'", "/Users/aa/os/inspiredby2/"+tmpFile2)
 	lines := []string{line1, line2}
 	data := strings.Join(lines, "\n")
 	ioutil.WriteFile("/Users/aa/list.txt", []byte(data), 0644)
@@ -37,7 +37,7 @@ func CombineTwoFiles(dir, file1, file2, file3 string) {
 	concatCmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy", "-y", file3)
 	_, err = concatCmd.CombinedOutput()
 	if err != nil {
-		fmt.Println("Error during concatenation:", err)
+		fmt.Println(string(b), err)
 	}
 }
 
