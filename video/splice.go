@@ -71,8 +71,8 @@ func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
 }
 
 func combineToMakeGoodFile(dir, name string) {
-	file1 := dir + "/foo/" + name + "_opening3.mp4"
-	file2 := dir + "/" + name + "_without_first3.mp4"
+	file2 := dir + "/foo/" + name + "_opening3.mp4"
+	file1 := dir + "/" + name + "_without_first3.mp4"
 	file3 := dir + "/foo2/" + name + "_ready.mp4"
 	CombineTwoFiles(dir, file1, file2, file3)
 }
@@ -83,8 +83,9 @@ func combineToMakeGoodFile(dir, name string) {
 func makeAudioFromSmall(dir, path, name string) {
 	output := dir + "/" + name + ".m4a"
 	cmd := exec.Command("ffmpeg",
+		"-sseof", "-3", // Start 3 seconds before the end of the file
 		"-i", path,
-		"-t", "3", "-vn", "-acodec", "aac",
+		"-vn", "-acodec", "aac",
 		"-y",
 		output)
 	cmd.CombinedOutput()
@@ -101,7 +102,8 @@ func makeAudioFromSmall(dir, path, name string) {
 func removeFirstThreeSeconds(dir, path, name string) {
 	output := dir + "/" + name + "_without_first3.mp4"
 	cmd := exec.Command("ffmpeg",
-		"-ss", "00:00:03",
+		"-sseof", "-3", // Start 3 seconds before the end of the file
+		//"-ss", "00:00:03",
 		"-i", path,
 		"-c:v", "libx264",
 		"-c:a", "aac",
