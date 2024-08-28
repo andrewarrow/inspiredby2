@@ -110,7 +110,8 @@ func List(after string) string {
 			if strings.Contains(resultUrl, "_sfx") == false {
 				continue
 			}
-			Download(resultUrl)
+			Download(id, resultUrl)
+			Download(id, videoPoster)
 		}
 		lastId = id
 	}
@@ -127,11 +128,11 @@ func exists(path string) bool {
 	return false
 }
 
-func Download(url string) {
+func Download(id, url string) {
 	tokens := strings.Split(url, "/")
 	last := tokens[len(tokens)-1]
 
-	if exists("data4/" + last) {
+	if exists("data5/" + last) {
 		return
 	}
 	time.Sleep(time.Second)
@@ -142,7 +143,7 @@ func Download(url string) {
 	}
 	defer resp.Body.Close()
 
-	outFile, err := os.Create("data4/" + last)
+	outFile, err := os.Create("data5/" + id + "_" + last)
 	if err != nil {
 		fmt.Println(err)
 	}

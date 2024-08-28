@@ -56,6 +56,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		fmt.Println(s)
 	} else if arg == "fix" {
 		app.ProcessVideoFix()
+	} else if arg == "demo" {
+		video.Demo()
 	} else if arg == "splice" {
 		video.Splice("data2")
 	} else if arg == "remove_bottom" {
