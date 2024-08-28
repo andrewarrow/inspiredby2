@@ -5,6 +5,14 @@ import (
 	"strings"
 )
 
+var done = map[string]bool{"stress moment being": true,
+	"because breathe whatever breathe": true,
+	"really activates parasympathetic": true,
+	"called performances stage":        true,
+	"incorporate nuances nervous":      true,
+	"around world commitment":          true,
+}
+
 func FindPrompts() {
 	m := map[string]string{}
 	for k, v := range lookup {
