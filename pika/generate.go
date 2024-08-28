@@ -2,7 +2,6 @@ package pika
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -12,11 +11,22 @@ import (
 func Generate(text string) string {
 	url := fmt.Sprintf("https://api.pika.art/generate")
 
-	m := map[string]any{}
-	b, _ := json.Marshal(m)
+	data := bytes.NewBufferString("")
+	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+	data.WriteString("Content-Disposition: form-data; name=\"styleId\"\r\n\r\n\r\n")
+	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+	data.WriteString("Content-Disposition: form-data; name=\"promptText\"\r\n\r\n")
+	data.WriteString(text + "\r\n")
+	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+	data.WriteString("Content-Disposition: form-data; name=\"sfx\"\r\n\r\ntrue\r\n")
+	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+	data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":false}\r\n")
+	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+	data.WriteString(fmt.Sprintf("Content-Disposition: form-data; name=\"userId\"\r\n\r\n%s\r\n", os.Getenv("PIKA_USER")))
+	data.WriteString("-----------------------------266926460920144731353527800262--\r\n")
 
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
+	req, err := http.NewRequest("POST", url, data)
 	if err != nil {
 		fmt.Println("Error creating request:", err)
 		return ""
