@@ -2,8 +2,10 @@ package video
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"math/rand"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"strconv"
@@ -43,9 +45,21 @@ func Splice(dir string) {
 				removeFirstThreeSeconds(dir, videoPath, num, d1)
 				mergePikeFileAnd3SecAudio(dir, num, rightPika)
 				combineToMakeGoodFile(dir, num)
+			} else {
+				file1 := videoPath
+				file2 := dir + "/foo2/" + name + "_ready.mp4"
+				copyFile12(file1, file2)
 			}
 		}
 	}
+}
+
+func copyFile12(file1, file2 string) {
+	sourceFile, _ := os.Open(file1)
+	defer sourceFile.Close()
+	destinationFile, _ := os.Create(file2)
+	defer destinationFile.Close()
+	io.Copy(destinationFile, sourceFile)
 }
 
 func mergePikeFileAnd3SecAudio(dir, name, rightPika string) {
