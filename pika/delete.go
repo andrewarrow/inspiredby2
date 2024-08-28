@@ -14,7 +14,7 @@ import (
 
 func Delete(id string) string {
 	url := fmt.Sprintf("https://pika.art/my-library")
-	listOf := []any{id}
+	listOf := []string{"488bfacf-4cff-416e-91f6-0d027daf95f9"}
 	b, _ := json.Marshal(listOf)
 
 	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
@@ -32,7 +32,7 @@ func Delete(id string) string {
 	req.Header.Add("Accept", "text/x-component")
 	req.Header.Add("Accept-Encoding", "gzip, deflate, br, zstd")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
-	req.Header.Set("Next-Action", "6c92104373247fc5471997bb7e08fab5c44eec8a")
+	req.Header.Set("Next-Action", "2fb29ede907a4faf99889c678b8a6c7b54a774f1")
 	req.Header.Set("Next-Router-State-Tree", "%5B%22%22%2C%7B%22children%22%3A%5B%22(dashboard)%22%2C%7B%22children%22%3A%5B%22my-library%22%2C%7B%22children%22%3A%5B%22__PAGE__%22%2C%7B%7D%5D%7D%5D%7D%5D%7D%2Cnull%2Cnull%2Ctrue%5D")
 	req.Header.Set("Sec-Fetch-Dest", "empty")
 	req.Header.Set("Sec-Fetch-Mode", "cors")
