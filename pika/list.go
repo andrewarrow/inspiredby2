@@ -16,10 +16,10 @@ import (
 /*
 curl 'https://pika.art/my-library' --compressed -X POST
 */
-func List() string {
+func List(after string) string {
 	url := fmt.Sprintf("https://pika.art/my-library")
 	m := map[string]any{}
-	m["after"] = "abcb8da5-9264-49a8-89dc-6520886198aa"
+	m["after"] = after
 	m["perPage"] = 12
 	listOf := []any{m}
 	b, _ := json.Marshal(listOf)
@@ -83,6 +83,7 @@ func List() string {
 	json.Unmarshal([]byte(js), &m)
 	data, _ := m["data"].(map[string]any)
 	results := data["results"].([]any)
+	lastId := ""
 	for _, item := range results {
 		thing, _ := item.(map[string]any)
 		id, _ := thing["id"].(string)
@@ -100,8 +101,9 @@ func List() string {
 			fmt.Println(resultUrl)
 			fmt.Println(videoPoster)
 		}
+		lastId = id
 	}
 
-	return ""
+	return lastId
 
 }

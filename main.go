@@ -63,7 +63,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "pika" {
 		pika.FindPrompts()
 	} else if arg == "PikaList" {
-		pika.List()
+		lastId := pika.List("fa6eedca-234e-4aee-abd8-d81a537899f6")
+		fmt.Println(lastId)
 	} else if arg == "PikaGenerate" {
 		pika.Generate("properly gotten treatment worked")
 	} else if arg == "thumb" {
