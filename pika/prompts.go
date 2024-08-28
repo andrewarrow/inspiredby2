@@ -41,6 +41,9 @@ func FindPrompts() {
 
 	}
 	for k, v := range m {
+		if done[k] {
+			continue
+		}
 		fmt.Println(k)
 		Generate("3D render " + k + " (" + v + ")")
 		Generate("Moody " + k + " (" + v + ")")

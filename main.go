@@ -62,6 +62,8 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		video.Resize1280x720(os.Args[2])
 	} else if arg == "pika" {
 		pika.FindPrompts()
+	} else if arg == "PikaList" {
+		pika.List()
 	} else if arg == "PikaGenerate" {
 		pika.Generate("properly gotten treatment worked")
 	} else if arg == "thumb" {
