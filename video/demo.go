@@ -14,7 +14,7 @@ import (
 func Demo() {
 
 	prompts := pika.FindPrompts()
-	for k, _ := range prompts {
+	for _, k := range prompts {
 		done := false
 		var pi pika.PikaInfo
 		fmt.Println(k)
