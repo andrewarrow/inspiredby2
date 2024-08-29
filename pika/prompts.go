@@ -12,7 +12,7 @@ var done = map[string]bool{"stress moment being": true,
 	"around world commitment":          true,
 }
 
-func FindPrompts() {
+func FindPrompts() []string {
 	m := map[string]string{}
 	for k, v := range lookup {
 		tokens := strings.Split(v, " ")
@@ -39,11 +39,15 @@ func FindPrompts() {
 		}
 
 	}
-	//for k, v := range m {
-	//	Generate("3D render " + k + " (" + v + ")")
-	//	Generate("Moody " + k + " (" + v + ")")
-	//	Generate(k + " (" + v + ")")
-	//}
+	items := []string{}
+	for k, _ := range m {
+		items = append(items, "3D render "+k)
+
+		//	Generate("3D render " + k + " (" + v + ")")
+		//	Generate("Moody " + k + " (" + v + ")")
+		//	Generate(k + " (" + v + ")")
+	}
+	return items
 }
 
 func groupArrayIntoThree(arr []string) [][]string {

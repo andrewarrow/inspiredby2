@@ -9,26 +9,22 @@ import (
 	"time"
 )
 
-var prompts = map[string]bool{"really activates parasympathetic": true}
-
-//	"because breathe whatever breathe": true,
-//	"really activates parasympathetic": true,
-//	"called performances stage":        true,
-//	"incorporate nuances nervous":      true,
-//"around world commitment":          true,
+//var prompts = map[string]bool{"really activates parasympathetic": true}
 
 func Demo() {
 
-	done := false
-	var pi pika.PikaInfo
+	prompts := pika.FindPrompts()
 	for k, _ := range prompts {
+		done := false
+		var pi pika.PikaInfo
 		fmt.Println(k)
-		tag := fmt.Sprintf("o| " + k)
+		tag := fmt.Sprintf(k)
 		pika.Generate("", tag)
 		for {
 			if done {
 				break
 			}
+			time.Sleep(time.Second * 9)
 			items, _ := pika.List("")
 			for _, item := range items {
 				fmt.Println(item.Id, item.Status)
@@ -38,12 +34,11 @@ func Demo() {
 					break
 				}
 			}
-			time.Sleep(time.Second * 9)
 		}
+		fmt.Println(pi.Id, pi.Video, pi.PromptText)
+		pika.Generate(pi.Video, pi.PromptText)
+		WaitFor7SecondVideo()
 	}
-	fmt.Println(pi.Id, pi.Video, pi.PromptText)
-	pika.Generate(pi.Video, pi.PromptText)
-	WaitFor7SecondVideo()
 }
 
 func WaitFor7SecondVideo() {
