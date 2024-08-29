@@ -17,7 +17,8 @@ import (
 /*
 curl 'https://pika.art/my-library' --compressed -X POST
 */
-func List(after string) string {
+func List(after string) []string {
+	items := []string{}
 	url := fmt.Sprintf("https://pika.art/my-library")
 	m := map[string]any{}
 	m["after"] = after
@@ -29,7 +30,7 @@ func List(after string) string {
 	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
 	if err != nil {
 		fmt.Println("Error creating request:", err)
-		return ""
+		return items
 	}
 
 	req.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:129.0) Gecko/20100101 Firefox/129.0")
@@ -53,7 +54,7 @@ func List(after string) string {
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Error making request:", err)
-		return ""
+		return items
 	}
 	defer resp.Body.Close()
 
@@ -72,19 +73,18 @@ func List(after string) string {
 	body, err := ioutil.ReadAll(reader)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
-		return ""
+		return items
 	}
 
 	lines := strings.Split(string(body), "\n")
 	if len(lines) < 2 {
-		return ""
+		return items
 	}
 	js := lines[1][2:]
 
 	json.Unmarshal([]byte(js), &m)
 	data, _ := m["data"].(map[string]any)
 	results := data["results"].([]any)
-	lastId := ""
 	for _, item := range results {
 		thing, _ := item.(map[string]any)
 		id, _ := thing["id"].(string)
@@ -110,13 +110,11 @@ func List(after string) string {
 			if strings.Contains(resultUrl, "_sfx") == false {
 				continue
 			}
-			Download(id, resultUrl)
-			Download(id, videoPoster)
+			items = append(items, id)
 		}
-		lastId = id
 	}
 
-	return lastId
+	return items
 
 }
 

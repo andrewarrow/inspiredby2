@@ -69,16 +69,18 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "pika" {
 		pika.FindPrompts()
 	} else if arg == "PikaDelete" {
-		pika.Delete("test")
-	} else if arg == "PikaList" {
-		lastId := pika.List("")
+		lastId := ""
 		for {
-			if lastId == "" {
-				break
+			items := pika.List(lastId)
+			fmt.Println(items)
+			for _, item := range items {
+				pika.Delete(item)
 			}
-			lastId = pika.List(lastId)
+			if len(items) == 0 {
+				return
+			}
+			lastId = items[len(items)-1]
 		}
-		fmt.Println(lastId)
 	} else if arg == "PikaGenerate" {
 		pika.Generate("properly gotten treatment worked")
 	} else if arg == "thumb" {
