@@ -14,7 +14,7 @@ import (
 
 func Delete(id string) string {
 	url := fmt.Sprintf("https://pika.art/my-library")
-	listOf := []string{"488bfacf-4cff-416e-91f6-0d027daf95f9"}
+	listOf := []string{id}
 	b, _ := json.Marshal(listOf)
 
 	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
