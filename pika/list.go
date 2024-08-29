@@ -22,6 +22,7 @@ type PikaInfo struct {
 	Id         string
 	Video      string
 	PromptText string
+	Duration   int64
 }
 
 func List(after string) ([]PikaInfo, bool) {
@@ -99,6 +100,7 @@ func List(after string) ([]PikaInfo, bool) {
 			status, _ := video["status"].(string)
 			resultUrl, _ := video["resultUrl"].(string)
 			videoPoster, _ := video["videoPoster"].(string)
+			duration, _ := video["duration"].(float64)
 
 			fmt.Println(id)
 			fmt.Println(promptText)
@@ -119,6 +121,7 @@ func List(after string) ([]PikaInfo, bool) {
 			pi.PromptText = promptText
 			pi.Status = status
 			pi.Id = id
+			pi.Duration = int64(duration)
 			items = append(items, pi)
 		}
 	}
