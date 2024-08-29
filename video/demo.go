@@ -3,6 +3,7 @@ package video
 import (
 	"fmt"
 	"inspiredby2/pika"
+	"inspiredby2/util"
 	"io/ioutil"
 	"strings"
 	"time"
@@ -42,7 +43,28 @@ func Demo() {
 	}
 	fmt.Println(pi.Id, pi.Video, pi.PromptText)
 	pika.Generate(pi.Video, pi.PromptText)
+	WaitFor7SecondVideo()
+}
 
+func WaitFor7SecondVideo() {
+	done := false
+	var pi pika.PikaInfo
+	for {
+		if done {
+			break
+		}
+		items, _ := pika.List("")
+		for _, item := range items {
+			fmt.Println(item.Id, item.Status)
+			if item.Status == "finished" && item.Duration == 7 {
+				done = true
+				pi = item
+				break
+			}
+		}
+		time.Sleep(time.Second * 9)
+	}
+	util.Download(pi.Id, pi.Video)
 }
 
 func Demo2() {
