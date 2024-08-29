@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
-	"time"
 )
 
 func Generate(text string) string {
@@ -53,7 +52,7 @@ func Generate(text string) string {
 	}
 
 	fmt.Println(len(body))
-	time.Sleep(time.Second * 90)
+	//time.Sleep(time.Second * 90)
 	return ""
 
 }

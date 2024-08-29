@@ -24,7 +24,6 @@ func Demo() {
 		pika.Generate(tag)
 		for {
 			items, ok := pika.List("")
-			fmt.Println(items, ok)
 			for _, item := range items {
 				fmt.Println(item.Id, item.Status)
 				if item.Status == "finished" {
@@ -35,6 +34,7 @@ func Demo() {
 			time.Sleep(time.Second * 1)
 		}
 	}
+
 }
 
 func Demo2() {

@@ -18,9 +18,10 @@ import (
 curl 'https://pika.art/my-library' --compressed -X POST
 */
 type PikaInfo struct {
-	Status string
-	Id     string
-	Video  string
+	Status     string
+	Id         string
+	Video      string
+	PromptText string
 }
 
 func List(after string) ([]PikaInfo, bool) {
@@ -115,6 +116,7 @@ func List(after string) ([]PikaInfo, bool) {
 			}
 			pi := PikaInfo{}
 			pi.Video = resultUrl
+			pi.PromptText = promptText
 			pi.Status = status
 			pi.Id = id
 			items = append(items, pi)
