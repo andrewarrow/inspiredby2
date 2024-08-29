@@ -20,6 +20,7 @@ curl 'https://pika.art/my-library' --compressed -X POST
 type PikaInfo struct {
 	Status string
 	Id     string
+	Video  string
 }
 
 func List(after string) ([]PikaInfo, bool) {
@@ -113,6 +114,7 @@ func List(after string) ([]PikaInfo, bool) {
 				//	continue
 			}
 			pi := PikaInfo{}
+			pi.Video = resultUrl
 			pi.Status = status
 			pi.Id = id
 			items = append(items, pi)

@@ -23,9 +23,14 @@ func Demo() {
 		tag := fmt.Sprintf("o| " + k)
 		pika.Generate(tag)
 		for {
-			items, _ := pika.List("")
+			items, ok := pika.List("")
+			fmt.Println(items, ok)
 			for _, item := range items {
 				fmt.Println(item.Id, item.Status)
+				if item.Status == "finished" {
+					fmt.Println(item.Id, item.Video)
+					break
+				}
 			}
 			time.Sleep(time.Second * 1)
 		}
