@@ -7,9 +7,7 @@ json.wasm.gz
 views
 __pycache__
 data
-data2
-data3
-data4
 data_mov
+env
 local-dev-*
 tail.min.css

@@ -83,7 +83,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 			if len(items) == 0 {
 				return
 			}
-			lastId = items[len(items)-1]
+			lastId = ""
 		}
 	} else if arg == "PikaGenerate" {
 		pika.Generate("properly gotten treatment worked")

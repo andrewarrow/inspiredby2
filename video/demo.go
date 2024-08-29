@@ -6,7 +6,22 @@ import (
 	"strings"
 )
 
+var done = map[string]bool{"stress moment being": true}
+
+//	"because breathe whatever breathe": true,
+//	"really activates parasympathetic": true,
+//	"called performances stage":        true,
+//	"incorporate nuances nervous":      true,
+//"around world commitment":          true,
+
 func Demo() {
+
+	for k, _ := range done {
+		fmt.Println(k)
+	}
+}
+
+func Demo2() {
 	dir := "data5"
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {

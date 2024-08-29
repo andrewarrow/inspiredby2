@@ -99,13 +99,13 @@ func List(after string) ([]string, bool) {
 			fmt.Println(resultUrl)
 			fmt.Println(videoPoster)
 			if strings.Contains(resultUrl, "(") == false {
-				continue
+				//continue
 			}
 			if strings.Contains(resultUrl, ")") == false {
-				continue
+				//continue
 			}
 			if strings.Contains(resultUrl, "_sfx") == false {
-				continue
+				//	continue
 			}
 			items = append(items, id)
 		}
