@@ -17,7 +17,7 @@ import (
 /*
 curl 'https://pika.art/my-library' --compressed -X POST
 */
-func List(after string) []string {
+func List(after string) ([]string, bool) {
 	items := []string{}
 	url := fmt.Sprintf("https://pika.art/my-library")
 	m := map[string]any{}
@@ -30,7 +30,7 @@ func List(after string) []string {
 	req, err := http.NewRequest("POST", url, bytes.NewReader(b))
 	if err != nil {
 		fmt.Println("Error creating request:", err)
-		return items
+		return items, false
 	}
 
 	req.Header.Add("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:129.0) Gecko/20100101 Firefox/129.0")
@@ -54,17 +54,14 @@ func List(after string) []string {
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Println("Error making request:", err)
-		return items
+		return items, false
 	}
 	defer resp.Body.Close()
 
 	var reader io.ReadCloser
 	switch resp.Header.Get("Content-Encoding") {
 	case "gzip":
-		reader, err = gzip.NewReader(resp.Body)
-		if err != nil {
-			log.Fatalf("Failed to create gzip reader: %v", err)
-		}
+		reader, _ = gzip.NewReader(resp.Body)
 		defer reader.Close()
 	default:
 		reader = resp.Body
@@ -73,18 +70,18 @@ func List(after string) []string {
 	body, err := ioutil.ReadAll(reader)
 	if err != nil {
 		fmt.Println("Error reading response:", err)
-		return items
+		return items, false
 	}
 
 	lines := strings.Split(string(body), "\n")
 	if len(lines) < 2 {
-		return items
+		return items, false
 	}
 	js := lines[1][2:]
 
 	json.Unmarshal([]byte(js), &m)
 	data, _ := m["data"].(map[string]any)
-	results := data["results"].([]any)
+	results, _ := data["results"].([]any)
 	for _, item := range results {
 		thing, _ := item.(map[string]any)
 		id, _ := thing["id"].(string)
@@ -114,8 +111,7 @@ func List(after string) []string {
 		}
 	}
 
-	return items
-
+	return items, true
 }
 
 func exists(path string) bool {

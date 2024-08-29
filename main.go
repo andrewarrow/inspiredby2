@@ -71,10 +71,14 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "PikaDelete" {
 		lastId := ""
 		for {
-			items := pika.List(lastId)
+			items, ok := pika.List(lastId)
+			if ok == false {
+				continue
+			}
 			fmt.Println(items)
 			for _, item := range items {
 				pika.Delete(item)
+				time.Sleep(time.Second * 1)
 			}
 			if len(items) == 0 {
 				return
