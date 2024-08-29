@@ -17,8 +17,13 @@ import (
 /*
 curl 'https://pika.art/my-library' --compressed -X POST
 */
-func List(after string) ([]string, bool) {
-	items := []string{}
+type PikaInfo struct {
+	Status string
+	Id     string
+}
+
+func List(after string) ([]PikaInfo, bool) {
+	items := []PikaInfo{}
 	url := fmt.Sprintf("https://pika.art/my-library")
 	m := map[string]any{}
 	m["after"] = after
@@ -107,7 +112,10 @@ func List(after string) ([]string, bool) {
 			if strings.Contains(resultUrl, "_sfx") == false {
 				//	continue
 			}
-			items = append(items, id)
+			pi := PikaInfo{}
+			pi.Status = status
+			pi.Id = id
+			items = append(items, pi)
 		}
 	}
 

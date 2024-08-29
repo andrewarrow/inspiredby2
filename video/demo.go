@@ -2,8 +2,10 @@ package video
 
 import (
 	"fmt"
+	"inspiredby2/pika"
 	"io/ioutil"
 	"strings"
+	"time"
 )
 
 var done = map[string]bool{"stress moment being": true}
@@ -18,6 +20,15 @@ func Demo() {
 
 	for k, _ := range done {
 		fmt.Println(k)
+		tag := fmt.Sprintf("o| " + k)
+		pika.Generate(tag)
+		for {
+			items, _ := pika.List("")
+			for _, item := range items {
+				fmt.Println(item.Id, item.Status)
+			}
+			time.Sleep(time.Second * 1)
+		}
 	}
 }
 

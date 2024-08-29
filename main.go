@@ -77,7 +77,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 			}
 			fmt.Println(items)
 			for _, item := range items {
-				pika.Delete(item)
+				pika.Delete(item.Id)
 				time.Sleep(time.Second * 1)
 			}
 			if len(items) == 0 {
