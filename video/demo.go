@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var prompts = map[string]bool{"stress moment being": true}
+var prompts = map[string]bool{"really activates parasympathetic": true}
 
 //	"because breathe whatever breathe": true,
 //	"really activates parasympathetic": true,
@@ -66,6 +66,16 @@ func WaitFor7SecondVideo() {
 	}
 	fmt.Println("2", pi.Video)
 	util.Download(pi.Id, pi.Video)
+	DeleteAll()
+}
+
+func DeleteAll() {
+	items, _ := pika.List("")
+	fmt.Println(items)
+	for _, item := range items {
+		pika.Delete(item.Id)
+		time.Sleep(time.Second * 1)
+	}
 }
 
 func Demo2() {
