@@ -97,14 +97,14 @@ func List(after string) ([]PikaInfo, bool) {
 			video, _ := videoThing.(map[string]any)
 			status, _ := video["status"].(string)
 			resultUrl, _ := video["resultUrl"].(string)
-			videoPoster, _ := video["videoPoster"].(string)
+			//videoPoster, _ := video["videoPoster"].(string)
 			duration, _ := video["duration"].(float64)
 
-			fmt.Println(id)
-			fmt.Println(promptText)
-			fmt.Println(status)
-			fmt.Println(resultUrl)
-			fmt.Println(videoPoster)
+			//fmt.Println(id)
+			//fmt.Println(promptText)
+			//fmt.Println(status)
+			//fmt.Println(resultUrl)
+			//fmt.Println(videoPoster)
 			if strings.Contains(resultUrl, "(") == false {
 				//continue
 			}

@@ -53,17 +53,18 @@ func WaitFor7SecondVideo() {
 		if done {
 			break
 		}
+		time.Sleep(time.Second * 9)
 		items, _ := pika.List("")
 		for _, item := range items {
-			fmt.Println(item.Id, item.Status)
+			fmt.Println("1", item.Id, item.Status, item.Duration)
 			if item.Status == "finished" && item.Duration == 7 {
 				done = true
 				pi = item
 				break
 			}
 		}
-		time.Sleep(time.Second * 9)
 	}
+	fmt.Println("2", pi.Video)
 	util.Download(pi.Id, pi.Video)
 }
 
