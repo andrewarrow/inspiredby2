@@ -1,7 +1,6 @@
 package pika
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -40,15 +39,11 @@ func FindPrompts() {
 		}
 
 	}
-	for k, v := range m {
-		if done[k] {
-			continue
-		}
-		fmt.Println(k)
-		Generate("3D render " + k + " (" + v + ")")
-		Generate("Moody " + k + " (" + v + ")")
-		Generate(k + " (" + v + ")")
-	}
+	//for k, v := range m {
+	//	Generate("3D render " + k + " (" + v + ")")
+	//	Generate("Moody " + k + " (" + v + ")")
+	//	Generate(k + " (" + v + ")")
+	//}
 }
 
 func groupArrayIntoThree(arr []string) [][]string {

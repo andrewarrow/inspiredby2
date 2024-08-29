@@ -89,7 +89,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 			lastId = ""
 		}
 	} else if arg == "PikaGenerate" {
-		pika.Generate("properly gotten treatment worked")
+		pika.Generate("", "properly gotten treatment worked")
 	} else if arg == "thumb" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()

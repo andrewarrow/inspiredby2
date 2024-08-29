@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-var done = map[string]bool{"stress moment being": true}
+var prompts = map[string]bool{"stress moment being": true}
 
 //	"because breathe whatever breathe": true,
 //	"really activates parasympathetic": true,
@@ -19,11 +19,11 @@ var done = map[string]bool{"stress moment being": true}
 func Demo() {
 
 	done := false
-	for k, _ := range done {
+	var pi pika.PikaInfo
+	for k, _ := range prompts {
 		fmt.Println(k)
 		tag := fmt.Sprintf("o| " + k)
-		pika.Generate(tag)
-		var pi pika.PikaItem
+		pika.Generate("", tag)
 		for {
 			if done {
 				break
@@ -41,6 +41,7 @@ func Demo() {
 		}
 	}
 	fmt.Println(pi.Id, pi.Video, pi.PromptText)
+	pika.Generate(pi.Video, pi.PromptText)
 
 }
 

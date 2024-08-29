@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func Generate(text string) string {
+func Generate(video, text string) string {
 	url := fmt.Sprintf("https://api.pika.art/generate")
 
 	data := bytes.NewBufferString("")
@@ -17,10 +17,19 @@ func Generate(text string) string {
 	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
 	data.WriteString("Content-Disposition: form-data; name=\"promptText\"\r\n\r\n")
 	data.WriteString(text + "\r\n")
+	if video == "" {
+		data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+		data.WriteString("Content-Disposition: form-data; name=\"sfx\"\r\n\r\ntrue\r\n")
+	} else {
+		data.WriteString("-----------------------------266926460920144731353527800262\r\n")
+		data.WriteString(fmt.Sprintf("Content-Disposition: form-data; name=\"video\"\r\n\r\n%s\r\n", video))
+	}
 	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
-	data.WriteString("Content-Disposition: form-data; name=\"sfx\"\r\n\r\ntrue\r\n")
-	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
-	data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":false}\r\n")
+	if video == "" {
+		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":false}\r\n")
+	} else {
+		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":true}\r\n")
+	}
 	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
 	data.WriteString(fmt.Sprintf("Content-Disposition: form-data; name=\"userId\"\r\n\r\n%s\r\n", os.Getenv("PIKA_USER")))
 	data.WriteString("-----------------------------266926460920144731353527800262--\r\n")
