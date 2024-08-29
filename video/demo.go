@@ -18,22 +18,29 @@ var done = map[string]bool{"stress moment being": true}
 
 func Demo() {
 
+	done := false
 	for k, _ := range done {
 		fmt.Println(k)
 		tag := fmt.Sprintf("o| " + k)
 		pika.Generate(tag)
+		var pi pika.PikaItem
 		for {
-			items, ok := pika.List("")
+			if done {
+				break
+			}
+			items, _ := pika.List("")
 			for _, item := range items {
 				fmt.Println(item.Id, item.Status)
 				if item.Status == "finished" {
-					fmt.Println(item.Id, item.Video)
+					done = true
+					pi = item
 					break
 				}
 			}
-			time.Sleep(time.Second * 1)
+			time.Sleep(time.Second * 9)
 		}
 	}
+	fmt.Println(pi.Id, pi.Video, pi.PromptText)
 
 }
 
