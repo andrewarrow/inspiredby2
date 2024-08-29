@@ -13,6 +13,7 @@ func Demo() {
 		fmt.Println(err)
 	}
 
+	items := []string{}
 	for _, file := range files {
 		if !file.IsDir() {
 
@@ -23,11 +24,24 @@ func Demo() {
 			tokens := strings.Split(name, "_")
 			id := tokens[0]
 			fmt.Println(id)
-			file1 := dir + "/" + name
-			file2 := dir + "/foo/three_fixed_" + id + "_poster.jpg.mp4"
-			file3 := dir + "/foo3/" + id + ".mp4"
-			CombineTwoFilesOld(file1, file2, file3)
+			items = append(items, id)
+			//file2 := dir + "/" + name
+			//file1 := dir + "/foo/three_fixed_" + id + "_poster.jpg.mp4"
+			//file3 := dir + "/foo3/" + id + ".mp4"
 		}
+	}
+
+	more := []string{}
+	for _, id := range items {
+		file1 := dir + "/" + id + ".mp4"
+		file2 := dir + "/foo/three_fixed_" + id + "_poster.jpg.mp4"
+		more = append(more, file2)
+		more = append(more, file1)
+	}
+
+	for i, file := range more {
+		file2 := fmt.Sprintf("/foo3/%06d.mp4", i)
+		copyFile12(file, file2)
 	}
 }
 

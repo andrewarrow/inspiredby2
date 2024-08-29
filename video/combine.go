@@ -41,6 +41,12 @@ func CombineTwoFiles(dir, file1, file2, file3 string) {
 	}
 }
 
+func CombineTwoFilesWithBox(file1, file2, file3 string) {
+	//MP4Box -cat input1.mp4 -cat input2.mp4 -new output.mp4
+	cmd := exec.Command("MP4Box", "-cat", file1, "-cat", file2, "-new", file3)
+	cmd.CombinedOutput()
+}
+
 func CombineTwoFilesOld(file1, file2, file3 string) {
 	line1 := fmt.Sprintf("file '/Users/aa/os/inspiredby2/%s'", file1)
 	line2 := fmt.Sprintf("file '/Users/aa/os/inspiredby2/%s'", file2)
@@ -84,9 +90,10 @@ func Combine(dir string) {
 		fmt.Println(err)
 	}
 
-	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c:v", "libx264",
-		"-c:a", "aac", "-strict", "experimental", "-b:a", "192k",
-		"-y", "/Users/aa/Downloads/output2.mp4")
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy",
+		//"-c:v", "libx264",
+		//		"-c:a", "aac", "-strict", "experimental", "-b:a", "192k",
+		"-y", "/Users/aa/Downloads/output3.mp4")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
