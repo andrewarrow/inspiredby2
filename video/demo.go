@@ -10,19 +10,28 @@ import (
 	"time"
 )
 
-//var prompts = map[string]bool{"really activates parasympathetic": true}
+func Demo() {
+	for i := 0; i < 55; i++ {
+		for j := 0; j < 6; j++ {
+			key := fmt.Sprintf("%d_%d", i, j)
+			fmt.Println(key)
+		}
+	}
+}
 
 func Demo9(i int, prompts []string) {
 	mapItems := map[string]int{}
 	mapItemVideos := map[string]string{}
 	mapItemIds := map[string]string{}
+	fmt.Println("***", i, prompts)
 	for _, k := range prompts {
 		tag := fmt.Sprintf("Moody " + k)
-		fmt.Println(tag)
 		mapItems[tag] = 1
 		pika.Generate("", tag)
 		time.Sleep(time.Second * 1)
 	}
+	count := 0
+	done := false
 	for {
 		time.Sleep(time.Second * 9)
 		items, _ := pika.List("")
@@ -36,7 +45,15 @@ func Demo9(i int, prompts []string) {
 				util.Download(item.Id, item.Video)
 				pika.Delete(item.Id)
 				pika.Delete(mapItemIds[item.PromptText])
+				count++
+				if count == 9 {
+					done = true
+					break
+				}
 			}
+		}
+		if done {
+			break
 		}
 		for k, v := range mapItems {
 			if v == 2 {
@@ -48,8 +65,9 @@ func Demo9(i int, prompts []string) {
 	}
 }
 
-func Demo() {
+func Demo3() {
 	prompts := pika.FindPrompts()
+	prompts = prompts[100:]
 	sort.Strings(prompts)
 	i := 0
 	for {

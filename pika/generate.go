@@ -26,9 +26,9 @@ func Generate(video, text string) string {
 	}
 	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
 	if video == "" {
-		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":false}\r\n")
+		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4,\"negativePrompt\": \"human eyes writing words\"},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":false}\r\n")
 	} else {
-		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":true}\r\n")
+		data.WriteString("Content-Disposition: form-data; name=\"options\"\r\n\r\n{\"frameRate\":24,\"parameters\":{\"guidanceScale\":25,\"motion\":4,\"negativePrompt\": \"human eyes writing words\"},\"camera\":{\"zoom\":null,\"pan\":null,\"tilt\":null,\"rotate\":null},\"extend\":true}\r\n")
 	}
 	data.WriteString("-----------------------------266926460920144731353527800262\r\n")
 	data.WriteString(fmt.Sprintf("Content-Disposition: form-data; name=\"userId\"\r\n\r\n%s\r\n", os.Getenv("PIKA_USER")))

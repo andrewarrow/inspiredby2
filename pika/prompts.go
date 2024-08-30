@@ -4,17 +4,9 @@ import (
 	"strings"
 )
 
-var done = map[string]bool{"stress moment being": true,
-	"because breathe whatever breathe": true,
-	"really activates parasympathetic": true,
-	"called performances stage":        true,
-	"incorporate nuances nervous":      true,
-	"around world commitment":          true,
-}
-
 func FindPrompts() []string {
 	m := map[string]string{}
-	for k, v := range lookup {
+	for k, v := range Lookup {
 		tokens := strings.Split(v, " ")
 		words := []string{}
 		for _, word := range tokens {
@@ -68,7 +60,7 @@ func groupArrayIntoThree(arr []string) [][]string {
 	return result
 }
 
-var lookup = map[string]string{
+var Lookup = map[string]string{
 	"0_0":  "what's the history of HIV who who discovered it  no it's really interesting it originated  being a metric that  doctors looked at before babies were born",
 	"0_1":  "to predict the Vitality of the of the unborn baby that they would be healthy upon birth  and then in time doctors began using it as a metric,",
 	"0_2":  "of cardiovascular health and other conditions uh HRV is very much associated with  clinical conditions from,",

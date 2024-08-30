@@ -3,6 +3,13 @@
 ```
 ffmpeg -i file1.mp4 -i file2.mp4 -filter_complex "[1:v]scale=1280:720[bg];[0:v]scale=320:180[pip];[bg][pip]overlay=W-w-10:10" -c:v libx264 -crf 23 -preset veryfast -movflags +faststart -y output.mp4
 
+
+ffmpeg -i file1.mp4 -i file2.mp4 -filter_complex "[1:v]scale=1280:720[bg];[0:v]scale=320:180[pip];[bg][pip]overlay=W-w-10:10[v];[0:a][1:a]amix=inputs=2:duration=longest[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 23 -preset veryfast -movflags +faststart -y output.mp4
+
+ffmpeg -i file1.mp4 -i file2.mp4 -filter_complex "[1:v]scale=1280:720[bg];[0:v]scale=320:180,pad=360:220:20:20:orange[bordered_pip];[bg][bordered_pip]overlay=50:50[v];[0:a][1:a]amix=inputs=2:duration=longest[a]" -map "[v]" -map "[a]" -c:v libx264 -crf 23 -preset veryfast -movflags +faststart -y output.mp4
+
+
+
 ```
 
 # silence hiss

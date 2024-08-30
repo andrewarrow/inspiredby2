@@ -133,6 +133,18 @@
           "flavor": "int"
         },
         {
+          "name": "id_pika",
+          "flavor": "name"
+        },
+        {
+          "name": "video_url",
+          "flavor": "name"
+        },
+        {
+          "name": "video_url",
+          "flavor": "name"
+        },
+        {
           "name": "sub",
           "flavor": "int"
         },
