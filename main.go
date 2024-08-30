@@ -75,22 +75,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		items, _ := pika.List("")
 		fmt.Println(items[0].Duration)
 	} else if arg == "PikaDelete" {
-		lastId := ""
-		for {
-			items, ok := pika.List(lastId)
-			if ok == false {
-				continue
-			}
-			fmt.Println(items)
-			for _, item := range items {
-				pika.Delete(item.Id)
-				time.Sleep(time.Second * 1)
-			}
-			if len(items) == 0 {
-				return
-			}
-			lastId = ""
-		}
+		pika.Delete("1fcf4d24-f333-4211-a3e6-f30c14eee2bc")
 	} else if arg == "PikaGenerate" {
 		pika.Generate("https://cdn.pika.art/v1/059e345a-b61e-496c-86c5-129a18b6eaff/o__stress_moment_being_seed8340029492228365_sfx.mp4", "stress moment being")
 	} else if arg == "thumb" {

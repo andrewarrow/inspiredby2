@@ -137,6 +137,10 @@
           "flavor": "name"
         },
         {
+          "name": "prompt_text",
+          "flavor": "name"
+        },
+        {
           "name": "video_url",
           "flavor": "name"
         },

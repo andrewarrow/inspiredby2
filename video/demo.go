@@ -12,17 +12,45 @@ import (
 	"github.com/andrewarrow/feedback/router"
 )
 
+type DemoThing struct {
+	Tag string
+	Key string
+}
+
 func Demo(c *router.Context) {
-	//for i := 0; i < 55; i++ {
-	//	for j := 0; j < 6; j++ {
-	i := 1
-	j := 0
-	key := fmt.Sprintf("%d_%d", i, j)
-	tag := pika.Lookup[key]
-	fmt.Println(key)
-	id := pika.Generate("", tag)
-	c.FreeFormUpdate("update link_sections set id_pika=$1 where section=$2",
-		id, "1_"+key)
+	buffer := []DemoThing{}
+	for i := 0; i < 55; i++ {
+		for j := 0; j < 6; j++ {
+			key := fmt.Sprintf("%d_%d", i, j)
+			tag := pika.Lookup[key]
+			tokens := strings.Split(tag, " ")
+			words := []string{}
+			for _, word := range tokens {
+				if strings.Contains(word, "'") {
+					continue
+				}
+				if len(word) < 5 {
+					continue
+				}
+				words = append(words, word)
+			}
+			dt := DemoThing{strings.Join(words, " "), key}
+			buffer = append(buffer, dt)
+		}
+	}
+
+	for {
+		peel := buffer[0:9]
+		for i, item := range peel {
+			//id := pika.Generate("", item.Tag)
+			//c.FreeFormUpdate("update link_sections set id_pika=$1, prompt_text=$2 where section=$3", id, item.Tag, "1_"+key)
+			fmt.Println(i, item)
+		}
+		if len(buffer) < 9 {
+			break
+		}
+		buffer = buffer[9:]
+	}
 }
 
 func Demo9(i int, prompts []string) {
