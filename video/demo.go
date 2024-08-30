@@ -42,14 +42,16 @@ func Demo(c *router.Context) {
 	for {
 		peel := buffer[0:9]
 		for i, item := range peel {
-			//id := pika.Generate("", item.Tag)
-			//c.FreeFormUpdate("update link_sections set id_pika=$1, prompt_text=$2 where section=$3", id, item.Tag, "1_"+key)
+			id := pika.Generate("", item.Tag)
+			c.FreeFormUpdate("update link_sections set id_pika=$1, prompt_text=$2 where section=$3", id, item.Tag, "1_"+item.Key)
 			fmt.Println(i, item)
 		}
+
+		buffer = buffer[9:]
 		if len(buffer) < 9 {
 			break
 		}
-		buffer = buffer[9:]
+		time.Sleep(time.Second * 90)
 	}
 }
 
