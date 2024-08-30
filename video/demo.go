@@ -5,20 +5,55 @@ import (
 	"inspiredby2/pika"
 	"inspiredby2/util"
 	"io/ioutil"
+	"sort"
 	"strings"
+	"sync"
 	"time"
 )
 
 //var prompts = map[string]bool{"really activates parasympathetic": true}
 
+func Demo9() {
+	page := 0
+	for {
+		var wg sync.WaitGroup
+		wg.Add(1)
+		for j := 0; j < 9; j++ {
+			go func(mypage int) {
+				fmt.Println(mypage)
+				wg.Done()
+				fmt.Println(mypage)
+			}(page)
+			page++
+		}
+		wg.Wait()
+	}
+}
+
 func Demo() {
+	prompts := pika.FindPrompts()
+	sort.Strings(prompts)
+	i := 0
+	for {
+		if len(prompts) < 9 {
+			break
+		}
+		fmt.Println(i, prompts[0:9])
+		prompts = prompts[9:]
+		time.Sleep(time.Second)
+		i++
+	}
+}
+
+func DemoOld() {
 
 	prompts := pika.FindPrompts()
-	for _, k := range prompts {
+	sort.Strings(prompts)
+	for i, k := range prompts {
 		done := false
 		var pi pika.PikaInfo
-		fmt.Println(k)
-		tag := fmt.Sprintf(k)
+		fmt.Println(i, k)
+		tag := fmt.Sprintf("Moody " + k)
 		pika.Generate("", tag)
 		for {
 			if done {
@@ -35,7 +70,7 @@ func Demo() {
 				}
 			}
 		}
-		fmt.Println(pi.Id, pi.Video, pi.PromptText)
+		fmt.Println(i, pi.Id, pi.Video, pi.PromptText)
 		pika.Generate(pi.Video, pi.PromptText)
 		WaitFor7SecondVideo()
 	}

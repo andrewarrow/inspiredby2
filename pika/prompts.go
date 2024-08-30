@@ -41,7 +41,7 @@ func FindPrompts() []string {
 	}
 	items := []string{}
 	for k, _ := range m {
-		items = append(items, "3D render "+k)
+		items = append(items, k)
 
 		//	Generate("3D render " + k + " (" + v + ")")
 		//	Generate("Moody " + k + " (" + v + ")")

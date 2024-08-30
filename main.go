@@ -66,7 +66,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "Resize1280x720" {
 		video.Resize1280x720(os.Args[2])
 	} else if arg == "Combine" {
-		video.Combine("data5/foo3")
+		video.Combine("data")
 	} else if arg == "pika" {
 		pika.FindPrompts()
 	} else if arg == "PikaList" {

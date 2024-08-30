@@ -75,10 +75,7 @@ func Combine(dir string) {
 	for _, file := range files {
 		if !file.IsDir() {
 			name := file.Name()
-			if name == ".DS_Store" {
-				continue
-			}
-			if strings.HasSuffix(name, ".mp3") {
+			if strings.HasSuffix(name, ".mp4") == false {
 				continue
 			}
 			videoPath := filepath.Join(dir, file.Name())
@@ -90,9 +87,9 @@ func Combine(dir string) {
 		fmt.Println(err)
 	}
 
-	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", "-c", "copy",
-		//"-c:v", "libx264",
-		//"-c:a", "aac", "-strict", "experimental", "-b:a", "192k",
+	cmd := exec.Command("ffmpeg", "-f", "concat", "-safe", "0", "-i", "/Users/aa/list.txt", //"-c", "copy",
+		"-c:v", "libx264",
+		"-c:a", "aac", "-strict", "experimental", "-b:a", "192k",
 		"-y", "/Users/aa/Downloads/output3.mp4")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
