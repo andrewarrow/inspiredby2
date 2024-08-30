@@ -15,6 +15,7 @@ import (
 func Demo9(i int, prompts []string) {
 	mapItems := map[string]int{}
 	mapItemVideos := map[string]string{}
+	mapItemIds := map[string]string{}
 	for _, k := range prompts {
 		tag := fmt.Sprintf("Moody " + k)
 		fmt.Println(tag)
@@ -30,7 +31,11 @@ func Demo9(i int, prompts []string) {
 			if item.Status == "finished" && item.Duration == 3 && mapItems[item.PromptText] == 1 {
 				mapItems[item.PromptText] = 2
 				mapItemVideos[item.PromptText] = item.Video
+				mapItemIds[item.PromptText] = item.Id
 			} else if item.Status == "finished" && item.Duration == 7 && mapItems[item.PromptText] == 3 {
+				util.Download(item.Id, item.Video)
+				pika.Delete(item.Id)
+				pika.Delete(mapItemIds[item.PromptText])
 			}
 		}
 		for k, v := range mapItems {
