@@ -57,7 +57,9 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "fix" {
 		app.ProcessVideoFix()
 	} else if arg == "demo" {
-		video.Demo()
+		fr := router.NewRouter("DATABASE_URL", embeddedFile)
+		c := fr.ToContext()
+		video.Demo(c)
 		//video.WaitFor7SecondVideo()
 	} else if arg == "splice" {
 		video.Splice("data2")

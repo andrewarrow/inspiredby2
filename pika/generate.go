@@ -2,6 +2,7 @@ package pika
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -62,6 +63,10 @@ func Generate(video, text string) string {
 
 	fmt.Println(len(body))
 	//time.Sleep(time.Second * 90)
-	return ""
+	var m map[string]any
+	json.Unmarshal(body, &m)
+	d1, _ := m["data"].(map[string]any)
+	id, _ := d1["id"].(string)
+	return id
 
 }

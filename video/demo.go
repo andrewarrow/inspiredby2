@@ -8,15 +8,21 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/andrewarrow/feedback/router"
 )
 
-func Demo() {
-	for i := 0; i < 55; i++ {
-		for j := 0; j < 6; j++ {
-			key := fmt.Sprintf("%d_%d", i, j)
-			fmt.Println(key)
-		}
-	}
+func Demo(c *router.Context) {
+	//for i := 0; i < 55; i++ {
+	//	for j := 0; j < 6; j++ {
+	i := 1
+	j := 0
+	key := fmt.Sprintf("%d_%d", i, j)
+	tag := pika.Lookup[key]
+	fmt.Println(key)
+	id := pika.Generate("", tag)
+	c.FreeFormUpdate("update link_sections set id_pika=$1 where section=$2",
+		id, "1_"+key)
 }
 
 func Demo9(i int, prompts []string) {
