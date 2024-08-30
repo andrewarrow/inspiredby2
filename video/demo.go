@@ -7,26 +7,35 @@ import (
 	"io/ioutil"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 )
 
 //var prompts = map[string]bool{"really activates parasympathetic": true}
 
-func Demo9() {
-	page := 0
+func Demo9(i int, prompts []string) {
+	mapItems := map[string]int{}
+	for _, k := range prompts {
+		tag := fmt.Sprintf("Moody " + k)
+		mapItems[tag] = 1
+		pika.Generate("", tag)
+		time.Sleep(time.Second * 1)
+	}
 	for {
-		var wg sync.WaitGroup
-		wg.Add(1)
-		for j := 0; j < 9; j++ {
-			go func(mypage int) {
-				fmt.Println(mypage)
-				wg.Done()
-				fmt.Println(mypage)
-			}(page)
-			page++
+		time.Sleep(time.Second * 9)
+		items, _ := pika.List("")
+		for _, item := range items {
+			fmt.Println(i, item.Id, item.Status)
+			if item.Status == "finished" && item.Duration == 3 && mapItems[item.PromptText] == 1 {
+				mapItems[item.PromptText] = 2
+			}
 		}
-		wg.Wait()
+		for k, v := range mapItems {
+			if v == 2 {
+				mapItems[k] = 3
+				// Do2nd
+			}
+		}
+
 	}
 }
 
@@ -38,45 +47,41 @@ func Demo() {
 		if len(prompts) < 9 {
 			break
 		}
-		fmt.Println(i, prompts[0:9])
+		Demo9(i, prompts[0:9])
 		prompts = prompts[9:]
 		time.Sleep(time.Second)
 		i++
 	}
 }
 
-func DemoOld() {
+func DemoGetOne(i int, k string) {
 
-	prompts := pika.FindPrompts()
-	sort.Strings(prompts)
-	for i, k := range prompts {
-		done := false
-		var pi pika.PikaInfo
-		fmt.Println(i, k)
-		tag := fmt.Sprintf("Moody " + k)
-		pika.Generate("", tag)
-		for {
-			if done {
+	done := false
+	var pi pika.PikaInfo
+	fmt.Println(i, k)
+	tag := fmt.Sprintf("Moody " + k)
+	pika.Generate("", tag)
+	for {
+		if done {
+			break
+		}
+		time.Sleep(time.Second * 9)
+		items, _ := pika.List("")
+		for _, item := range items {
+			fmt.Println(i, item.Id, item.Status)
+			if item.Status == "finished" && item.PromptText == tag {
+				done = true
+				pi = item
 				break
 			}
-			time.Sleep(time.Second * 9)
-			items, _ := pika.List("")
-			for _, item := range items {
-				fmt.Println(item.Id, item.Status)
-				if item.Status == "finished" {
-					done = true
-					pi = item
-					break
-				}
-			}
 		}
-		fmt.Println(i, pi.Id, pi.Video, pi.PromptText)
-		pika.Generate(pi.Video, pi.PromptText)
-		WaitFor7SecondVideo()
 	}
+	fmt.Println(i, pi.Id, pi.Video, pi.PromptText)
+	pika.Generate(pi.Video, pi.PromptText)
+	WaitFor7SecondVideo(pi.Id, tag)
 }
 
-func WaitFor7SecondVideo() {
+func WaitFor7SecondVideo(id, tag string) {
 	done := false
 	var pi pika.PikaInfo
 	for {
@@ -87,16 +92,17 @@ func WaitFor7SecondVideo() {
 		items, _ := pika.List("")
 		for _, item := range items {
 			fmt.Println("1", item.Id, item.Status, item.Duration)
-			if item.Status == "finished" && item.Duration == 7 {
+			if item.Status == "finished" && item.Duration == 7 && item.PromptText == tag {
 				done = true
 				pi = item
 				break
 			}
 		}
 	}
-	fmt.Println("2", pi.Video)
+	//fmt.Println("2", pi.Video)
 	util.Download(pi.Id, pi.Video)
-	DeleteAll()
+	pika.Delete(id)
+	pika.Delete(pi.Id)
 }
 
 func DeleteAll() {
