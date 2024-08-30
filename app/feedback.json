@@ -145,10 +145,6 @@
           "flavor": "name"
         },
         {
-          "name": "video_url",
-          "flavor": "name"
-        },
-        {
           "name": "sub",
           "flavor": "int"
         },
