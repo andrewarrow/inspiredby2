@@ -19,7 +19,7 @@ type DemoThing struct {
 
 func Demo(c *router.Context) {
 	buffer := []DemoThing{}
-	all := c.FreeFormSelect("select guid,stt from link_sections where minute > 5 order by minute,sub")
+	all := c.FreeFormSelect("select guid,stt from link_sections where minute > 8 order by minute,sub")
 	for _, item := range all {
 		stt, _ := item["stt"].(string)
 		tokens := strings.Split(stt, " ")
@@ -38,15 +38,16 @@ func Demo(c *router.Context) {
 	}
 
 	for {
-		peel := buffer[0:9]
+		peel := buffer[0:3]
 		for i, item := range peel {
 			join := strings.Join(FindLongestWords(item.Tag), " ")
-			//AddToPika(c, join, item.Key)
+			AddToPika(c, join, item.Key)
+			time.Sleep(time.Second * 1)
 			fmt.Println(i, item, join)
 		}
 
-		buffer = buffer[9:]
-		if len(buffer) < 9 {
+		buffer = buffer[3:]
+		if len(buffer) < 3 {
 			break
 		}
 		time.Sleep(time.Second * 90)

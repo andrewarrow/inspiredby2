@@ -15,6 +15,9 @@ func AddToPika(c *router.Context, words, guid string) {
 	for _, flavor := range Flavors {
 		pt := flavor + " " + words
 		id := pika.Generate("", pt)
+		if id == "" {
+			continue
+		}
 		//pika.MoveVideoToFolder(id, "A31")
 		c.Params = map[string]any{}
 		c.Params["id_pika"] = id
