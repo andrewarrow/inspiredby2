@@ -40,6 +40,16 @@ func Render(c *router.Context, id string) {
 			make12Seconds(guid)
 
 		}
+	} else if id == "3" {
+		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+		for i, item := range items {
+			guid, _ := item["guid"].(string)
+
+			file1 := fmt.Sprintf("posters/%s.mp4", guid)
+			file2 := fmt.SPrintf("data2/%s.mp4", guid)
+			file3 := fmt.Sprintf("data3/%03d.mp4", i)
+			CombineTwoFilesWithBox(file1, file2, file3)
+		}
 	}
 }
 
