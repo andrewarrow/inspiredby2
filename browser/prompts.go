@@ -1,6 +1,10 @@
 package browser
 
 import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/andrewarrow/feedback/models"
 	"github.com/andrewarrow/feedback/wasm"
 )
 
@@ -20,7 +24,24 @@ func SetupPrompts() {
 		}
 		a.After = func(content string) {
 			Document.Id("b-"+guid).Set("value", "bump")
+			handlePromptReply(content)
 		}
 		Global.AddAutoForm(a)
+	}
+}
+
+func handlePromptReply(js string) {
+	var m map[string]any
+	err := json.Unmarshal([]byte(js), &m)
+	items := m["items"].([]any)
+	for _, item := range items {
+		thing := item.(map[string]any)
+
+		fmt.Println(thing)
+		model := models.NewBase(thing)
+		guid := model.GetString("guid")
+		fmt.Println(guid)
+		duration := model.GetFloatAsInt("duration")
+		fmt.Println(duration)
 	}
 }
