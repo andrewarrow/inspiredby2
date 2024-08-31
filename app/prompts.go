@@ -1,7 +1,7 @@
 package app
 
 import (
-	"sort"
+	"inspiredby2/video"
 	"strings"
 
 	"github.com/andrewarrow/feedback/router"
@@ -43,28 +43,11 @@ func handlePromptsItem(c *router.Context, id string) {
 
 	for _, item := range items {
 		stt := item["stt"].(string)
-		item["longest"] = strings.Join(findLongestWords(stt), " ")
+		item["longest"] = strings.Join(video.FindLongestWords(stt), " ")
 		item["has_prompt"] = item["prompt_text"] != ""
 	}
 	send["items"] = items
 	c.SendContentInLayout("prompts.html", send, 200)
-}
-
-func findLongestWords(input string) []string {
-	words := strings.Split(input, " ")
-
-	for i, word := range words {
-		words[i] = strings.Trim(word, ".,!?\"'`")
-	}
-
-	sort.Slice(words, func(i, j int) bool {
-		return len(words[i]) > len(words[j])
-	})
-
-	if len(words) >= 3 {
-		return words[:3]
-	}
-	return words
 }
 
 func FixGuids(c *router.Context) {
