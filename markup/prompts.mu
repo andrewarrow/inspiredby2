@@ -6,7 +6,17 @@ div p-0
         Prompts
       {{ $items := .items }}
       {{ range $i, $item := $items }}
-        div
-          Hi {{$item}}
+        div flex space-x-3
+          div w-32
+            {{$item.section}}
+          div w-full
+            div
+              {{$item.id_pika}}
+            div
+              {{$item.video_url}}
+            div
+              {{$item.prompt_text}}
+            div
+              {{$item.duration}}
       {{ end }}
       

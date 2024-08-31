@@ -1,3 +1,4 @@
+rm views/.html
 go mod tidy
 go build
 ./inspiredby2 render

@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/andrewarrow/feedback/router"
 )
 
 /*
@@ -21,6 +23,10 @@ type PikaInfo struct {
 	Video      string
 	PromptText string
 	Duration   int64
+}
+
+func ListAllAndUpdate(c *router.Context) {
+
 }
 
 func List(after string) ([]PikaInfo, bool) {

@@ -72,8 +72,9 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 	} else if arg == "pika" {
 		pika.FindPrompts()
 	} else if arg == "PikaList" {
-		items, _ := pika.List("")
-		fmt.Println(items[0].Duration)
+		fr := router.NewRouter("DATABASE_URL", embeddedFile)
+		c := fr.ToContext()
+		pika.ListAllAndUpdate(c)
 	} else if arg == "PikaDelete" {
 		pika.Delete("1fcf4d24-f333-4211-a3e6-f30c14eee2bc")
 	} else if arg == "PikaGenerate" {
