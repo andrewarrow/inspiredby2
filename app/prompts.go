@@ -17,6 +17,8 @@ func Prompts(c *router.Context, second, third string) {
 }
 func handlePromptsItem(c *router.Context, id string) {
 	c.Title = "Heart Rate Variability"
+	items := c.FreeFormSelect("select * from link_sections order by section limit 1000")
 	send := map[string]any{}
+	send["items"] = items
 	c.SendContentInLayout("prompts.html", send, 200)
 }
