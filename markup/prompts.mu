@@ -1,4 +1,4 @@
-div p-0 
+div p-0 top
   {{ template "navbar" . }}
   div flex flex-col md:flex-row space-x-9 items-start justify-center
     div w-full md:w-1/2 space-y-6
@@ -6,7 +6,7 @@ div p-0
         Prompts
       {{ $items := .items }}
       {{ range $i, $item := $items }}
-        div id=p-{{$item.guid}} flex space-x-3
+        form id=p-{{$item.guid}} flex space-x-3 prompt-form
           div w-32
             {{$item.section}}
           div w-full
@@ -21,6 +21,7 @@ div p-0
                 div
                   {{$item.duration}}
                 div
-                  input type=submit btn btn-sm btn-primary value=bump
+                  input type=hidden value={{$item.guid}} id=guid
+                  input type=submit btn btn-sm btn-primary value=bump id=b-{{$item.guid}}
       {{ end }}
       
