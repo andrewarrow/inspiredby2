@@ -29,7 +29,7 @@ type PikaInfo struct {
 func ListAllAndUpdate(c *router.Context) {
 	lastId := ""
 	for {
-		items, ok := pika.List(lastId)
+		items, ok := List(lastId)
 		if ok == false {
 			continue
 		}
