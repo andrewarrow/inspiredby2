@@ -18,15 +18,34 @@ import (
 curl 'https://pika.art/my-library' --compressed -X POST
 */
 type PikaInfo struct {
-	Status     string
-	Id         string
-	Video      string
-	PromptText string
-	Duration   int64
+	Status      string
+	Id          string
+	Video       string
+	VideoPoster string
+	PromptText  string
+	Duration    int64
 }
 
 func ListAllAndUpdate(c *router.Context) {
-
+	lastId := ""
+	for {
+		items, ok := pika.List(lastId)
+		if ok == false {
+			continue
+		}
+		fmt.Println(items)
+		for _, item := range items {
+			c.Params = map[string]any{}
+			c.Params["duration"] = item.Duration
+			c.Params["video_url"] = item.Video
+			c.Params["video_poster"] = item.VideoPoster
+			c.Update("link_section", "where id_pika=", item.Id)
+		}
+		if len(items) == 0 {
+			return
+		}
+		lastId = ""
+	}
 }
 
 func List(after string) ([]PikaInfo, bool) {
@@ -103,7 +122,7 @@ func List(after string) ([]PikaInfo, bool) {
 			video, _ := videoThing.(map[string]any)
 			status, _ := video["status"].(string)
 			resultUrl, _ := video["resultUrl"].(string)
-			//videoPoster, _ := video["videoPoster"].(string)
+			videoPoster, _ := video["videoPoster"].(string)
 			duration, _ := video["duration"].(float64)
 
 			//fmt.Println(id)
@@ -125,6 +144,7 @@ func List(after string) ([]PikaInfo, bool) {
 			pi.PromptText = promptText
 			pi.Status = status
 			pi.Id = id
+			pi.VideoPoster = videoPoster
 			pi.Duration = int64(duration)
 			items = append(items, pi)
 		}

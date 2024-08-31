@@ -145,6 +145,10 @@
           "flavor": "name"
         },
         {
+          "name": "video_poster",
+          "flavor": "name"
+        },
+        {
           "name": "duration",
           "flavor": "int"
         },
