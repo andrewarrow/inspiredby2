@@ -18,7 +18,7 @@ div p-0 id=top
               {{$item.prompt_text}}
             div
               div flex space-x-6 items-center
-                div
+                div id=d-{{$item.guid}}
                   {{$item.duration}}
                 div
                   input type=hidden value={{$item.guid}} id=guid
