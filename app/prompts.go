@@ -13,6 +13,10 @@ func Prompts(c *router.Context, second, third string) {
 		//	handlePromptsIndex(c)
 		return
 	}
+	if second != "" && third == "options" && c.Method == "GET" {
+		handlePromptsOptions(c, second)
+		return
+	}
 	if second != "" && third == "text" && c.Method == "POST" {
 		handlePromptsText(c, second)
 		return

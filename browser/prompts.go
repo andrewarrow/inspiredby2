@@ -32,7 +32,11 @@ func SetupPrompts() {
 }
 
 func ClickFetch(id string) {
-	fmt.Println("ClickFetch", id)
+	guid := id[2:]
+	go func() {
+		m := wasm.DoGetMap("/prompts/" + guid + "/options")
+		fmt.Println(m)
+	}()
 }
 
 func handlePromptReply(js string) {
