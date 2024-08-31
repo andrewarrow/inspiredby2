@@ -32,7 +32,7 @@ func SetupPrompts() {
 
 func handlePromptReply(js string) {
 	var m map[string]any
-	err := json.Unmarshal([]byte(js), &m)
+	json.Unmarshal([]byte(js), &m)
 	items := m["items"].([]any)
 	for _, item := range items {
 		thing := item.(map[string]any)
@@ -40,8 +40,14 @@ func handlePromptReply(js string) {
 		fmt.Println(thing)
 		model := models.NewBase(thing)
 		guid := model.GetString("guid")
-		fmt.Println(guid)
 		duration := model.GetFloatAsInt("duration")
-		fmt.Println(duration)
+		poster := model.GetString("video_poster")
+
+		w := Document.Id("p-" + guid)
+		imgs := w.SelectAllByQuery("getElementsByTagName", "img")
+		if len(imgs) > 0 {
+			imgs[0].Set("src", poster)
+		}
+
 	}
 }
