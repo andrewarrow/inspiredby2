@@ -58,7 +58,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
 		app.FixGuids(c)
-	} else if arg == "render" {
+	} else if arg == "render-video" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()
 		video.Render(c, os.Args[2])

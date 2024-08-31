@@ -12,6 +12,7 @@ import (
 func Download(dir, id, url string) {
 	tokens := strings.Split(url, "/")
 	last := tokens[len(tokens)-1]
+	tokens = strings.Split(last, ".")
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -20,7 +21,7 @@ func Download(dir, id, url string) {
 	}
 	defer resp.Body.Close()
 
-	outFile, err := os.Create(dir + "/" + id + "_" + last)
+	outFile, err := os.Create(dir + "/" + id + "." + tokens[0])
 	if err != nil {
 		fmt.Println(err)
 		return
