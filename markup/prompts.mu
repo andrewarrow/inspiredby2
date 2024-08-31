@@ -13,7 +13,7 @@ div p-0
             div
               {{$item.id_pika}}
             div
-              {{$item.video_url}}
+              <img src="{{$item.video_poster}}" class="w-96" />
             div
               {{$item.prompt_text}}
             div

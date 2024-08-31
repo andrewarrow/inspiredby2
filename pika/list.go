@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/andrewarrow/feedback/router"
 )
@@ -33,6 +34,7 @@ func ListAllAndUpdate(c *router.Context) {
 		if ok == false {
 			continue
 		}
+		time.Sleep(time.Second * 1)
 		fmt.Println(items)
 		for _, item := range items {
 			c.Params = map[string]any{}
