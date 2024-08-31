@@ -12,7 +12,7 @@ func SetupPrompts() {
 
 		guid := item.Id[2:]
 		a := wasm.NewAutoForm(item.Id)
-		a.Path = "/promprts/" + guid + "/" + bump
+		a.Path = "/prompts/" + guid + "/bump"
 		a.Clear = true
 		a.Before = func() string {
 			Document.Id("b-"+guid).Set("value", "please wait...")
