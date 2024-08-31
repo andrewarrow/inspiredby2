@@ -18,8 +18,10 @@ div p-0 id=top
               {{ else }}
                 input type=text w-full id=words-{{$item.guid}} value={{$item.longest}}
               {{ end }}
-            div
+            div hidden
               {{$item.id_pika}}
+            div
+              <img src="{{$item.video_poster}}" class="w-64" />
             div id=posters-{{$item.guid}}
             div
               div flex space-x-6 items-center
