@@ -15,6 +15,7 @@ func SetupPrompts() {
 	for _, item := range all {
 
 		guid := item.Id[2:]
+		Document.Id("a-" + guid).Event(ClickFetch)
 		a := wasm.NewAutoForm(item.Id)
 		a.Path = "/prompts/" + guid + "/text"
 		a.Clear = true
@@ -28,6 +29,10 @@ func SetupPrompts() {
 		}
 		Global.AddAutoForm(a)
 	}
+}
+
+func ClickFetch(id string) {
+	fmt.Println("ClickFetch", id)
 }
 
 func handlePromptReply(js string) {

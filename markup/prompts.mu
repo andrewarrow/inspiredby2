@@ -29,5 +29,7 @@ div p-0 id=top
                 div
                   input type=hidden value={{$item.guid}} id=guid
                   input type=submit btn btn-sm btn-primary value=go id=b-{{$item.guid}}
+                  a href=/ btn btn-sm btn-secondary value=fetch id=a-{{$item.guid}}
+                    fetch
       {{ end }}
       
