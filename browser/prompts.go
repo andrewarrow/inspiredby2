@@ -3,6 +3,7 @@ package browser
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/andrewarrow/feedback/models"
 	"github.com/andrewarrow/feedback/wasm"
@@ -35,7 +36,16 @@ func ClickFetch(id string) {
 	guid := id[2:]
 	go func() {
 		m := wasm.DoGetMap("/prompts/" + guid + "/options")
-		fmt.Println(m)
+		items, _ := m["items"].([]any)
+		buffer := []string{}
+		for _, item := range items {
+			fmt.Println(m)
+			buffer = append(buffer, fmt.Sprintf(`<img src="%s" class="w-64"/>`,
+				item["video_poster"]))
+		}
+		join := strings.Join(buffer, "<br/>")
+		Document.Id("posters-"+guid).Set("innerHTML", join)
+
 	}()
 }
 

@@ -20,8 +20,7 @@ div p-0 id=top
               {{ end }}
             div
               {{$item.id_pika}}
-            div
-              <img src="{{$item.video_poster}}" class="w-96" />
+            div id=posters-{{$item.guid}}
             div
               div flex space-x-6 items-center
                 div id=d-{{$item.guid}}
