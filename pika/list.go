@@ -42,6 +42,7 @@ func ListAllAndUpdate(c *router.Context) {
 			c.Params["video_url"] = item.Video
 			c.Params["video_poster"] = item.VideoPoster
 			c.Update("link_section", "where id_pika=", item.Id)
+			c.Update("pika", "where id_pika=", item.Id)
 			lastId = item.Id
 		}
 		if len(items) == 0 {

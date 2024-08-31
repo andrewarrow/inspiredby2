@@ -216,6 +216,18 @@
           "flavor": "name"
         },
         {
+          "name": "video_url",
+          "flavor": "name"
+        },
+        {
+          "name": "video_poster",
+          "flavor": "name"
+        },
+        {
+          "name": "duration",
+          "flavor": "int"
+        },
+        {
           "name": "id_pika",
           "flavor": "name"
         }

@@ -15,10 +15,12 @@ func handlePromptsText(c *router.Context, guid string) {
 		words, guid)
 
 	go func() {
+		//pika.CreateFolder(guid)
 		one := c.One("link_section", "where guid=$1", guid)
 		for _, flavor := range flavors {
 			pt := flavor + " " + words
 			id := pika.Generate("", pt)
+			//pika.MoveVideoToFolder(id, "A31")
 			c.Params = map[string]any{}
 			c.Params["id_pika"] = id
 			c.Params["prompt_text"] = pt
