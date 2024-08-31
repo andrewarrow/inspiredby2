@@ -40,7 +40,7 @@ func Render(c *router.Context, id string) {
 			make12Seconds(guid)
 
 		}
-	} else if id == "3" {
+	} else if id == "4" {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
 		for i, item := range items {
 			guid, _ := item["guid"].(string)
