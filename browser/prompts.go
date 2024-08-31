@@ -43,16 +43,16 @@ func handlePromptReply(js string) {
 		duration := model.GetFloatAsInt("duration")
 		poster := model.GetString("video_poster")
 
-		w := Document.Id("p-" + guid)
-		imgs := w.SelectAllByQuery("getElementsByTagName", "img")
-		if len(imgs) > 0 {
-			imgs[0].Set("src", poster)
+		if poster != "" {
+			w := Document.Id("p-" + guid)
+			imgs := w.SelectAllByQuery("getElementsByTagName", "img")
+			if len(imgs) > 0 {
+				imgs[0].Set("src", poster)
+			}
 		}
 
-		if poster != "" {
-			w = Document.Id("d-" + guid)
-			w.Set("innerHTML", fmt.Sprintf("%d", duration))
-		}
+		w := Document.Id("d-" + guid)
+		w.Set("innerHTML", fmt.Sprintf("%d", duration))
 
 	}
 }
