@@ -5,14 +5,6 @@ import (
 	"github.com/andrewarrow/feedback/util"
 )
 
-func FixGuids(c *router.Context) {
-	items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
-	for _, item := range items {
-		guid := util.PseudoUuid()
-		c.FreeFormUpdate("update link_sections set guid=$1 where id=$2", guid, item["id"])
-	}
-}
-
 func Prompts(c *router.Context, second, third string) {
 	if second == "" && third == "" && c.Method == "GET" {
 		//	handlePromptsIndex(c)
@@ -20,6 +12,10 @@ func Prompts(c *router.Context, second, third string) {
 	}
 	if second != "" && third == "" && c.Method == "GET" {
 		handlePromptsItem(c, second)
+		return
+	}
+	if second != "" && third == "bump" && c.Method == "GET" {
+		handlePromptsBump(c, second)
 		return
 	}
 	c.NotFound = true
@@ -30,4 +26,12 @@ func handlePromptsItem(c *router.Context, id string) {
 	send := map[string]any{}
 	send["items"] = items
 	c.SendContentInLayout("prompts.html", send, 200)
+}
+
+func FixGuids(c *router.Context) {
+	items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+	for _, item := range items {
+		guid := util.PseudoUuid()
+		c.FreeFormUpdate("update link_sections set guid=$1 where id=$2", guid, item["id"])
+	}
 }
