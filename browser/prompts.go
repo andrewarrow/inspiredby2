@@ -39,9 +39,9 @@ func ClickFetch(id string) {
 		items, _ := m["items"].([]any)
 		buffer := []string{}
 		for _, item := range items {
-			fmt.Println(m)
+			thing, _ := item.(map[string]any)
 			buffer = append(buffer, fmt.Sprintf(`<img src="%s" class="w-64"/>`,
-				item["video_poster"]))
+				thing["video_poster"]))
 		}
 		join := strings.Join(buffer, "<br/>")
 		Document.Id("posters-"+guid).Set("innerHTML", join)
