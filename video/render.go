@@ -49,8 +49,10 @@ func Render(c *router.Context, id string) {
 			file2 := fmt.Sprintf("data2/%s.mp4", guid)
 			file3 := fmt.Sprintf("data3/%03d.mp4", i)
 			CombineTwoFilesWithBox(file1, file2, file3)
-			changeToMov(guid, file3)
+			changeToMov(fmt.Sprintf("%03d", i), file3)
 		}
+	} else if id == "5" {
+		Combine("data3")
 	}
 }
 

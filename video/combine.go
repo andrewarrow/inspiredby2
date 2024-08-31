@@ -75,7 +75,7 @@ func Combine(dir string) {
 	for _, file := range files {
 		if !file.IsDir() {
 			name := file.Name()
-			if strings.HasSuffix(name, ".mp4") == false {
+			if strings.HasSuffix(name, ".mov") == false {
 				continue
 			}
 			videoPath := filepath.Join(dir, file.Name())

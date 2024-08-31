@@ -235,6 +235,36 @@
       ]
     },
     {
+      "name": "pika_render",
+      "fields": [
+        {
+          "name": "link_section_id",
+          "flavor": "int"
+        },
+        {
+          "name": "prompt_text",
+          "flavor": "name"
+        },
+        {
+          "name": "video_url",
+          "flavor": "name"
+        },
+        {
+          "name": "video_poster",
+          "flavor": "name"
+        },
+        {
+          "name": "duration",
+          "flavor": "int"
+        },
+        {
+          "name": "id_pika",
+          "index": "yes",
+          "flavor": "name"
+        }
+      ]
+    },
+    {
       "name": "cookie_token",
       "fields": [
         {

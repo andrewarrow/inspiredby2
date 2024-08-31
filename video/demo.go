@@ -13,11 +13,51 @@ import (
 )
 
 type DemoThing struct {
-	Tag string
-	Key string
+	Tag        string
+	Key        string
+	PromptText string
+	VideoUrl   string
 }
 
 func Demo(c *router.Context) {
+	buffer := []DemoThing{}
+	all := c.FreeFormSelect("select video_url,guid,stt,prompt_text from link_sections order by minute,sub")
+	for _, item := range all {
+		stt, _ := item["stt"].(string)
+		pt, _ := item["prompt_text"].(string)
+		url, _ := item["video_url"].(string)
+		tokens := strings.Split(stt, " ")
+		words := []string{}
+		for _, word := range tokens {
+			if strings.Contains(word, "'") {
+				continue
+			}
+			if len(word) < 5 {
+				continue
+			}
+			words = append(words, word)
+		}
+		dt := DemoThing{strings.Join(words, " "), item["guid"].(string), pt, url}
+		buffer = append(buffer, dt)
+	}
+
+	for {
+		peel := buffer[0:3]
+		for i, item := range peel {
+			AddToPikaRender(c, item.VideoUrl, item.PromptText, item.Key)
+			time.Sleep(time.Second * 1)
+			fmt.Println(i, item, item.PromptText)
+		}
+
+		buffer = buffer[3:]
+		if len(buffer) < 3 {
+			break
+		}
+		time.Sleep(time.Second * 90)
+	}
+}
+
+func DemoTango(c *router.Context) {
 	buffer := []DemoThing{}
 	all := c.FreeFormSelect("select guid,stt from link_sections where minute > 8 order by minute,sub")
 	for _, item := range all {
@@ -33,7 +73,7 @@ func Demo(c *router.Context) {
 			}
 			words = append(words, word)
 		}
-		dt := DemoThing{strings.Join(words, " "), item["guid"].(string)}
+		dt := DemoThing{strings.Join(words, " "), item["guid"].(string), "", ""}
 		buffer = append(buffer, dt)
 	}
 
