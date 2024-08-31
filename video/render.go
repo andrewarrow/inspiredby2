@@ -48,7 +48,7 @@ func make12Seconds(guid string) {
 	cmd := exec.Command("ffmpeg", "-loop", "1", "-i",
 		"posters/"+guid+"_poster.jpg_720.jpg",
 		"-c:v", "libx264", "-t", "12",
-		"-pix_fmt", "yuv420p", "-vf", "scale=1280:720", "-y", guid+".mp4")
+		"-pix_fmt", "yuv420p", "-vf", "scale=1280:720", "-y", "posters/"+guid+".mp4")
 	cmd.CombinedOutput()
 	//b, err := cmd.CombinedOutput()
 	//fmt.Println(string(b), err)
