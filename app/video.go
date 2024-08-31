@@ -3,12 +3,10 @@ package app
 import (
 	"fmt"
 	"inspiredby2/google"
-	"inspiredby2/groq"
 	"inspiredby2/video"
 	"os"
 	"os/exec"
 	"strconv"
-	"strings"
 
 	"github.com/andrewarrow/feedback/router"
 )
@@ -39,15 +37,15 @@ func intCheck(a any, val int) bool {
 func ProcessVideo(c *router.Context, guid string) {
 	d, _ := video.GetVideoDuration("data/" + guid + ".mp4")
 	one := c.One("link", "where guid=$1", guid)
-	c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
-	c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
+	//c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
+	//c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
 
 	sec := int(d)
 	minutes := (sec % 3600) / 60
 	for i := 0; i < minutes+1; i++ {
 		from := 0 + (i * 60)
-		to := from + 10
-		for j := 0; j < 6; j++ {
+		to := from + 15
+		for j := 0; j < 4; j++ {
 			sectionId := fmt.Sprintf("%d_%d_%d", one["id"], i, j)
 			oneSection := c.One("link_section", "where section=$1", sectionId)
 			//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
@@ -102,27 +100,8 @@ func ProcessVideo(c *router.Context, guid string) {
 
 			// ---
 
-			from += 10
-			to += 10
-		}
-		minuteKey := fmt.Sprintf("%d_%d", one["id"], i)
-		oneMinute := c.One("link_minute", "where minute_key=$1", minuteKey)
-
-		if len(oneMinute) == 0 {
-
-			all := c.All("link_section", "where link_id=$1 and minute=$2 order by sub", "",
-				one["id"], i)
-			buffer := []string{}
-			for _, item := range all {
-				buffer = append(buffer, item["stt"].(string))
-			}
-			s := groq.Summarize(strings.Join(buffer, " "))
-			c.Params = map[string]any{}
-			c.Params["link_id"] = one["id"]
-			c.Params["minute"] = i
-			c.Params["minute_key"] = minuteKey
-			c.Params["summary"] = s
-			c.Insert("link_minute")
+			from += 15
+			to += 15
 		}
 	}
 
