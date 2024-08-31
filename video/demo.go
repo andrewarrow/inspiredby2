@@ -32,17 +32,17 @@ func Demo(c *router.Context) {
 				continue
 			}
 			words = append(words, word)
-			dt := DemoThing{strings.Join(words, " "), item["guid"].(string)}
-			buffer = append(buffer, dt)
 		}
+		dt := DemoThing{strings.Join(words, " "), item["guid"].(string)}
+		buffer = append(buffer, dt)
 	}
 
 	for {
 		peel := buffer[0:9]
 		for i, item := range peel {
 			join := strings.Join(FindLongestWords(item.Tag), " ")
-			AddToPika(c, join, item.Key)
-			fmt.Println(i, item)
+			//AddToPika(c, join, item.Key)
+			fmt.Println(i, item, join)
 		}
 
 		buffer = buffer[9:]
