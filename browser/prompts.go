@@ -49,8 +49,10 @@ func handlePromptReply(js string) {
 			imgs[0].Set("src", poster)
 		}
 
-		w = Document.Id("d-" + guid)
-		w.Set("innerHTML", fmt.Sprintf("%d", duration))
+		if poster != "" {
+			w = Document.Id("d-" + guid)
+			w.Set("innerHTML", fmt.Sprintf("%d", duration))
+		}
 
 	}
 }
