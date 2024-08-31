@@ -36,6 +36,7 @@ func handlePromptsItem(c *router.Context, id string) {
 	for _, item := range items {
 		stt := item["stt"].(string)
 		item["longest"] = strings.Join(findLongestWords(stt), " ")
+		item["has_prompt"] = item["prompt_text"] != ""
 	}
 	send["items"] = items
 	c.SendContentInLayout("prompts.html", send, 200)

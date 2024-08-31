@@ -205,6 +205,23 @@
       ]
     },
     {
+      "name": "pika",
+      "fields": [
+        {
+          "name": "link_section_id",
+          "flavor": "int"
+        },
+        {
+          "name": "prompt_text",
+          "flavor": "name"
+        },
+        {
+          "name": "id_pika",
+          "flavor": "name"
+        }
+      ]
+    },
+    {
       "name": "cookie_token",
       "fields": [
         {

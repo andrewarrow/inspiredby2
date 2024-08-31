@@ -13,13 +13,15 @@ div p-0 id=top
             div
               {{$item.stt}}
             div 
-              input type=text w-full id=words-{{$item.guid}} value={{$item.longest}}
+              {{ if $item.has_prompt }}
+                input type=text w-full id=words-{{$item.guid}} value={{$item.prompt_text}}
+              {{ else }}
+                input type=text w-full id=words-{{$item.guid}} value={{$item.longest}}
+              {{ end }}
             div
               {{$item.id_pika}}
             div
               <img src="{{$item.video_poster}}" class="w-96" />
-            div
-              {{$item.prompt_text}}
             div
               div flex space-x-6 items-center
                 div id=d-{{$item.guid}}
