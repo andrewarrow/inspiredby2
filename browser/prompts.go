@@ -32,21 +32,32 @@ func SetupPrompts() {
 	}
 }
 
+var imageTemplate = `<a href="/" id="delete-%s"><img id="images-%s" src="%s" class="w-64"/></a>`
+
 func ClickFetch(id string) {
 	guid := id[2:]
 	go func() {
 		m := wasm.DoGetMap("/prompts/" + guid + "/options")
 		items, _ := m["items"].([]any)
 		buffer := []string{}
+		pikaIds := []string{}
 		for _, item := range items {
 			thing, _ := item.(map[string]any)
-			buffer = append(buffer, fmt.Sprintf(`<img src="%s" class="w-64"/>`,
-				thing["video_poster"]))
+			buffer = append(buffer, fmt.Sprintf(imageTemplate,
+				thing["id_pika"], thing["id_pika"], thing["video_poster"]))
+			pikaIds = append(pikaIds, thing["id_pika"].(string))
 		}
 		join := strings.Join(buffer, "<br/>")
 		Document.Id("posters-"+guid).Set("innerHTML", join)
+		for _, id := range pikaIds {
+			Document.Id("delete-" + id).Event(handleDeletePika)
+		}
 
 	}()
+}
+
+func handleDeletePika(id string) {
+	fmt.Println("handleDeletePika", id)
 }
 
 func handlePromptReply(js string) {
