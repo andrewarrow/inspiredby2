@@ -49,6 +49,7 @@ func Render(c *router.Context, id string) {
 			file2 := fmt.Sprintf("data2/%s.mp4", guid)
 			file3 := fmt.Sprintf("data3/%03d.mp4", i)
 			CombineTwoFilesWithBox(file1, file2, file3)
+			changeToMov(guid, file3)
 		}
 	}
 }
@@ -59,6 +60,13 @@ func make12Seconds(guid string) {
 		"posters/"+guid+"_poster.jpg_720.jpg",
 		"-c:v", "libx264", "-t", "12",
 		"-pix_fmt", "yuv420p", "-vf", "scale=1280:720", "-y", "posters/"+guid+".mp4")
+	cmd.CombinedOutput()
+	//b, err := cmd.CombinedOutput()
+	//fmt.Println(string(b), err)
+}
+func changeToMov(guid, file string) {
+	cmd := exec.Command("ffmpeg", "-i", file,
+		"-y", "data3/"+guid+".mov")
 	cmd.CombinedOutput()
 	//b, err := cmd.CombinedOutput()
 	//fmt.Println(string(b), err)
