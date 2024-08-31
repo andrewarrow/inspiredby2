@@ -57,7 +57,8 @@ func ClickFetch(id string) {
 }
 
 func handleDeletePika(id string) {
-	fmt.Println("handleDeletePika", id)
+	guid := id[7:]
+	go wasm.DoDelete("/prompts/" + guid + "/pika")
 }
 
 func handlePromptReply(js string) {

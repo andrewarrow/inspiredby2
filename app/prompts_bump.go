@@ -1,6 +1,10 @@
 package app
 
-import "github.com/andrewarrow/feedback/router"
+import (
+	"inspiredby2/pika"
+
+	"github.com/andrewarrow/feedback/router"
+)
 
 func handlePromptsBump(c *router.Context, guid string) {
 	p1 := map[string]any{}
@@ -13,5 +17,12 @@ func handlePromptsBump(c *router.Context, guid string) {
 	send := map[string]any{}
 	items := []any{p1, p2}
 	send["items"] = items
+	c.SendContentAsJson(send, 200)
+}
+
+func handlePromptsPikaDelete(c *router.Context, guid string) {
+	send := map[string]any{}
+	go pika.Delete(guid)
+	c.FreeFormUpdate("delete from pikas where id_pika=$1", guid)
 	c.SendContentAsJson(send, 200)
 }

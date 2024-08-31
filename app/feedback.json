@@ -229,6 +229,7 @@
         },
         {
           "name": "id_pika",
+          "index": "yes",
           "flavor": "name"
         }
       ]

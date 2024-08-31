@@ -21,6 +21,10 @@ func Prompts(c *router.Context, second, third string) {
 		handlePromptsText(c, second)
 		return
 	}
+	if second != "" && third == "pika" && c.Method == "DELETE" {
+		handlePromptsPikaDelete(c, second)
+		return
+	}
 	if second != "" && third == "bump" && c.Method == "POST" {
 		handlePromptsBump(c, second)
 		return
