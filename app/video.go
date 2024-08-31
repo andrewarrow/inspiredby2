@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/andrewarrow/feedback/router"
+	"github.com/andrewarrow/feedback/util"
 )
 
 // ffmpeg -i cd0bc6a1-a7aa-0b7d-d318-601f22783be8.mp4 -ss 00:00:11 -vframes 1 frame_2.jpg
@@ -71,7 +72,7 @@ func ProcessVideo(c *router.Context, guid string) {
 				c.Params["minute"] = i
 				c.Params["sub"] = j
 				c.Params["meta"] = 1
-				c.Params["guid"] = util.PeudoUuid()
+				c.Params["guid"] = util.PseudoUuid()
 				c.Insert("link_section")
 			}
 			oneSection = c.One("link_section", "where section=$1", sectionId)
