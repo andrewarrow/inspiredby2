@@ -21,7 +21,7 @@ func Download(dir, id, url string) {
 	}
 	defer resp.Body.Close()
 
-	outFile, err := os.Create(dir + "/" + id + "." + tokens[0])
+	outFile, err := os.Create(dir + "/" + id + "." + tokens[len(tokens)-1])
 	if err != nil {
 		fmt.Println(err)
 		return
