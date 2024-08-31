@@ -9,11 +9,10 @@ import (
 	"strings"
 )
 
-func Download(id, url string) {
+func Download(dir, id, url string) {
 	tokens := strings.Split(url, "/")
 	last := tokens[len(tokens)-1]
 
-	fmt.Println("c", id, url)
 	resp, err := http.Get(url)
 	if err != nil {
 		fmt.Println(err)
@@ -21,7 +20,7 @@ func Download(id, url string) {
 	}
 	defer resp.Body.Close()
 
-	outFile, err := os.Create("data/" + id + "_" + last)
+	outFile, err := os.Create(dir + "/" + id + "_" + last)
 	if err != nil {
 		fmt.Println(err)
 		return

@@ -77,7 +77,7 @@ func Demo9(i int, prompts []string) {
 				mapItemVideos[item.PromptText] = item.Video
 				mapItemIds[item.PromptText] = item.Id
 			} else if item.Status == "finished" && item.Duration == 7 && mapItems[item.PromptText] == 3 {
-				util.Download(item.Id, item.Video)
+				util.Download("", item.Id, item.Video)
 				pika.Delete(item.Id)
 				pika.Delete(mapItemIds[item.PromptText])
 				count++
@@ -162,7 +162,7 @@ func WaitFor7SecondVideo(id, tag string) {
 		}
 	}
 	//fmt.Println("2", pi.Video)
-	util.Download(pi.Id, pi.Video)
+	util.Download("", pi.Id, pi.Video)
 	pika.Delete(id)
 	pika.Delete(pi.Id)
 }

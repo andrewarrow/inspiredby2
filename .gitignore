@@ -8,6 +8,7 @@ views
 __pycache__
 data
 data_mov
+posters
 env
 local-dev-*
 tail.min.css
