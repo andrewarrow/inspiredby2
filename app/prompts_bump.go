@@ -23,6 +23,15 @@ func handlePromptsBump(c *router.Context, guid string) {
 func handlePromptsPikaDelete(c *router.Context, guid string) {
 	send := map[string]any{}
 	go pika.Delete(guid)
+	one := c.One("pika", "where id_pika=$1", guid)
 	c.FreeFormUpdate("delete from pikas where id_pika=$1", guid)
+
+	all := c.All("pika", "where link_section_id=$1", "", one["link_section_id"])
+	if len(all) == 1 {
+		item := all[0]
+
+		c.FreeFormUpdate("update link_sections set id_pika=$1, video_url=$2, video_poster=$3 where id=$4", guid, item["video_url"], item["video_poster"], one["link_section_id"])
+	}
+
 	c.SendContentAsJson(send, 200)
 }
