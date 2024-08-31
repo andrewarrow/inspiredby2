@@ -46,7 +46,7 @@ func ProcessVideo(c *router.Context, guid string) {
 		from := 0 + (i * 60)
 		to := from + 15
 		for j := 0; j < 4; j++ {
-			sectionId := fmt.Sprintf("%d_%d_%d", one["id"], i, j)
+			sectionId := fmt.Sprintf("%d_%d_%d", 1, i, j)
 			oneSection := c.One("link_section", "where section=$1", sectionId)
 			//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
 			output := fmt.Sprintf("data/%s_%d_%d.mp3", guid, i, j)
@@ -71,6 +71,7 @@ func ProcessVideo(c *router.Context, guid string) {
 				c.Params["minute"] = i
 				c.Params["sub"] = j
 				c.Params["meta"] = 1
+				c.Params["guid"] = util.PeudoUuid()
 				c.Insert("link_section")
 			}
 			oneSection = c.One("link_section", "where section=$1", sectionId)
