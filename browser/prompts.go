@@ -32,7 +32,7 @@ func SetupPrompts() {
 	}
 }
 
-var imageTemplate = `<a href="/" id="delete-%s"><img id="images-%s" src="%s" class="w-64"/></a>`
+var imageTemplate = `<div><a href="/" id="delete-%s"><img id="images-%s" src="%s" class="w-64"/></a></div><div><video class="z-1 w-64" controls src="%s"/></div>`
 
 func ClickFetch(id string) {
 	guid := id[2:]
@@ -44,10 +44,13 @@ func ClickFetch(id string) {
 		for _, item := range items {
 			thing, _ := item.(map[string]any)
 			buffer = append(buffer, fmt.Sprintf(imageTemplate,
-				thing["id_pika"], thing["id_pika"], thing["video_poster"]))
+				thing["id_pika"], thing["id_pika"], thing["video_poster"],
+				thing["video_url"]))
+			fmt.Println(buffer)
 			pikaIds = append(pikaIds, thing["id_pika"].(string))
 		}
-		join := strings.Join(buffer, "<br/>")
+		join := strings.Join(buffer, "\n")
+		fmt.Println(join)
 		Document.Id("posters-"+guid).Set("innerHTML", join)
 		for _, id := range pikaIds {
 			Document.Id("delete-" + id).Event(handleDeletePika)
