@@ -11,6 +11,10 @@ div p-0 id=top
             {{$item.section}}
           div w-full
             div
+              {{$item.stt}}
+            div 
+              input type=text w-full id=words-{{$item.guid}} value={{$item.longest}}
+            div
               {{$item.id_pika}}
             div
               <img src="{{$item.video_poster}}" class="w-96" />
@@ -22,6 +26,6 @@ div p-0 id=top
                   {{$item.duration}}
                 div
                   input type=hidden value={{$item.guid}} id=guid
-                  input type=submit btn btn-sm btn-primary value=bump id=b-{{$item.guid}}
+                  input type=submit btn btn-sm btn-primary value=go id=b-{{$item.guid}}
       {{ end }}
       
