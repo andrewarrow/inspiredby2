@@ -28,6 +28,8 @@ func RegisterEvents() {
 		go PollForUpdates()
 	} else if Global.Start == "demo.html" {
 		go PollForDemoUpdates()
+	} else if Global.Start == "prompts.html" {
+		SetupPrompts()
 	} else if Global.Start == "welcome.html" {
 		Global.SubmitEvent("welcome-form", HandleWelcome)
 	}
@@ -66,5 +68,5 @@ func LogoutEvents() {
 	if Document.Id("logout") == nil {
 		return
 	}
-	Global.Event("logout", Global.Logout("/core"))
+	Global.Event("logout", Global.Logout("/core", ""))
 }

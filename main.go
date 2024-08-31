@@ -55,7 +55,9 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		s := groq.Summarize(textToSummarize)
 		fmt.Println(s)
 	} else if arg == "fix" {
-		app.ProcessVideoFix()
+		fr := router.NewRouter("DATABASE_URL", embeddedFile)
+		c := fr.ToContext()
+		app.FixGuids(c)
 	} else if arg == "demo" {
 		fr := router.NewRouter("DATABASE_URL", embeddedFile)
 		c := fr.ToContext()

@@ -6,7 +6,7 @@ div p-0
         Prompts
       {{ $items := .items }}
       {{ range $i, $item := $items }}
-        div flex space-x-3
+        div id=p-{{$item.guid}} flex space-x-3
           div w-32
             {{$item.section}}
           div w-full
@@ -17,6 +17,10 @@ div p-0
             div
               {{$item.prompt_text}}
             div
-              {{$item.duration}}
+              div flex space-x-6 items-center
+                div
+                  {{$item.duration}}
+                div
+                  input type=submit btn btn-sm btn-primary value=bump
       {{ end }}
       

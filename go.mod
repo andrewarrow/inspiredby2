@@ -7,7 +7,7 @@ go 1.21.0
 require (
 	cloud.google.com/go/speech v1.24.0
 	cloud.google.com/go/vertexai v0.13.0
-	github.com/andrewarrow/feedback v0.0.0-20240712012406-3886d4afbd67
+	github.com/andrewarrow/feedback v0.0.0-20240822114536-bd55d6ae6b4d
 	github.com/stripe/stripe-go/v74 v74.30.0
 	google.golang.org/genproto v0.0.0-20240814211410-ddb44dafa142
 )
