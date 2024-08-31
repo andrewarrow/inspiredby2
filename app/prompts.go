@@ -10,12 +10,12 @@ func Prompts(c *router.Context, second, third string) {
 		//	handlePromptsIndex(c)
 		return
 	}
-	if second != "" && third == "" && c.Method == "GET" {
-		handlePromptsItem(c, second)
+	if second != "" && third == "bump" && c.Method == "POST" {
+		handlePromptsBump(c, second)
 		return
 	}
-	if second != "" && third == "bump" && c.Method == "GET" {
-		handlePromptsBump(c, second)
+	if second != "" && third == "" && c.Method == "GET" {
+		handlePromptsItem(c, second)
 		return
 	}
 	c.NotFound = true
