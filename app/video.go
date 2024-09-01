@@ -43,27 +43,30 @@ func ProcessVideo(c *router.Context, guid string) {
 
 	sec := int(d)
 	minutes := (sec % 3600) / 60
+	minutes = 9
 	for i := 0; i < minutes+1; i++ {
 		from := 0 + (i * 60)
-		to := from + 15
-		for j := 0; j < 4; j++ {
+		to := from + 3
+		for j := 0; j < 20; j++ {
 			sectionId := fmt.Sprintf("%d_%d_%d", 1, i, j)
 			oneSection := c.One("link_section", "where section=$1", sectionId)
 			//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
-			output := fmt.Sprintf("data/%s_%d_%d.mp3", guid, i, j)
+			output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
 
 			if len(oneSection) == 0 {
 
-				//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp4",
+				cmd := exec.Command("ffmpeg",
+					"-ss", fmt.Sprintf("%d", from),
+					"-i", "data/"+guid+".mp4",
+					"-to",
+					fmt.Sprintf("%d", to),
+					"-c:v", "libx264", "-c:a", "aac", "-y",
+					output)
+				//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
 				//	"-ss", fmt.Sprintf("%d", from), "-to",
 				//	fmt.Sprintf("%d", to),
-				//	"-c:v", "libx264", "-c:a", "aac", "-y",
+				//	"-y",
 				//	output)
-				cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
-					"-ss", fmt.Sprintf("%d", from), "-to",
-					fmt.Sprintf("%d", to),
-					"-y",
-					output)
 				fmt.Println(i, j, from, to)
 				cmd.CombinedOutput()
 				c.Params = map[string]any{}
@@ -102,8 +105,8 @@ func ProcessVideo(c *router.Context, guid string) {
 
 			// ---
 
-			from += 15
-			to += 15
+			from += 3
+			to += 3
 		}
 	}
 

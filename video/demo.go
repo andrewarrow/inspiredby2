@@ -22,7 +22,10 @@ type DemoThing struct {
 func Demo(c *router.Context) {
 	all := c.FreeFormSelect("select id_pika from pika_renders order by id")
 	for _, item := range all {
-		fmt.Println(item)
+		id, _ := item["id_pika"].(string)
+		fmt.Println(id)
+		pika.Delete(id)
+		time.Sleep(time.Second * 1)
 	}
 }
 
