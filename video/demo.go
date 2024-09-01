@@ -20,37 +20,34 @@ type DemoThing struct {
 }
 
 func Demo(c *router.Context) {
-	buffer := []DemoThing{}
-	all := c.FreeFormSelect("select video_url,guid,stt,prompt_text from link_sections order by minute,sub")
+	all := c.FreeFormSelect("select id_pika from pika_renders order by id")
 	for _, item := range all {
-		stt, _ := item["stt"].(string)
-		pt, _ := item["prompt_text"].(string)
+		fmt.Println(item)
+	}
+}
+
+func OldOldDemo(c *router.Context) {
+	buffer := []DemoThing{}
+	//all := c.FreeFormSelect("select video_url,guid,prompt_text from link_sections order by minute,sub")
+	all := c.FreeFormSelect("select link_section_id,video_url from pika_renders where duration=11 order by id")
+	for _, item := range all {
+		one := c.One("link_section", "where id=$1", item["link_section_id"])
+		pt, _ := one["prompt_text"].(string)
 		url, _ := item["video_url"].(string)
-		tokens := strings.Split(stt, " ")
-		words := []string{}
-		for _, word := range tokens {
-			if strings.Contains(word, "'") {
-				continue
-			}
-			if len(word) < 5 {
-				continue
-			}
-			words = append(words, word)
-		}
-		dt := DemoThing{strings.Join(words, " "), item["guid"].(string), pt, url}
+		dt := DemoThing{"", one["guid"].(string), pt, url}
 		buffer = append(buffer, dt)
 	}
 
 	for {
-		peel := buffer[0:3]
+		peel := buffer[0:9]
 		for i, item := range peel {
-			AddToPikaRender(c, item.VideoUrl, item.PromptText, item.Key)
+			AddToPikaRender(c, item.VideoUrl, item.PromptText, item.Key, 15)
 			time.Sleep(time.Second * 1)
-			fmt.Println(i, item, item.PromptText)
+			fmt.Println(i, item.VideoUrl, item.PromptText)
 		}
 
-		buffer = buffer[3:]
-		if len(buffer) < 3 {
+		buffer = buffer[9:]
+		if len(buffer) < 9 {
 			break
 		}
 		time.Sleep(time.Second * 90)

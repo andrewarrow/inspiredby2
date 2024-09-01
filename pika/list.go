@@ -29,13 +29,15 @@ type PikaInfo struct {
 
 func ListAllAndUpdate(c *router.Context) {
 	lastId := ""
+	count := 1
 	for {
 		items, ok := List(lastId)
 		if ok == false {
 			continue
 		}
 		time.Sleep(time.Second * 1)
-		fmt.Println(items)
+		fmt.Println(count)
+		count++
 		for _, item := range items {
 			c.Params = map[string]any{}
 			c.Params["duration"] = item.Duration
@@ -43,6 +45,7 @@ func ListAllAndUpdate(c *router.Context) {
 			c.Params["video_poster"] = item.VideoPoster
 			c.Update("link_section", "where id_pika=", item.Id)
 			c.Update("pika", "where id_pika=", item.Id)
+			c.Update("pika_render", "where id_pika=", item.Id)
 			lastId = item.Id
 		}
 		if len(items) == 0 {

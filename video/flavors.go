@@ -42,7 +42,7 @@ func FindLongestWords(input string) []string {
 	}
 	return words
 }
-func AddToPikaRender(c *router.Context, video, words, guid string) {
+func AddToPikaRender(c *router.Context, video, words, guid string, duration int) {
 	one := c.One("link_section", "where guid=$1", guid)
 	id := pika.Generate(video, words)
 	if id == "" {
@@ -51,6 +51,7 @@ func AddToPikaRender(c *router.Context, video, words, guid string) {
 	c.Params = map[string]any{}
 	c.Params["id_pika"] = id
 	c.Params["prompt_text"] = words
+	c.Params["duration"] = duration
 	c.Params["link_section_id"] = one["id"]
 	c.Insert("pika_render")
 }

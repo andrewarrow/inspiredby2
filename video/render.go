@@ -53,6 +53,20 @@ func Render(c *router.Context, id string) {
 		}
 	} else if id == "5" {
 		Combine("data3")
+	} else if id == "6" {
+		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+		for i, item := range items {
+			fmt.Println("wefwef", item["id"])
+			one := c.One("pika_render", "where link_section_id=$1 and duration=15", item["id"])
+			url, _ := one["video_url"].(string)
+			if url == "" {
+				continue
+			}
+			fmt.Println(i, url)
+			util.Download("data4", fmt.Sprintf("%03d", i), url)
+			time.Sleep(time.Second * 1)
+		}
+	} else if id == "7" {
 	}
 }
 
