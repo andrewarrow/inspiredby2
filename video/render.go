@@ -35,11 +35,19 @@ func Render(c *router.Context, id string) {
 			time.Sleep(time.Second * 1)
 		}
 	} else if id == "3" {
-		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+		count := 0
+		items := c.FreeFormSelect("select * from link_sections where meta!=90 and minute < 2 order by minute,sub limit 1000")
 		for _, item := range items {
-			guid, _ := item["guid"].(string)
-			// make :q
-			make12Seconds(guid)
+			url, _ := item["video_url"].(string)
+			if url == "" {
+				continue
+			}
+			name := fmt.Sprintf("%03d", count)
+			//  ffmpeg -i "$f" -acodec pcm_s16le -ar 44100 -ac 2 "wav_files/${f%.mp3}.wav"
+			util.RunFF("-i "+name+".mp4 "+
+				"-acodec pcm_s16le -ar 44100 -ac 2",
+				"data4/"+name+".wav")
+			count += 2
 
 		}
 	} else if id == "4" {

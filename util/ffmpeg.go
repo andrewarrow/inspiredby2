@@ -9,7 +9,7 @@ func RunFF(s, output string) {
 
 	items := strings.Split(s, " ")
 	items = append(items, "-y")
-	items = append(items, ouput)
+	items = append(items, output)
 	cmd := exec.Command("ffmpeg", items...)
 	cmd.CombinedOutput()
 	//b, err := cmd.CombinedOutput()
