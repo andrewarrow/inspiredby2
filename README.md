@@ -1,6 +1,15 @@
 # inspiredby2
 
 ```
+
+  ffmpeg -i "$f" -acodec pcm_s16le -ar 44100 -ac 2 "wav_files/${f%.mp3}.wav"
+for f in wav_files/*.wav; do echo "file '$PWD/$f'" >> file_list.txt; done
+ffmpeg -f concat -safe 0 -i file_list.txt -c:a pcm_s16le output.wav
+ffmpeg -i output.wav -c:a aac -b:a 192k output.aac
+
+
+
+
 ffmpeg -i file1.mp4 -i file2.mp4 -filter_complex "[1:v]scale=1280:720[bg];[0:v]scale=320:180[pip];[bg][pip]overlay=W-w-10:10" -c:v libx264 -crf 23 -preset veryfast -movflags +faststart -y output.mp4
 
 
