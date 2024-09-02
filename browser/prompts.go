@@ -35,10 +35,10 @@ func SetupPrompts() {
 
 var imageTemplate = `<div><a href="/" id="delete-%s"><img id="images-%s" src="%s" class="w-64"/></a></div><div><video class="z-1 w-64" style="border: 10px solid orange;" controls src="%s"/></div>`
 
-func ClickFetch(id string) {
+func ClickHide(id string) {
 	guid := id[5:]
 	go func() {
-		fmt.Println("wfew")
+		fmt.Println("wfew", guid)
 	}()
 }
 func ClickFetch(id string) {
