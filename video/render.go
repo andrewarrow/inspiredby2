@@ -24,13 +24,13 @@ func Render(c *router.Context, id string) {
 	} else if id == "2" {
 		items := c.FreeFormSelect("select * from link_sections where meta!=90 and minute < 2 order by minute,sub limit 1000")
 		count := 0
-		for i, item := range items {
+		for _, item := range items {
 			url, _ := item["video_url"].(string)
 			if url == "" {
 				continue
 			}
-			fmt.Println(count, url)
-			util.Download("data3", fmt.Sprintf("%03d.mp4", count), url)
+			fmt.Println(count, fmt.Sprintf("%03d", count), url)
+			util.Download("data3", fmt.Sprintf("%03d", count), url)
 			count += 2
 			time.Sleep(time.Second * 1)
 		}
