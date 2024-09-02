@@ -38,7 +38,7 @@ var imageTemplate = `<div><a href="/" id="delete-%s"><img id="images-%s" src="%s
 func ClickHide(id string) {
 	guid := id[5:]
 	go func() {
-		fmt.Println("wfew", guid)
+		wasm.DoPost("/prompts/"+guid+"/hide", nil)
 	}()
 }
 func ClickFetch(id string) {

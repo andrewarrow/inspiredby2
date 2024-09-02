@@ -35,3 +35,9 @@ func handlePromptsPikaDelete(c *router.Context, guid string) {
 
 	c.SendContentAsJson(send, 200)
 }
+
+func handlePromptsHide(c *router.Context, guid string) {
+	send := map[string]any{}
+	c.FreeFormUpdate("update link_sections set meta=90 where guid=$1", guid)
+	c.SendContentAsJson(send, 200)
+}
