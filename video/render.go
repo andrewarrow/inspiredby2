@@ -22,14 +22,16 @@ func Render(c *router.Context, id string) {
 			time.Sleep(time.Second * 1)
 		}
 	} else if id == "2" {
-		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+		items := c.FreeFormSelect("select * from link_sections where meta=90 and minute < 2 order by minute,sub limit 1000")
+		count := 0
 		for i, item := range items {
 			url, _ := item["video_url"].(string)
 			if url == "" {
 				continue
 			}
 			fmt.Println(i, url)
-			util.Download("data2", item["guid"].(string), url)
+			util.Download("data3", fmt.Sprintf("003%d.mp4", count), url)
+			count += 2
 			time.Sleep(time.Second * 1)
 		}
 	} else if id == "3" {
