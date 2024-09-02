@@ -44,8 +44,8 @@ func Render(c *router.Context, id string) {
 			}
 			name := fmt.Sprintf("%03d", count)
 			//  ffmpeg -i "$f" -acodec pcm_s16le -ar 44100 -ac 2 "wav_files/${f%.mp3}.wav"
-			util.RunFF("-i "+name+".mp4 "+
-				"-acodec pcm_s16le -ar 44100 -ac 2",
+			util.RunFF("-i data3/"+name+".mp4 "+
+				"-t 3 -acodec pcm_s16le -ar 44100 -ac 2",
 				"data4/"+name+".wav")
 			count += 2
 
