@@ -17,6 +17,7 @@ func SetupPrompts() {
 
 		guid := item.Id[2:]
 		Document.Id("a-" + guid).Event(ClickFetch)
+		Document.Id("hide-" + guid).Event(ClickHide)
 		a := wasm.NewAutoForm(item.Id)
 		a.Path = "/prompts/" + guid + "/text"
 		a.Clear = true
@@ -34,6 +35,12 @@ func SetupPrompts() {
 
 var imageTemplate = `<div><a href="/" id="delete-%s"><img id="images-%s" src="%s" class="w-64"/></a></div><div><video class="z-1 w-64" style="border: 10px solid orange;" controls src="%s"/></div>`
 
+func ClickFetch(id string) {
+	guid := id[5:]
+	go func() {
+		fmt.Println("wfew")
+	}()
+}
 func ClickFetch(id string) {
 	guid := id[2:]
 	go func() {

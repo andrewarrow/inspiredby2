@@ -58,8 +58,8 @@ func ProcessVideo(c *router.Context, guid string) {
 				cmd := exec.Command("ffmpeg",
 					"-ss", fmt.Sprintf("%d", from),
 					"-i", "data/"+guid+".mp4",
-					"-to",
-					fmt.Sprintf("%d", to),
+					"-t", "3",
+					//fmt.Sprintf("%d", to),
 					"-c:v", "libx264", "-c:a", "aac", "-y",
 					output)
 				//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
@@ -106,7 +106,6 @@ func ProcessVideo(c *router.Context, guid string) {
 			// ---
 
 			from += 3
-			to += 3
 		}
 	}
 

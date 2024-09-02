@@ -16,7 +16,7 @@ div p-0 id=top
               {{ if $item.has_prompt }}
                 input type=text w-full id=words-{{$item.guid}} value={{$item.prompt_text}}
               {{ else }}
-                input type=text w-full id=words-{{$item.guid}} value={{$item.longest}}
+                input type=text w-full id=words-{{$item.guid}} value={{$item.stt}}
               {{ end }}
             div hidden
               {{$item.id_pika}}
@@ -27,10 +27,12 @@ div p-0 id=top
               div flex space-x-6 items-center
                 div id=d-{{$item.guid}}
                   {{$item.duration}}
-                div
+                div mt-3 space-x-3 flex
                   input type=hidden value={{$item.guid}} id=guid
                   input type=submit btn btn-sm btn-primary value=go id=b-{{$item.guid}}
                   a href=/ btn btn-sm btn-secondary value=fetch id=a-{{$item.guid}}
                     fetch
+                  a href=/ btn btn-sm btn-warning value=fetch id=hide-{{$item.guid}}
+                    hide
       {{ end }}
       

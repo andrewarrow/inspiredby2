@@ -1,9 +1,6 @@
 package app
 
 import (
-	"inspiredby2/video"
-	"strings"
-
 	"github.com/andrewarrow/feedback/router"
 	"github.com/andrewarrow/feedback/util"
 )
@@ -42,8 +39,8 @@ func handlePromptsItem(c *router.Context, id string) {
 	send := map[string]any{}
 
 	for _, item := range items {
-		stt := item["stt"].(string)
-		item["longest"] = strings.Join(video.FindLongestWords(stt), " ")
+		//stt := item["stt"].(string)
+		//item["longest"] = strings.Join(video.FindLongestWords(stt), " ")
 		item["has_prompt"] = item["prompt_text"] != ""
 	}
 	send["items"] = items
