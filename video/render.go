@@ -27,13 +27,14 @@ func Render(c *router.Context, id string) {
 		other := 1
 		for _, item := range items {
 			url, _ := item["video_url"].(string)
+			guid, _ := item["guid"].(string)
 			if url == "" {
 				continue
 			}
 			name := fmt.Sprintf("%03d", count)
 			fmt.Println(count, name, url)
 			util.Download("data3", name, url)
-			copyFile12("data2/"+name+".mp4", fmt.Sprintf("data3/%03d.mp4", other))
+			copyFile12(fmt.Sprintf("data/%s_%d_%d.mp4", guid, item["minute"], item["sub"]), fmt.Sprintf("data3/%03d.mp4", other))
 			count += 2
 			other += 2
 			time.Sleep(time.Second * 1)
