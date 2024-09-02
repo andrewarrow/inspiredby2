@@ -13,7 +13,7 @@ func RunFF(s, output string) {
 	items = append(items, output)
 	fmt.Println(items)
 	cmd := exec.Command("ffmpeg", items...)
-	cmd.CombinedOutput()
-	//b, err := cmd.CombinedOutput()
-	//fmt.Println(string(b), err)
+	//cmd.CombinedOutput()
+	b, err := cmd.CombinedOutput()
+	fmt.Println(string(b), err)
 }

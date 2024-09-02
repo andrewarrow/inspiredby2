@@ -5,6 +5,7 @@ import (
 	"inspiredby2/pika"
 	"inspiredby2/util"
 	"io/ioutil"
+	"math/rand"
 	"sort"
 	"strings"
 	"time"
@@ -20,12 +21,20 @@ type DemoThing struct {
 }
 
 func Demo(c *router.Context) {
-	all := c.FreeFormSelect("select id_pika from pika_renders order by id")
+	m := map[string]any{}
+	list := []string{}
+	all := c.FreeFormSelect("select id_pika,duration,video_url,video_poster from pika_inventories where duration=3 order by id")
 	for _, item := range all {
 		id, _ := item["id_pika"].(string)
-		fmt.Println(id)
-		pika.Delete(id)
-		time.Sleep(time.Second * 1)
+		m[id] = item
+		list = append(list, id)
+	}
+	all = c.FreeFormSelect("select id from link_sections where video_poster='' order by id")
+	for _, item := range all {
+		fmt.Println(item)
+		pickId := list[rand.Intn(len(list))]
+		pick := m[pickId]
+		c.FreeFormUpdate("update link_sections set video_poster=$1,video_url=$2,id_pika=$3 where id=$4", pick["video_poster"], pick["video_url"], pick["id_pika"], item["id"])
 	}
 }
 

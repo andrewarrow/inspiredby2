@@ -39,7 +39,7 @@ func Prompts(c *router.Context, second, third string) {
 
 func handlePromptsItem(c *router.Context, id string) {
 	c.Title = "Heart Rate Variability"
-	items := c.FreeFormSelect("select * from link_sections where meta != 90 order by minute,sub limit 1000")
+	items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
 	send := map[string]any{}
 
 	for _, item := range items {
