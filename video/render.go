@@ -34,7 +34,12 @@ func Render(c *router.Context, id string) {
 			name := fmt.Sprintf("%03d", count)
 			fmt.Println(count, name, url)
 			util.Download("data3", name, url)
-			copyFile12(fmt.Sprintf("data/%s_%d_%d.mp4", guid, item["minute"], item["sub"]), fmt.Sprintf("data3/%03d.mp4", other))
+			//copyFile12(fmt.Sprintf("data/%s_%d_%d.mp4", guid, item["minute"], item["sub"]), fmt.Sprintf("data3/%03d.mp4", other))
+
+			util.RunFF("-i "+fmt.Sprintf("data/%s_%d_%d.mp4",
+				guid, item["minute"], item["sub"])+
+				" -c:v libx264 -profile:v high -level:v 4.0 -pix_fmt yuv420p -vf \"scale=1280:720\" -r 25 -b:v 509k -c:a copy",
+				fmt.Sprintf("data3/%03d.mp4", other))
 			count += 2
 			other += 2
 			time.Sleep(time.Second * 1)
