@@ -41,6 +41,7 @@ func Render(c *router.Context, id string) {
 		}
 	} else if id == "3" {
 		count := 0
+		other := 1
 		items := c.FreeFormSelect("select * from link_sections where meta!=90 and minute < 2 order by minute,sub limit 1000")
 		for _, item := range items {
 			url, _ := item["video_url"].(string)
@@ -52,8 +53,13 @@ func Render(c *router.Context, id string) {
 			util.RunFF("-i data3/"+name+".mp4 "+
 				"-t 3 -acodec pcm_s16le -ar 44100 -ac 2",
 				"data4/"+name+".wav")
-			count += 2
 
+			name = fmt.Sprintf("%03d", other)
+			util.RunFF("-i data3/"+name+".mp4 "+
+				"-t 3 -acodec pcm_s16le -ar 44100 -ac 2",
+				"data4/"+name+".wav")
+			count += 2
+			other += 2
 		}
 	} else if id == "4" {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
