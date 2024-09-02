@@ -27,7 +27,7 @@ func Render(c *router.Context, id string) {
 		other := 1
 		for _, item := range items {
 			url, _ := item["video_url"].(string)
-			guid, _ := item["guid"].(string)
+			guid := "96317f74-01fa-4afb-a681-56a4c607c0c4"
 			if url == "" {
 				continue
 			}
