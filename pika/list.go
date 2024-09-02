@@ -46,6 +46,8 @@ func ListAllAndUpdate(c *router.Context) {
 			c.Update("link_section", "where id_pika=", item.Id)
 			c.Update("pika", "where id_pika=", item.Id)
 			c.Update("pika_render", "where id_pika=", item.Id)
+			c.Params["id_pika"] = item.Id
+			c.Insert("pika_inventory")
 			lastId = item.Id
 		}
 		if len(items) == 0 {

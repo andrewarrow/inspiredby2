@@ -235,6 +235,28 @@
       ]
     },
     {
+      "name": "pika_inventory",
+      "fields": [
+        {
+          "name": "video_url",
+          "flavor": "name"
+        },
+        {
+          "name": "video_poster",
+          "flavor": "name"
+        },
+        {
+          "name": "duration",
+          "flavor": "int"
+        },
+        {
+          "name": "id_pika",
+          "index": "unique",
+          "flavor": "name"
+        }
+      ]
+    },
+    {
       "name": "pika_render",
       "fields": [
         {
