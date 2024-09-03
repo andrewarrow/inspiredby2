@@ -74,9 +74,33 @@ func Render(c *router.Context, id string) {
 				continue
 			}
 			name := fmt.Sprintf("%03d", i)
-			copyFile12("data2/"+name+".mp3", "data4/"+name+".mp3")
+			copyFile12("data3/"+name+".mp3", "data4/"+name+".mp3")
 		}
 	} else if id == "5" {
+		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+		other := 0
+		orig := 1
+		for i, item := range items {
+			_ = item
+
+			//0,v:pika000,a:pike000+orig000
+			//1,v:orig001,a:orig001
+			//2,v:pika001,a:pike001+orig002
+			//3,v:orig003,a:orig003
+			//4,v:pika002,a:pika002+orig004
+			//5:v:orig005,a:orig005
+			name := fmt.Sprintf("%03d", i)
+			otherName := fmt.Sprintf("%03d", other)
+			origName := fmt.Sprintf("%03d", orig)
+			file1 := "data2/" + otherName + ".mp4"
+			util.RunFF(fmt.Sprintf("-i %s -an -c:v copy output.mp4", file1),
+				"data5/"+name+".mp4")
+			file2 := "data3/" + origName + ".mp4"
+			util.RunFF(fmt.Sprintf("-i %s -an -c:v copy output.mp4", file2),
+				"data5/"+name+".mp4")
+			orig += 2
+			other++
+		}
 	} else if id == "6" {
 	} else if id == "7" {
 	}
