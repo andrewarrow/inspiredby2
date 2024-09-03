@@ -74,7 +74,7 @@ func Render(c *router.Context, id string) {
 				continue
 			}
 			name := fmt.Sprintf("%03d", i)
-			copyFile12("data3/"+name+".mp3", "data4/"+name+".mp3")
+			copyFile12("data3/"+name+".wav", "data4/"+name+".wav")
 		}
 	} else if id == "5" {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")

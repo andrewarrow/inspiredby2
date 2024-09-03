@@ -14,6 +14,11 @@ func Welcome(c *router.Context, second, third string) {
 
 func handleWelcomeIndex(c *router.Context) {
 
-	send := map[string]any{}
-	c.SendContentInLayout("welcome.html", send, 200)
+	if len(c.User) == 0 {
+		send := map[string]any{}
+		c.SendContentInLayout("welcome.html", send, 200)
+		return
+	}
+
+	router.Redirect(c, "/core/start")
 }
