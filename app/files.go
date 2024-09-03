@@ -9,6 +9,10 @@ func Files(c *router.Context, second, third string) {
 		handleUpload(c)
 		return
 	}
+	if second != "" && third == "" && c.Method == "GET" {
+		handleProject(c, second)
+		return
+	}
 	c.NotFound = true
 }
 
