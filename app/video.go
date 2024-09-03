@@ -35,13 +35,20 @@ func intCheck(a any, val int) bool {
 	return bb == val
 }
 
+var BUCKET = "/Users/aa/bucket/"
+
 func ProcessVideo(c *router.Context, guid string) {
-	d, _ := video.GetVideoDuration("data/" + guid + ".mp4")
+	project := c.One("project", "where guid=$1", guid)
+	file := project["file"].(string)
+	d, _ := video.GetVideoDuration(BUCKET + file)
+	fmt.Println(d)
+}
+func foo(c *router.Context, guid string) {
 	one := c.One("link", "where guid=$1", guid)
 	//c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
 	//c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
 
-	sec := int(d)
+	sec := int(900)
 	minutes := (sec % 3600) / 60
 	minutes = 9
 	for i := 0; i < minutes+1; i++ {
