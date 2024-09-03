@@ -2,6 +2,8 @@
 
 ```
 
+ffmpeg -i 000.mp4 -t 3 -acodec pcm_s16le -ar 44100 -ac 2 -y 000.wav
+
   ffmpeg -i "$f" -acodec pcm_s16le -ar 44100 -ac 2 "wav_files/${f%.mp3}.wav"
 for f in wav_files/*.wav; do echo "file '$PWD/$f'" >> file_list.txt; done
 ffmpeg -f concat -safe 0 -i file_list.txt -c:a pcm_s16le output.wav

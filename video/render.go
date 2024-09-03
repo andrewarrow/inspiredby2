@@ -43,9 +43,9 @@ func Render(c *router.Context, id string) {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
 		other := 1
 		orig := 2
-		file1 := "data2/000.mp3"
-		file2 := "data3/000.mp3"
-		util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/000.mp3")
+		file1 := "data2/000.wav"
+		file2 := "data3/000.wav"
+		util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/000.wav")
 		for i, item := range items {
 			_ = item
 			name := fmt.Sprintf("%03d", i)
@@ -58,9 +58,9 @@ func Render(c *router.Context, id string) {
 			//4,v:pika002,a:pika002+orig004
 			//5:v:orig005,a:orig005
 			if i > 0 && i%2 == 0 {
-				file1 := "data2/" + otherName + ".mp3"
-				file2 := "data3/" + origName + ".mp3"
-				util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/"+name+".mp3")
+				file1 := "data2/" + otherName + ".wav"
+				file2 := "data3/" + origName + ".wav"
+				util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/"+name+".wav")
 				other++
 				orig += 2
 			}
@@ -95,12 +95,12 @@ func Render(c *router.Context, id string) {
 
 			if i%2 == 0 {
 				file1 := "data2/" + otherName + ".mp4"
-				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an output.mp4", file1),
+				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an", file1),
 					"data5/"+name+".mp4")
 				other++
 			} else {
 				file2 := "data3/" + origName + ".mp4"
-				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an output.mp4", file2),
+				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an", file2),
 					"data5/"+name+".mp4")
 				orig += 2
 			}
