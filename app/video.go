@@ -24,10 +24,10 @@ rpc error: code = Unauthenticated desc = transport: per-RPC creds failed due to 
 
 func fileExist(path string) bool {
 	_, err := os.Stat(path)
-	if err != nil {
-		return false
+	if err == nil {
+		return true
 	}
-	return true
+	return false
 }
 func intCheck(a any, val int) bool {
 	aa := fmt.Sprintf("%v", a)
@@ -41,79 +41,78 @@ func ProcessVideo(c *router.Context, guid string) {
 	project := c.One("project", "where guid=$1", guid)
 	file := project["file"].(string)
 	d, _ := video.GetVideoDuration(BUCKET + file)
-	fmt.Println(d)
-}
-func foo(c *router.Context, guid string) {
-	one := c.One("link", "where guid=$1", guid)
-	//c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
-	//c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
-
-	sec := int(900)
+	sec := int(d)
 	minutes := (sec % 3600) / 60
-	minutes = 9
 	for i := 0; i < minutes+1; i++ {
 		from := 0 + (i * 60)
 		to := from + 3
 		for j := 0; j < 20; j++ {
-			sectionId := fmt.Sprintf("%d_%d_%d", 1, i, j)
-			oneSection := c.One("link_section", "where section=$1", sectionId)
-			//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
-			output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
-
-			if len(oneSection) == 0 {
-
-				cmd := exec.Command("ffmpeg",
-					"-ss", fmt.Sprintf("%d", from),
-					"-i", "data/"+guid+".mp4",
-					"-t", "3",
-					//fmt.Sprintf("%d", to),
-					"-c:v", "libx264", "-c:a", "aac", "-y",
-					output)
-				//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
-				//	"-ss", fmt.Sprintf("%d", from), "-to",
-				//	fmt.Sprintf("%d", to),
-				//	"-y",
-				//	output)
-				fmt.Println(i, j, from, to)
-				cmd.CombinedOutput()
-				c.Params = map[string]any{}
-				c.Params["link_id"] = one["id"]
-				c.Params["section"] = sectionId
-				c.Params["minute"] = i
-				c.Params["sub"] = j
-				c.Params["meta"] = 1
-				c.Params["guid"] = util.PseudoUuid()
-				c.Insert("link_section")
-			}
-			oneSection = c.One("link_section", "where section=$1", sectionId)
-			//fmt.Println(string(b), err)
-
-			if fileExist(output) == false {
-				continue
-			}
-
-			flac := fmt.Sprintf("data/%s_%d_%d.flac", guid, i, j)
-			if intCheck(oneSection["meta"], 1) {
-				cmd := exec.Command("ffmpeg", "-i", output,
-					"-b:a", "32k", "-ar", "16000", "-acodec", "flac",
-					"-y",
-					flac)
-				fmt.Println("flac", i, j, from, to)
-				cmd.CombinedOutput()
-				c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
-			}
-			oneSection = c.One("link_section", "where section=$1", sectionId)
-
-			if intCheck(oneSection["meta"], 2) {
-				stt := google.Speech(flac)
-				c.FreeFormUpdate("update link_sections set meta=3,stt=$1 where section=$2",
-					stt, sectionId)
-			}
-
-			// ---
-
-			from += 3
+			processSectionOfOrigVideo(c, file, i, j, from, to, project)
 		}
+	}
+}
+func processSectionOfOrigVideo(c *router.Context, file string,
+	i, j, from, to int, project map[string]any) {
+	//one := c.One("link", "where guid=$1", guid)
+	//c.FreeFormUpdate("update links set duration=$1 where guid=$2", d, guid)
+	//c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
+
+	sectionId := fmt.Sprintf("%v_%d_%d", project["id"], i, j)
+	oneSection := c.One("link_section", "where section=$1", sectionId)
+	//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
+	output := fmt.Sprintf(BUCKET+"/%s/orig-video/%d_%d.mp4",
+		project["guid"], i, j)
+
+	if len(oneSection) == 0 {
+
+		cmd := exec.Command("ffmpeg",
+			"-ss", fmt.Sprintf("%d", from),
+			"-i", BUCKET+file,
+			"-t", "3",
+			"-vf", "scale=1280:720",
+			//fmt.Sprintf("%d", to),
+			"-c:v", "libx264", "-c:a", "aac", "-y",
+			output)
+		//cmd := exec.Command("ffmpeg", "-i", "data/"+guid+".mp3",
+		//	"-ss", fmt.Sprintf("%d", from), "-to",
+		//	fmt.Sprintf("%d", to),
+		//	"-y",
+		//	output)
+		fmt.Println(i, j, from, to)
+		cmd.CombinedOutput()
+		c.Params = map[string]any{}
+		c.Params["project_id"] = project["id"]
+		c.Params["section"] = sectionId
+		c.Params["minute"] = i
+		c.Params["sub"] = j
+		c.Params["meta"] = 1
+		c.Params["guid"] = util.PseudoUuid()
+		c.Insert("link_section")
+	}
+	oneSection = c.One("link_section", "where section=$1", sectionId)
+	//fmt.Println(string(b), err)
+
+	if fileExist(output) == false {
+		return
+	}
+
+	flac := fmt.Sprintf(BUCKET+"%s/flac/%d_%d.flac",
+		project["guid"], i, j)
+	if intCheck(oneSection["meta"], 1) {
+		cmd := exec.Command("ffmpeg", "-i", output,
+			"-b:a", "32k", "-ar", "16000", "-acodec", "flac",
+			"-y",
+			flac)
+		fmt.Println("flac", i, j, from, to)
+		cmd.CombinedOutput()
+		c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
+	}
+	oneSection = c.One("link_section", "where section=$1", sectionId)
+
+	if intCheck(oneSection["meta"], 2) {
+		stt := google.Speech(flac)
+		c.FreeFormUpdate("update link_sections set meta=3,stt=$1 where section=$2",
+			stt, sectionId)
 	}
 
 }

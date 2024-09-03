@@ -32,6 +32,7 @@ func handleUpload(c *router.Context) {
 	os.Mkdir(BUCKET+guid+"/orig-audio", 0755)
 	os.Mkdir(BUCKET+guid+"/pika-video", 0755)
 	os.Mkdir(BUCKET+guid+"/pika-audio", 0755)
+	os.Mkdir(BUCKET+guid+"/flac", 0755)
 	os.Mkdir(BUCKET+guid+"/combine", 0755)
 	send := map[string]any{}
 	c.SendContentAsJson(send, 200)

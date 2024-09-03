@@ -124,7 +124,7 @@
       "name": "link_section",
       "fields": [
         {
-          "name": "link_id",
+          "name": "project_id",
           "flavor": "int",
           "index": "yes"
         },
