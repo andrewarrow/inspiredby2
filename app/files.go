@@ -13,6 +13,12 @@ func Files(c *router.Context, second, third string) {
 }
 
 func handleUpload(c *router.Context) {
-	c.ReadFormValuesIntoParams("file")
+	c.ReadFormValuesIntoParams("file", "name")
 	router.SaveMultiFiles(c)
+	c.Params["file"] = c.Params["photo"]
+	c.Params["user_id"] = c.User["id"]
+	c.ValidateCreate("project")
+	c.Insert("project")
+	send := map[string]any{}
+	c.SendContentAsJson(send, 200)
 }

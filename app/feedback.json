@@ -287,6 +287,24 @@
       ]
     },
     {
+      "name": "project",
+      "fields": [
+        {
+          "name": "file",
+          "flavor": "name"
+        },
+        {
+          "name": "name",
+          "flavor": "name"
+        },
+        {
+          "name": "user_id",
+          "flavor": "int",
+          "index": "yes"
+        }
+      ]
+    },
+    {
       "name": "cookie_token",
       "fields": [
         {

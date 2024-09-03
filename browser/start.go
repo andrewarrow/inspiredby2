@@ -17,10 +17,11 @@ func handleUpload() {
 		return
 	}
 	file := list.Index(0)
+	name := Document.Id("name").Get("value")
 
 	formData := Global.Global.Get("FormData").New()
 	formData.Call("append", "file", file)
-	formData.Call("append", "foo", "some_string_value")
+	formData.Call("append", "name", name)
 
 	xhr := Global.Global.Get("XMLHttpRequest").New()
 	xhr.Get("upload").Call("addEventListener", "progress", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
