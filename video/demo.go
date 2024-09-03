@@ -33,7 +33,7 @@ func Demo(c *router.Context) {
 	for _, item := range all {
 		fmt.Println(item)
 		pickId := list[rand.Intn(len(list))]
-		pick := m[pickId]
+		pick := m[pickId].(map[string]any)
 		c.FreeFormUpdate("update link_sections set video_poster=$1,video_url=$2,id_pika=$3 where id=$4", pick["video_poster"], pick["video_url"], pick["id_pika"], item["id"])
 	}
 }

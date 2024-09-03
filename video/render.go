@@ -22,9 +22,9 @@ func Render(c *router.Context, id string) {
 			time.Sleep(time.Second * 1)
 		}
 	} else if id == "2" {
-		items := c.FreeFormSelect("select * from link_sections where meta!=90 and minute < 2 order by minute,sub limit 1000")
-		count := 0
-		other := 1
+		items := c.FreeFormSelect("select * from link_sections where order by minute,sub limit 1000")
+		count := 1
+		other := 0
 		for _, item := range items {
 			url, _ := item["video_url"].(string)
 			guid := "96317f74-01fa-4afb-a681-56a4c607c0c4"
@@ -33,8 +33,9 @@ func Render(c *router.Context, id string) {
 			}
 			name := fmt.Sprintf("%03d", count)
 			fmt.Println(count, name, url)
-			util.Download("data3", name, url)
-			copyFile12(fmt.Sprintf("data/%s_%d_%d.mp4", guid, item["minute"], item["sub"]), fmt.Sprintf("data3/%03d.mp4", other))
+			util.Download("data2", "orig_"+name, url)
+			convertFrameRate("data2/orig_"+name+".mp4", name)
+			copyFile12(fmt.Sprintf("data/%s_%d_%d.mp4", guid, item["minute"], item["sub"]), fmt.Sprintf("data2/%03d.mp4", other))
 			count += 2
 			other += 2
 			time.Sleep(time.Second * 1)
@@ -89,6 +90,12 @@ func Render(c *router.Context, id string) {
 		}
 	} else if id == "7" {
 	}
+}
+
+func convertFrameRate(filename, name string) {
+	//-c:v libx264 -profile:v high -level:v 4.0 -pix_fmt yuv420p -vf scale=1280:720 -r 25 -b:v 509k -c:a copy
+	util.RunFF("-i "+filename+" "+" -c:v libx264 -profile:v high -level:v 4.0 -pix_fmt yuv420p -vf scale=1280:720 -r 25 -b:v 509k -c:a copy",
+		"data2/"+name+".mp4")
 }
 
 func make12Seconds(guid string) {
