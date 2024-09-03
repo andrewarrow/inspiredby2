@@ -40,26 +40,28 @@ func Render(c *router.Context, id string) {
 			time.Sleep(time.Second * 1)
 		}
 	} else if id == "3" {
-		count := 0
+		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
 		other := 1
-		items := c.FreeFormSelect("select * from link_sections where meta!=90 and minute < 2 order by minute,sub limit 1000")
-		for _, item := range items {
-			url, _ := item["video_url"].(string)
-			if url == "" {
-				continue
+		orig := 2
+		for i, item := range items {
+			_ = item
+			name := fmt.Sprintf("%03d", i)
+			otherName := fmt.Sprintf("%03d", other)
+			origName := fmt.Sprintf("%03d", orig)
+			//0,v:pika000,a:pike000+orig000
+			//1,v:orig001,a:orig001
+			//2,v:pika001,a:pike001+orig002
+			//3,v:orig003,a:orig003
+			//4,v:pika002,a:pika002+orig004
+			//5:v:orig005,a:orig005
+			if i > 0 && i%2 == 0 {
+				file1 := "data2/" + otherName + ".mp3"
+				file2 := "data3/" + origName + ".mp3"
+				util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/"+name+".mp3")
+				other++
+				orig += 2
 			}
-			name := fmt.Sprintf("%03d", count)
-			//  ffmpeg -i "$f" -acodec pcm_s16le -ar 44100 -ac 2 "wav_files/${f%.mp3}.wav"
-			util.RunFF("-i data3/"+name+".mp4 "+
-				"-t 3 -acodec pcm_s16le -ar 44100 -ac 2",
-				"data4/"+name+".wav")
 
-			name = fmt.Sprintf("%03d", other)
-			util.RunFF("-i data3/"+name+".mp4 "+
-				"-t 3 -acodec pcm_s16le -ar 44100 -ac 2",
-				"data4/"+name+".wav")
-			count += 2
-			other += 2
 		}
 	} else if id == "4" {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
