@@ -10,16 +10,17 @@ func SetupStart() {
 }
 
 func handleUpload() {
-	file := Document.Id("file")
-	list := file.JValue.Get("files")
+	w := Document.Id("file")
+	list := w.JValue.Get("files")
 	if list.Length() == 0 {
 		Global.Global.Call("alert", "Please select a file.")
 		return
 	}
-	file := fileList.Index(0)
+	file := list.Index(0)
 
 	formData := Global.Global.Get("FormData").New()
 	formData.Call("append", "file", file)
+	formData.Call("append", "foo", "some_string_value")
 
 	xhr := Global.Global.Get("XMLHttpRequest").New()
 	xhr.Get("upload").Call("addEventListener", "progress", js.FuncOf(func(this js.Value, args []js.Value) interface{} {
@@ -34,7 +35,9 @@ func handleUpload() {
 		return nil
 	}))
 
-	xhr.Call("open", "POST", "/files/upload")
-	xhr.Call("send", formData)
+	go func() {
+		xhr.Call("open", "POST", "/files/upload")
+		xhr.Call("send", formData)
+	}()
 
 }

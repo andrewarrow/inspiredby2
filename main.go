@@ -121,6 +121,7 @@ and resilience in the last 10 to 15 years uh myself and several other researcher
 		r.Paths["core"] = app.Core
 		r.Paths["showcase"] = app.Showcase
 		r.Paths["prompts"] = app.Prompts
+		r.Paths["files"] = app.Files
 		//r.Paths["api"] = app.HandleApi
 		//r.Paths["login"] = app.Login
 		//r.Paths["register"] = app.Register
