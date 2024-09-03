@@ -43,6 +43,9 @@ func Render(c *router.Context, id string) {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
 		other := 1
 		orig := 2
+		file1 := "data2/000.mp3"
+		file2 := "data3/000.mp3"
+		util.RunFF(fmt.Sprintf("-i %s -i %s -filter_complex amix=inputs=2:duration=longest", file1, file2), "data4/000.mp3")
 		for i, item := range items {
 			_ = item
 			name := fmt.Sprintf("%03d", i)
@@ -65,30 +68,16 @@ func Render(c *router.Context, id string) {
 		}
 	} else if id == "4" {
 		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
-		for i, item := range items {
-			guid, _ := item["guid"].(string)
+		for i, _ := range items {
 
-			file1 := fmt.Sprintf("posters/%s.mp4", guid)
-			file2 := fmt.Sprintf("data2/%s.mp4", guid)
-			file3 := fmt.Sprintf("data3/%03d.mp4", i)
-			CombineTwoFilesWithBox(file1, file2, file3)
-			changeToMov(fmt.Sprintf("%03d", i), file3)
-		}
-	} else if id == "5" {
-		Combine("data3")
-	} else if id == "6" {
-		items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
-		for i, item := range items {
-			fmt.Println("wefwef", item["id"])
-			one := c.One("pika_render", "where link_section_id=$1 and duration=15", item["id"])
-			url, _ := one["video_url"].(string)
-			if url == "" {
+			if i%2 == 0 {
 				continue
 			}
-			fmt.Println(i, url)
-			util.Download("data4", fmt.Sprintf("%03d", i), url)
-			time.Sleep(time.Second * 1)
+			name := fmt.Sprintf("%03d", i)
+			copyFile12("data2/"+name+".mp3", "data4/"+name+".mp3")
 		}
+	} else if id == "5" {
+	} else if id == "6" {
 	} else if id == "7" {
 	}
 }
