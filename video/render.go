@@ -92,14 +92,18 @@ func Render(c *router.Context, id string) {
 			name := fmt.Sprintf("%03d", i)
 			otherName := fmt.Sprintf("%03d", other)
 			origName := fmt.Sprintf("%03d", orig)
-			file1 := "data2/" + otherName + ".mp4"
-			util.RunFF(fmt.Sprintf("-i %s -an -c:v copy output.mp4", file1),
-				"data5/"+name+".mp4")
-			file2 := "data3/" + origName + ".mp4"
-			util.RunFF(fmt.Sprintf("-i %s -an -c:v copy output.mp4", file2),
-				"data5/"+name+".mp4")
-			orig += 2
-			other++
+
+			if i%2 == 0 {
+				file1 := "data2/" + otherName + ".mp4"
+				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an output.mp4", file1),
+					"data5/"+name+".mp4")
+				other++
+			} else {
+				file2 := "data3/" + origName + ".mp4"
+				util.RunFF(fmt.Sprintf("-i %s -c:v copy -an output.mp4", file2),
+					"data5/"+name+".mp4")
+				orig += 2
+			}
 		}
 	} else if id == "6" {
 	} else if id == "7" {
