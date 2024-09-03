@@ -96,5 +96,8 @@ func handleAboutUs(c *router.Context) {
 }
 func handleStart(c *router.Context) {
 	send := map[string]any{}
+	items := c.All("project", "where user_id=$1 order by created_at desc", "",
+		c.User["id"])
+	send["items"] = items
 	c.SendContentInLayout("start.html", send, 200)
 }
