@@ -42,7 +42,8 @@ func Prompts(c *router.Context, second, third string) {
 
 func handlePromptsItem(c *router.Context, id string) {
 	c.Title = "Heart Rate Variability"
-	items := c.FreeFormSelect("select * from link_sections where guid=$1 order by minute,sub limit 1000", id)
+	one := c.One("project", "where guid=$1", id)
+	items := c.FreeFormSelect("select * from link_sections where project_id=$1 order by minute,sub limit 1000", one["id"])
 	send := map[string]any{}
 
 	for _, item := range items {

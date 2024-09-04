@@ -12,27 +12,25 @@ div p-0 id=top
           div w-full
             div
               {{$item.stt}}
-            div 
-              {{ if $item.has_prompt }}
-                input type=text w-full id=words-{{$item.guid}} value={{$item.prompt_text}}
-              {{ else }}
+            {{ if mod $i 2 }}
+              div 
                 input type=text w-full id=words-{{$item.guid}} value={{$item.stt}}
-              {{ end }}
-            div hidden
-              {{$item.id_pika}}
-            div
-              <img src="{{$item.video_poster}}" class="w-64" />
-            div id=posters-{{$item.guid}}
-            div
-              div flex space-x-6 items-center
-                div id=d-{{$item.guid}}
-                  {{$item.duration}}
-                div mt-3 space-x-3 flex
-                  input type=hidden value={{$item.guid}} id=guid
-                  input type=submit btn btn-sm btn-primary value=go id=b-{{$item.guid}}
-                  a href=/ btn btn-sm btn-secondary value=fetch id=a-{{$item.guid}}
-                    fetch
-                  a href=/ btn btn-sm btn-warning value=fetch id=hide-{{$item.guid}}
-                    hide
+              div hidden
+                {{$item.id_pika}}
+              div
+                <img src="{{$item.video_poster}}" class="w-64" />
+              div id=posters-{{$item.guid}}
+              div
+                div flex space-x-6 items-center
+                  div id=d-{{$item.guid}}
+                    {{$item.duration}}
+                  div mt-3 space-x-3 flex
+                    input type=hidden value={{$item.guid}} id=guid
+                    input type=submit btn btn-sm btn-primary value=go id=b-{{$item.guid}}
+                    a href=/ btn btn-sm btn-secondary value=fetch id=a-{{$item.guid}}
+                      fetch
+                    a href=/ btn btn-sm btn-warning value=fetch id=hide-{{$item.guid}}
+                      hide
+            {{ end }}
       {{ end }}
       
