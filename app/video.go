@@ -48,6 +48,7 @@ func ProcessVideo(c *router.Context, guid string) {
 		to := from + 3
 		for j := 0; j < 20; j++ {
 			processSectionOfOrigVideo(c, file, i, j, from, to, project)
+			from += 3
 		}
 	}
 }
@@ -58,13 +59,15 @@ func processSectionOfOrigVideo(c *router.Context, file string,
 	//c.FreeFormUpdate("update links set photos_ready=true where guid=$1", guid)
 
 	sectionId := fmt.Sprintf("%v_%d_%d", project["id"], i, j)
+	fmt.Println("a", sectionId)
 	oneSection := c.One("link_section", "where section=$1", sectionId)
 	//output := fmt.Sprintf("data/%s_%d_%d.mp4", guid, i, j)
-	output := fmt.Sprintf(BUCKET+"/%s/orig-video/%d_%d.mp4",
+	output := fmt.Sprintf(BUCKET+"%s/orig-video/%d_%d.mp4",
 		project["guid"], i, j)
 
 	if len(oneSection) == 0 {
 
+		fmt.Println("b", sectionId)
 		cmd := exec.Command("ffmpeg",
 			"-ss", fmt.Sprintf("%d", from),
 			"-i", BUCKET+file,
@@ -104,7 +107,8 @@ func processSectionOfOrigVideo(c *router.Context, file string,
 			"-y",
 			flac)
 		fmt.Println("flac", i, j, from, to)
-		cmd.CombinedOutput()
+		b, err := cmd.CombinedOutput()
+		fmt.Println(string(b), err)
 		c.FreeFormUpdate("update link_sections set meta=2 where section=$1", sectionId)
 	}
 	oneSection = c.One("link_section", "where section=$1", sectionId)
