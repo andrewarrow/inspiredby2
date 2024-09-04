@@ -1,6 +1,9 @@
 package app
 
 import (
+	"inspiredby2/video"
+	"strings"
+
 	"github.com/andrewarrow/feedback/router"
 	"github.com/andrewarrow/feedback/util"
 )
@@ -39,12 +42,12 @@ func Prompts(c *router.Context, second, third string) {
 
 func handlePromptsItem(c *router.Context, id string) {
 	c.Title = "Heart Rate Variability"
-	items := c.FreeFormSelect("select * from link_sections order by minute,sub limit 1000")
+	items := c.FreeFormSelect("select * from link_sections where guid=$1 order by minute,sub limit 1000", id)
 	send := map[string]any{}
 
 	for _, item := range items {
-		//stt := item["stt"].(string)
-		//item["longest"] = strings.Join(video.FindLongestWords(stt), " ")
+		stt := item["stt"].(string)
+		item["longest"] = strings.Join(video.FindLongestWords(stt), " ")
 		item["has_prompt"] = item["prompt_text"] != ""
 	}
 	send["items"] = items

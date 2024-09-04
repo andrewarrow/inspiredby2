@@ -7,10 +7,10 @@ div p-0
       {{ range $i, $item := .items }} 
         div flex space-x-6
           div w-32 truncate
-            a link href=/files/{{$item.guid}}
+            a link href=/prompts/{{$item.guid}}
               {{ $item.name }}
           div
-            a link href=/files/{{$item.guid}}
+            a link href=/prompts/{{$item.guid}}
               {{ $item.file }}
       {{ end }}
       div mt-20 text-center text-2xl
